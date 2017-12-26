@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.bbs.TBbsPostReplyMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, owner_user_id, target_user_id, content, create_date, parent_id, post_id, enable_flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.bbs.TBbsPostReplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_bbs_post_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bbs_post_reply
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_bbs_post_reply
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.bbs.TBbsPostReply" >
+    insert into t_bbs_post_reply (id, owner_user_id, target_user_id, 
+      content, create_date, parent_id, 
+      post_id, enable_flag)
+    values (#{id,jdbcType=VARCHAR}, #{ownerUserId,jdbcType=VARCHAR}, #{targetUserId,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{parentId,jdbcType=VARCHAR}, 
+      #{postId,jdbcType=VARCHAR}, #{enableFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.bbs.TBbsPostReply" >
+    insert into t_bbs_post_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ownerUserId != null" >
+        owner_user_id,
+      </if>
+      <if test="targetUserId != null" >
+        target_user_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="postId != null" >
+        post_id,
+      </if>
+      <if test="enableFlag != null" >
+        enable_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerUserId != null" >
+        #{ownerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetUserId != null" >
+        #{targetUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null" >
+        #{postId,jdbcType=VARCHAR},
+      </if>
+      <if test="enableFlag != null" >
+        #{enableFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.bbs.TBbsPostReply" >
+    update t_bbs_post_reply
+    <set >
+      <if test="ownerUserId != null" >
+        owner_user_id = #{ownerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetUserId != null" >
+        target_user_id = #{targetUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null" >
+        post_id = #{postId,jdbcType=VARCHAR},
+      </if>
+      <if test="enableFlag != null" >
+        enable_flag = #{enableFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.bbs.TBbsPostReply" >
+    update t_bbs_post_reply
+    set owner_user_id = #{ownerUserId,jdbcType=VARCHAR},
+      target_user_id = #{targetUserId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      post_id = #{postId,jdbcType=VARCHAR},
+      enable_flag = #{enableFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBbsReplyInfoByPostId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select t1.id,
+			   t1.owner_user_id as ownerUserId,
+			   t1.target_user_id as targetUserId,
+			   t1.content,
+			   date_format(t1.create_date,"%Y-%m-%d %H:%i:%s") as createDate,
+			   t1.parent_id as parentId,
+			   t2.nickname as ownerName,
+			   t2.photoname as ownerPhotoName
+		  from t_bbs_post_reply t1
+	 left join t_permissions_studentinfo t2
+	        on t1.owner_user_id = t2.studentid
+		 where t1.enable_flag = '1'
+		   and t1.post_id = #{postId,jdbcType=VARCHAR}
+	  order by t1.create_date 
+  </select>
+  
+  
+  <select id="getCommentByPostParent" resultMap="BaseResultMap" parameterType="java.lang.String" >
+          select
+			cc.id,
+			cc.owner_user_id,
+			u1.nickname as owner_name,
+			cc.target_user_id,
+			u2.nickname as target_name ,
+			cc.content,
+			date_format(cc.create_date,"%Y-%m-%d %H:%i:%s") as create_date,
+			cc.parent_id,
+			u1.PHOTONAME as 'photo_name'
+
+		from
+			t_bbs_post_reply cc
+			left join t_permissions_studentinfo u1 on cc.owner_user_id = u1.studentid
+			left join t_permissions_studentinfo u2 on cc.target_user_id = u2.studentid
+			where cc.parent_id is null
+			 <if test="_parameter != null" >
+			 and cc.post_id = #{post_id,jdbcType=VARCHAR}
+			</if>
+			order by cc.create_date 
+  </select>
+  
+  <select id="getCommentByPostChild" resultMap="BaseResultMap" parameterType="java.lang.String" >
+          select
+			cc.id,
+			cc.owner_user_id,
+		    u1.name as owner_name,
+			cc.target_user_id,
+			u2.name as target_name ,
+			cc.content,
+			date_format(cc.create_date,"%Y-%m-%d %H:%i:%s") as create_date,
+			cc.parent_id,
+			u1.PHOTONAME as 'photo_name'
+
+		from
+			t_bbs_post_reply cc
+			left join t_permissions_studentinfo u1 on cc.owner_user_id = u1.studentid
+			left join t_permissions_studentinfo u2 on cc.target_user_id = u2.studentid
+			where  cc.parent_id is not null
+			 <if test="_parameter != null" >
+			 and cc.post_id = #{post_id,jdbcType=VARCHAR}
+			</if>
+			order by cc.create_date desc
+  </select>
+  
+  <select id="selectBbsPostReplyList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.bbs.TBbsPostReply" >
+		select t1.id,
+			   t1.owner_user_id as ownerUserId,
+			   t1.target_user_id as targetUserId,
+			   t1.content,
+			   t1.enable_flag as enableFlag,
+			   date_format(t1.create_date,"%Y-%m-%d %H:%i:%s") as createDate,
+			   t1.parent_id as parentId,
+			   t2.nickname as ownerName,
+			   t2.photoname as ownerPhotoName
+		  from t_bbs_post_reply t1
+	 left join t_permissions_studentinfo t2
+	        on t1.owner_user_id = t2.studentid
+		 where t1.post_id = #{postId,jdbcType=VARCHAR}
+		<if test="content != null and content != ''" >
+			and upper(t1.content) LIKE upper(CONCAT('%', #{content,jdbcType=VARCHAR}, '%'))
+		</if>
+	  order by t1.create_date desc
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteBbsPostReply" parameterType="java.util.List">
+	update t_bbs_post_reply set enable_flag = '0'
+       where ID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+       or parent_id in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+</mapper>

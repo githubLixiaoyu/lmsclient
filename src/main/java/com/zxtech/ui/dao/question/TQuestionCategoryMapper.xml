@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.question.TQuestionCategoryMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="CATEGORYID" property="categoryid" jdbcType="VARCHAR" />
+    <result column="CATEGORYNAME" property="categoryname" jdbcType="VARCHAR" />
+    <result column="PARENTID" property="parentid" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="REMARK" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CATEGORYID, CATEGORYNAME, PARENTID, USERID, date_format(CREATETIME, "%Y-%m-%d %H:%i:%s") CREATETIME, STANDBY1, STANDBY2, STANDBY3
+  </sql>
+  <sql id="Blob_Column_List" >
+    REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_question_category
+    where CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_question_category
+    where CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.question.TQuestionCategory" >
+    insert into t_question_category (CATEGORYID, CATEGORYNAME, PARENTID, 
+      USERID, CREATETIME, STANDBY1, 
+      STANDBY2, STANDBY3, REMARK
+      )
+    values (#{categoryid,jdbcType=VARCHAR}, #{categoryname,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{standby1,jdbcType=VARCHAR}, 
+      #{standby2,jdbcType=VARCHAR}, #{standby3,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.question.TQuestionCategory" >
+    insert into t_question_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="categoryid != null" >
+        CATEGORYID,
+      </if>
+      <if test="categoryname != null" >
+        CATEGORYNAME,
+      </if>
+      <if test="parentid != null" >
+        PARENTID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryname != null" >
+        #{categoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.question.TQuestionCategory" >
+    update t_question_category
+    <set >
+      <if test="categoryname != null" >
+        CATEGORYNAME = #{categoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.question.TQuestionCategory" >
+    update t_question_category
+    set CATEGORYNAME = #{categoryname,jdbcType=VARCHAR},
+      PARENTID = #{parentid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=LONGVARCHAR}
+    where CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.question.TQuestionCategory" >
+    update t_question_category
+    set CATEGORYNAME = #{categoryname,jdbcType=VARCHAR},
+      PARENTID = #{parentid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR}
+    where CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectQuestionCategoryList" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.question.TQuestionCategory" >
+    select 
+	<include refid="Base_Column_List" />,
+    <include refid="Blob_Column_List" />
+      from t_question_category
+     where 1=1 and STANDBY1 = '0'
+	<if test="categoryid != null and categoryid != ''" >
+		and CATEGORYID = #{categoryid,jdbcType=BIGINT}
+	</if>
+	<if test="parentid != null and parentid != ''" >
+		and PARENTID = #{parentid,jdbcType=VARCHAR}
+	</if>
+	<if test="categoryname != null and categoryname != ''" >
+		and upper(CATEGORYNAME) LIKE upper(CONCAT('%', #{categoryname,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="standby1 != null and standby1 != ''" >
+		and STANDBY1 = #{standby1,jdbcType=VARCHAR}
+	</if>
+	ORDER BY CREATETIME DESC
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteQuestionCategory" parameterType="java.util.List">
+	update t_question_category set STANDBY1 = '1'
+       where CATEGORYID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+       or PARENTID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+</mapper>

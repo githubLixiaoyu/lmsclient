@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.app.TAppMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="version_code" property="versionCode" jdbcType="INTEGER" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="filename" property="filename" jdbcType="VARCHAR" />
+    <result column="must_update" property="mustUpdate" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, version_code, platform, filename, must_update, date_format(create_date,"%Y-%m-%d %H:%i:%s") as create_date, create_user, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_app
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_app
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.app.TApp" >
+    insert into t_app (id, version_code, platform, 
+      filename, must_update, create_date, 
+      create_user, status)
+    values (#{id,jdbcType=INTEGER}, #{versionCode,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, 
+      #{filename,jdbcType=VARCHAR}, #{mustUpdate,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.app.TApp" >
+    insert into t_app
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="versionCode != null" >
+        version_code,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+      <if test="mustUpdate != null" >
+        must_update,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="versionCode != null" >
+        #{versionCode,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="mustUpdate != null" >
+        #{mustUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.app.TApp" >
+    update t_app
+    <set >
+      <if test="versionCode != null" >
+        version_code = #{versionCode,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="mustUpdate != null" >
+        must_update = #{mustUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.app.TApp" >
+    update t_app
+    set version_code = #{versionCode,jdbcType=INTEGER},
+      platform = #{platform,jdbcType=VARCHAR},
+      filename = #{filename,jdbcType=VARCHAR},
+      must_update = #{mustUpdate,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="checkNewVersion" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TApp" >
+    SELECT * FROM t_app WHERE status = 1 AND platform = #{platform,jdbcType=VARCHAR} AND version_code = (SELECT MAX(version_code) FROM t_app WHERE status = 1 AND platform = #{platform,jdbcType=VARCHAR} )
+  </select>
+  
+  <select id="selectAppList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TApp" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_app
+    where 1 = 1
+    <if test="platform != null and platform != ''" >
+		and platform = #{platform,jdbcType=VARCHAR}
+	</if>
+    <if test="mustUpdate != null and mustUpdate != ''" >
+		and must_update = #{mustUpdate,jdbcType=VARCHAR}
+	</if>
+    <if test="status != null" >
+		and status = #{status,jdbcType=INTEGER}
+	</if>
+	order by create_date DESC
+  </select>
+  
+  <select id="selectAppGroupByPlatformList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TApp" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_app t
+ 	where create_date =
+       (select max(create_date) from t_app where platform = t.platform)
+	ORDER BY t.platform
+  </select>
+  
+  <select id="getAndroidApk" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select filename
+      from t_app
+     where status = 1
+	   and platform = #{platform,jdbcType=VARCHAR}
+  order by version_code desc
+	 limit 1
+  </select>
+  
+  <select id="getIosIpa" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select filename
+      from t_app
+     where status = 1
+	   and platform = #{platform,jdbcType=VARCHAR}
+  order by version_code desc
+	 limit 1
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteApp" parameterType="java.util.List">
+	update t_app set status = '0'
+       where ID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+  
+</mapper>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.permissions.TPermissionsStudentDepartMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="DEPARTID" property="departid" jdbcType="VARCHAR" />
+    <result column="DEPARTNAME" property="departname" jdbcType="VARCHAR" />
+    <result column="DEPARTCODE" property="departcode" jdbcType="VARCHAR" />
+    <result column="PARENTID" property="parentid" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="STAFFID" property="staffid" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="DISPLAY" property="display" jdbcType="INTEGER" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DEPARTID, DEPARTNAME, DEPARTCODE, PARENTID, STATUS, PHONE, REMARKS, STAFFID, date_format(CREATETIME, "%Y-%m-%d") CREATETIME, 
+    DISPLAY, STANDBY1, STANDBY2, STANDBY3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_permissions_student_depart
+    where DEPARTID = #{departid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_permissions_student_depart
+    where DEPARTID = #{departid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentDepart" >
+    insert into t_permissions_student_depart (DEPARTID, DEPARTNAME, DEPARTCODE, 
+      PARENTID, STATUS, PHONE, 
+      REMARKS, STAFFID, CREATETIME, 
+      DISPLAY, STANDBY1, STANDBY2, 
+      STANDBY3)
+    values (#{departid,jdbcType=VARCHAR}, #{departname,jdbcType=VARCHAR}, #{departcode,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{staffid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{display,jdbcType=INTEGER}, #{standby1,jdbcType=VARCHAR}, #{standby2,jdbcType=VARCHAR}, 
+      #{standby3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentDepart" >
+    insert into t_permissions_student_depart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="departid != null" >
+        DEPARTID,
+      </if>
+      <if test="departname != null" >
+        DEPARTNAME,
+      </if>
+      <if test="departcode != null" >
+        DEPARTCODE,
+      </if>
+      <if test="parentid != null" >
+        PARENTID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="staffid != null" >
+        STAFFID,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="display != null" >
+        DISPLAY,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="departid != null" >
+        #{departid,jdbcType=VARCHAR},
+      </if>
+      <if test="departname != null" >
+        #{departname,jdbcType=VARCHAR},
+      </if>
+      <if test="departcode != null" >
+        #{departcode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="staffid != null" >
+        #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="display != null" >
+        #{display,jdbcType=INTEGER},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentDepart" >
+    update t_permissions_student_depart
+    <set >
+      <if test="departname != null" >
+        DEPARTNAME = #{departname,jdbcType=VARCHAR},
+      </if>
+      <if test="departcode != null" >
+        DEPARTCODE = #{departcode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="staffid != null" >
+        STAFFID = #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="display != null" >
+        DISPLAY = #{display,jdbcType=INTEGER},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DEPARTID = #{departid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentDepart" >
+    update t_permissions_student_depart
+    set DEPARTNAME = #{departname,jdbcType=VARCHAR},
+      DEPARTCODE = #{departcode,jdbcType=VARCHAR},
+      PARENTID = #{parentid,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      STAFFID = #{staffid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      DISPLAY = #{display,jdbcType=INTEGER},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR}
+    where DEPARTID = #{departid,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectTPermissionsStudentDepartList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentDepart" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_permissions_student_depart
+    where STATUS = 0
+    <if test="departname != null and departname != ''" >
+		and upper(DEPARTNAME) LIKE upper(CONCAT('%', #{departname,jdbcType=VARCHAR}, '%'))
+	</if>
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteTPermissionsStudentDepart" parameterType="java.util.List">
+	update t_permissions_student_depart set STATUS = '1'
+       where DEPARTID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.manager.dao.function.TAuthMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="auth_code" property="authCode" jdbcType="VARCHAR" />
+    <result column="auth_name" property="authName" jdbcType="VARCHAR" />
+    <result column="removed" property="removed" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, auth_code, auth_name, removed
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_auth
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_auth
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.manager.vo.function.TAuth" >
+    insert into t_auth (id, auth_code, auth_name, 
+      removed)
+    values (#{id,jdbcType=INTEGER}, #{authCode,jdbcType=VARCHAR}, #{authName,jdbcType=VARCHAR}, 
+      #{removed,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.manager.vo.function.TAuth" >
+    insert into t_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="authCode != null" >
+        auth_code,
+      </if>
+      <if test="authName != null" >
+        auth_name,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="authCode != null" >
+        #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="authName != null" >
+        #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.manager.vo.function.TAuth" >
+    update t_auth
+    <set >
+      <if test="authCode != null" >
+        auth_code = #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="authName != null" >
+        auth_name = #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.manager.vo.function.TAuth" >
+    update t_auth
+    set auth_code = #{authCode,jdbcType=VARCHAR},
+      auth_name = #{authName,jdbcType=VARCHAR},
+      removed = #{removed,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAuthList" resultMap="BaseResultMap" parameterType="com.zxtech.manager.vo.function.TAuth" >
+    select 
+	<include refid="Base_Column_List" />
+      from t_auth
+     where 1=1 and removed = '0'
+	<if test="authCode != null and authCode != ''" >
+		and auth_code = #{authCode,jdbcType=BIGINT}
+	</if>
+	<if test="authName != null and authName != ''" >
+		and auth_name = #{authName,jdbcType=BIGINT}
+	</if>
+  </select>
+</mapper>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.esp.dao.vrnewtestpaper.TestTemplateOperationMapper">
+	<resultMap id="BaseResultMap" type="java.util.Map">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="version" property="version" jdbcType="BIGINT" />
+		<result column="demoavifile_id" property="demoavifileId"
+			jdbcType="BIGINT" />
+		<result column="operation_description" property="operationDescription"
+			jdbcType="VARCHAR" />
+		<result column="operation_name" property="operationName"
+			jdbcType="VARCHAR" />
+		<result column="system_dialog_id" property="systemDialogId"
+			jdbcType="BIGINT" />
+		<result column="test_template_step_id" property="testTemplateStepId"
+			jdbcType="BIGINT" />
+		<result column="operation_icon_file_name" property="operationIconFileName"
+			jdbcType="VARCHAR" />
+		<result column="milestone_id" property="milestoneId" jdbcType="BIGINT" />
+		<result column="template_id" property="templateId" jdbcType="BIGINT" />
+		<result column="operation_key" property="operationKey"
+			jdbcType="VARCHAR" />
+		<result column="operation_type" property="operationType"
+			jdbcType="BIGINT" />
+		<result column="sequence_number" property="sequenceNumber"
+			jdbcType="BIGINT" />
+		<result column="allow_maximum_time" property="allowMaximumTime"
+			jdbcType="BIGINT" />
+		<result column="standard_time" property="standardTime"
+			jdbcType="BIGINT" />
+		<result column="is_multi_person" property="isMultiPerson"
+			jdbcType="BIGINT" />
+		<result column="multi_operation_id" property="multiOperationId"
+			jdbcType="BIGINT" />
+		<result column="mile_stone_name" property="mileStoneName"
+			jdbcType="VARCHAR" />
+		<result column="test_template_id" property="testTemplateId"
+			jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, version, demoavifile_id, operation_description,
+		operation_name,
+		system_dialog_id,
+		test_template_step_id,
+		operation_icon_file_name, milestone_id, template_id, operation_key,
+		operation_type, sequence_number, allow_maximum_time, standard_time,
+		is_multi_person,
+		multi_operation_id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from test_template_operation
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		test_template_operation
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateOperation">
+		insert into test_template_operation (id, version,
+		demoavifile_id,
+		operation_description, operation_name,
+		system_dialog_id,
+		test_template_step_id, operation_icon_file_name,
+		milestone_id, template_id, operation_key,
+		operation_type,
+		sequence_number, allow_maximum_time,
+		standard_time, is_multi_person,
+		multi_operation_id
+		)
+		values (#{id,jdbcType=BIGINT},
+		#{version,jdbcType=BIGINT},
+		#{demoavifileId,jdbcType=BIGINT},
+		#{operationDescription,jdbcType=VARCHAR},
+		#{operationName,jdbcType=VARCHAR}, #{systemDialogId,jdbcType=BIGINT},
+		#{testTemplateStepId,jdbcType=BIGINT},
+		#{operationIconFileName,jdbcType=VARCHAR},
+		#{milestoneId,jdbcType=BIGINT}, #{templateId,jdbcType=BIGINT},
+		#{operationKey,jdbcType=VARCHAR},
+		#{operationType,jdbcType=BIGINT},
+		#{sequenceNumber,jdbcType=BIGINT},
+		#{allowMaximumTime,jdbcType=BIGINT},
+		#{standardTime,jdbcType=BIGINT},
+		#{isMultiPerson,jdbcType=BIGINT}, #{multiOperationId,jdbcType=BIGINT}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateOperation">
+		insert into test_template_operation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="demoavifileId != null">
+				demoavifile_id,
+			</if>
+			<if test="operationDescription != null">
+				operation_description,
+			</if>
+			<if test="operationName != null">
+				operation_name,
+			</if>
+			<if test="systemDialogId != null">
+				system_dialog_id,
+			</if>
+			<if test="testTemplateStepId != null">
+				test_template_step_id,
+			</if>
+			<if test="operationIconFileName != null">
+				operation_icon_file_name,
+			</if>
+			<if test="milestoneId != null">
+				milestone_id,
+			</if>
+			<if test="templateId != null">
+				template_id,
+			</if>
+			<if test="operationKey != null">
+				operation_key,
+			</if>
+			<if test="operationType != null">
+				operation_type,
+			</if>
+			<if test="sequenceNumber != null">
+				sequence_number,
+			</if>
+			<if test="allowMaximumTime != null">
+				allow_maximum_time,
+			</if>
+			<if test="standardTime != null">
+				standard_time,
+			</if>
+			<if test="isMultiPerson != null">
+				is_multi_person,
+			</if>
+			<if test="multiOperationId != null">
+				multi_operation_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=BIGINT},
+			</if>
+			<if test="demoavifileId != null">
+				#{demoavifileId,jdbcType=BIGINT},
+			</if>
+			<if test="operationDescription != null">
+				#{operationDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="operationName != null">
+				#{operationName,jdbcType=VARCHAR},
+			</if>
+			<if test="systemDialogId != null">
+				#{systemDialogId,jdbcType=BIGINT},
+			</if>
+			<if test="testTemplateStepId != null">
+				#{testTemplateStepId,jdbcType=BIGINT},
+			</if>
+			<if test="operationIconFileName != null">
+				#{operationIconFileName,jdbcType=VARCHAR},
+			</if>
+			<if test="milestoneId != null">
+				#{milestoneId,jdbcType=BIGINT},
+			</if>
+			<if test="templateId != null">
+				#{templateId,jdbcType=BIGINT},
+			</if>
+			<if test="operationKey != null">
+				#{operationKey,jdbcType=VARCHAR},
+			</if>
+			<if test="operationType != null">
+				#{operationType,jdbcType=BIGINT},
+			</if>
+			<if test="sequenceNumber != null">
+				#{sequenceNumber,jdbcType=BIGINT},
+			</if>
+			<if test="allowMaximumTime != null">
+				#{allowMaximumTime,jdbcType=BIGINT},
+			</if>
+			<if test="standardTime != null">
+				#{standardTime,jdbcType=BIGINT},
+			</if>
+			<if test="isMultiPerson != null">
+				#{isMultiPerson,jdbcType=BIGINT},
+			</if>
+			<if test="multiOperationId != null">
+				#{multiOperationId,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateOperation">
+		update test_template_operation
+		<set>
+			<if test="version != null">
+				version = #{version,jdbcType=BIGINT},
+			</if>
+			<if test="demoavifileId != null">
+				demoavifile_id = #{demoavifileId,jdbcType=BIGINT},
+			</if>
+			<if test="operationDescription != null">
+				operation_description =
+				#{operationDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="operationName != null">
+				operation_name = #{operationName,jdbcType=VARCHAR},
+			</if>
+			<if test="systemDialogId != null">
+				system_dialog_id = #{systemDialogId,jdbcType=BIGINT},
+			</if>
+			<if test="testTemplateStepId != null">
+				test_template_step_id =
+				#{testTemplateStepId,jdbcType=BIGINT},
+			</if>
+			<if test="operationIconFileName != null">
+				operation_icon_file_name =
+				#{operationIconFileName,jdbcType=VARCHAR},
+			</if>
+			<if test="milestoneId != null">
+				milestone_id = #{milestoneId,jdbcType=BIGINT},
+			</if>
+			<if test="templateId != null">
+				template_id = #{templateId,jdbcType=BIGINT},
+			</if>
+			<if test="operationKey != null">
+				operation_key = #{operationKey,jdbcType=VARCHAR},
+			</if>
+			<if test="operationType != null">
+				operation_type = #{operationType,jdbcType=BIGINT},
+			</if>
+			<if test="sequenceNumber != null">
+				sequence_number = #{sequenceNumber,jdbcType=BIGINT},
+			</if>
+			<if test="allowMaximumTime != null">
+				allow_maximum_time = #{allowMaximumTime,jdbcType=BIGINT},
+			</if>
+			<if test="standardTime != null">
+				standard_time = #{standardTime,jdbcType=BIGINT},
+			</if>
+			<if test="isMultiPerson != null">
+				is_multi_person = #{isMultiPerson,jdbcType=BIGINT},
+			</if>
+			<if test="multiOperationId != null">
+				multi_operation_id = #{multiOperationId,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateOperation">
+		update test_template_operation
+		set version =
+		#{version,jdbcType=BIGINT},
+		demoavifile_id =
+		#{demoavifileId,jdbcType=BIGINT},
+		operation_description =
+		#{operationDescription,jdbcType=VARCHAR},
+		operation_name =
+		#{operationName,jdbcType=VARCHAR},
+		system_dialog_id =
+		#{systemDialogId,jdbcType=BIGINT},
+		test_template_step_id =
+		#{testTemplateStepId,jdbcType=BIGINT},
+		operation_icon_file_name =
+		#{operationIconFileName,jdbcType=VARCHAR},
+		milestone_id =
+		#{milestoneId,jdbcType=BIGINT},
+		template_id =
+		#{templateId,jdbcType=BIGINT},
+		operation_key =
+		#{operationKey,jdbcType=VARCHAR},
+		operation_type =
+		#{operationType,jdbcType=BIGINT},
+		sequence_number =
+		#{sequenceNumber,jdbcType=BIGINT},
+		allow_maximum_time =
+		#{allowMaximumTime,jdbcType=BIGINT},
+		standard_time =
+		#{standardTime,jdbcType=BIGINT},
+		is_multi_person =
+		#{isMultiPerson,jdbcType=BIGINT},
+		multi_operation_id =
+		#{multiOperationId,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectTestTemplateOperationByPaperId" resultMap="BaseResultMap">
+		SELECT
+		ttm.id test_template_id,
+		ttm.mile_stone_name ,
+		tto.id,
+		tto.operation_name
+		FROM
+		test_template_milestone ttm
+		RIGHT JOIN
+		test_template_operation tto
+		ON
+		ttm.id =tto.milestone_id
+		WHERE ttm.version
+		= 1
+		AND
+		ttm.open_type =
+		(SELECT
+		open_type
+		FROM
+		test_template_milestone WHERE id = #{paperId,jdbcType=BIGINT})
+		AND
+		ttm.test_template_id
+		=
+		(SELECT
+		test_template_id
+		FROM
+		test_template_milestone WHERE id = #{paperId,jdbcType=BIGINT})
+		ORDER BY
+		ttm.id,tto.id
+	</select>
+
+	<select id="selectTestTemplateOperationById" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		test_template_operation
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+
+
+</mapper>

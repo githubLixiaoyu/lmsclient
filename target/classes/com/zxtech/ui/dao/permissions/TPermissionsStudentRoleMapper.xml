@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.permissions.TPermissionsStudentRoleMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="STUDENTID" property="studentid" jdbcType="VARCHAR" />
+    <id column="ROLEID" property="roleid" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentRole" >
+    delete from t_permissions_student_role
+    where STUDENTID = #{studentid,jdbcType=VARCHAR}
+      and ROLEID = #{roleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentRole" >
+    insert into t_permissions_student_role (STUDENTID, ROLEID)
+    values (#{studentid,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentRole" >
+    insert into t_permissions_student_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        STUDENTID,
+      </if>
+      <if test="roleid != null" >
+        ROLEID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

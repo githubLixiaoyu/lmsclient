@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newexam.TNewexamAuthoruserMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="USERID" property="userid" jdbcType="VARCHAR" />
+    <id column="EXAMID" property="examid" jdbcType="VARCHAR" />
+    <result column="AUTHORTIME" property="authortime" jdbcType="TIMESTAMP" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DEPARTID" property="departid" jdbcType="VARCHAR" />
+    <result column="LOGINCODE" property="logincode" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="DEPARTNAME" property="departname" jdbcType="VARCHAR" />
+    <result column="STUDENTID" property="studentid" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="EXAMSTATUS" property="examstatus" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="VARCHAR" />
+    <result column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+    <result column="PAPERNAME" property="papername" jdbcType="VARCHAR" />
+    <result column="EXAMSTATUS" property="examstatus" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USERID, EXAMID, AUTHORTIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_newexam_authoruser
+    where USERID = #{userid,jdbcType=VARCHAR}
+      and EXAMID = #{examid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    delete from t_newexam_authoruser
+    where USERID = #{userid,jdbcType=VARCHAR}
+      and EXAMID = #{examid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    insert into t_newexam_authoruser (USERID, EXAMID, AUTHORTIME
+      )
+    values (#{userid,jdbcType=VARCHAR}, #{examid,jdbcType=VARCHAR}, #{authortime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    insert into t_newexam_authoruser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="examid != null" >
+        EXAMID,
+      </if>
+      <if test="authortime != null" >
+        AUTHORTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="examid != null" >
+        #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="authortime != null" >
+        #{authortime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    update t_newexam_authoruser
+    <set >
+      <if test="authortime != null" >
+        AUTHORTIME = #{authortime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USERID = #{userid,jdbcType=VARCHAR}
+      and EXAMID = #{examid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    update t_newexam_authoruser
+    set AUTHORTIME = #{authortime,jdbcType=TIMESTAMP}
+    where USERID = #{userid,jdbcType=VARCHAR}
+      and EXAMID = #{examid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectNewexamAuthoruserList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    select * from (
+	    SELECT
+			t.EXAMID,
+			t.USERID,
+			t.AUTHORTIME,
+			tps.`NAME`,
+			tps.DEPARTID,
+			tps.LOGINCODE,
+			tps.NICKNAME,
+			tps.STUDENTID,
+			tpsd.DEPARTNAME
+		FROM
+			t_newexam_authoruser t
+		LEFT JOIN t_permissions_studentinfo tps ON t.USERID = tps.STUDENTID
+		LEFT JOIN t_permissions_student_depart tpsd ON tps.DEPARTID = tpsd.DEPARTID
+		 where 1=1 
+	      and tpsd.DEPARTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+		  or tpsd.PARENTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  ) res where 1=1
+	<if test="examid != null and examid != ''" >
+		and res.EXAMID = #{examid,jdbcType=VARCHAR}
+	</if>
+	<if test="nickname != null and nickname != ''" >
+		and upper(res.NICKNAME) LIKE upper(CONCAT('%', #{nickname,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="departid != null and departid != ''" >
+		and res.DEPARTID = #{departid,jdbcType=VARCHAR}
+	</if>
+	<if test="logincode != null and logincode != ''" >
+		and upper(res.LOGINCODE) LIKE upper(CONCAT('%', #{logincode,jdbcType=VARCHAR}, '%'))
+	</if>
+	ORDER BY res.`NAME` DESC
+  </select>
+  
+  <select id="selectCanSelectAuthoruserList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    select * from (select tps.`NAME`,
+							tps.DEPARTID,
+							tps.LOGINCODE,
+							tps.NICKNAME,
+							tps.STUDENTID,
+							tpsd.DEPARTNAME 
+						FROM t_permissions_studentinfo tps 
+						LEFT JOIN t_permissions_student_depart tpsd ON tps.DEPARTID = tpsd.DEPARTID
+						where 1=1
+							AND tpsd.DEPARTID = (SELECT tps.DEPARTID FROM t_permissions_studentinfo tps WHERE tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+							OR tpsd.PARENTID = (SELECT tps.DEPARTID FROM t_permissions_studentinfo tps WHERE tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+		) res where 1=1
+		and res.STUDENTID not in (select t.USERID from t_newexam_authoruser t where t.EXAMID=#{examid,jdbcType=VARCHAR})
+		<if test="nickname != null and nickname != ''" >
+			and upper(res.NICKNAME) LIKE upper(CONCAT('%', #{nickname,jdbcType=VARCHAR}, '%'))
+		</if>
+		<if test="departid != null and departid != ''" >
+			and res.DEPARTID = #{departid,jdbcType=VARCHAR}
+		</if>
+		<if test="logincode != null and logincode != ''" >
+			and upper(res.LOGINCODE) LIKE upper(CONCAT('%', #{logincode,jdbcType=VARCHAR}, '%'))
+		</if>
+	ORDER BY res.`NAME` DESC
+  </select>
+  
+   <!-- 删除 -->
+  <delete id="deleteNewexamAuthoruser" parameterType="java.util.List" >
+	  delete from t_newexam_authoruser
+	    where EXAMID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+  
+  <select id="selectExamResultList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    SELECT
+		t.EXAMID,
+		t.USERID,
+		tps.`NAME`,
+		tps.DEPARTID,
+		tps.STUDENTID,
+		tps.LOGINCODE,
+		tps.NICKNAME,
+		tpsd.DEPARTNAME,
+		tnti.PAPERNAME,
+		a.PAPERID,
+		a.SCORE,
+		a.COMMENTS,
+<!-- 		IF(a.EXAMID is not null,'已考试','未考试') EXAMSTATUS -->
+		case when a.EXAMID is not null then '已考试' else '未考试' end AS EXAMSTATUS
+	FROM
+		t_newexam_authoruser t
+	LEFT JOIN t_newexam_mark a ON t.EXAMID = a.EXAMID
+	AND t.USERID = a.USERID
+	LEFT JOIN t_permissions_studentinfo tps ON t.USERID = tps.STUDENTID
+	LEFT JOIN t_permissions_student_depart tpsd ON tps.DEPARTID = tpsd.DEPARTID
+	LEFT JOIN t_new_testpaper_info tnti ON a.PAPERID = tnti.PAPERID
+	WHERE
+		t.EXAMID = #{examid,jdbcType=VARCHAR}
+		<if test="nickname != null and nickname != ''" >
+			and upper(tps.NICKNAME) LIKE upper(CONCAT('%', #{nickname,jdbcType=VARCHAR}, '%'))
+		</if>
+		<if test="departid != null and departid != ''" >
+			and tps.DEPARTID = #{departid,jdbcType=VARCHAR}
+		</if>
+		<if test="logincode != null and logincode != ''" >
+			and upper(tps.LOGINCODE) LIKE upper(CONCAT('%', #{logincode,jdbcType=VARCHAR}, '%'))
+		</if>
+	ORDER BY a.SCORE DESC, tps.NICKNAME DESC
+  </select>
+  
+  <select id="selectUserForTestInstanceRequestList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    select * from (
+	    SELECT
+			tps.`NAME`,
+			tps.DEPARTID,
+			tps.LOGINCODE,
+			tps.NICKNAME,
+			tps.STUDENTID,
+			tpsd.DEPARTNAME
+		FROM
+			t_permissions_studentinfo tps
+		LEFT JOIN t_permissions_student_depart tpsd ON tps.DEPARTID = tpsd.DEPARTID
+		 where 1=1 
+	      and tpsd.DEPARTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+		  or tpsd.PARENTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  ) res where 1=1
+	<if test="userIdList != null and userIdList != ''" >
+		and res.STUDENTID in <foreach collection="userIdList" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+	</if>
+	<if test="nickname != null and nickname != ''" >
+		and upper(res.NICKNAME) LIKE upper(CONCAT('%', #{nickname,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="departid != null and departid != ''" >
+		and res.DEPARTID = #{departid,jdbcType=VARCHAR}
+	</if>
+	<if test="logincode != null and logincode != ''" >
+		and upper(res.LOGINCODE) LIKE upper(CONCAT('%', #{logincode,jdbcType=VARCHAR}, '%'))
+	</if>
+	ORDER BY res.`NAME` DESC
+  </select>
+  
+  <select id="selectCanSelectForTestInstanceRequestList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewexamAuthoruser" >
+    select * from (select tps.`NAME`,
+							tps.DEPARTID,
+							tps.LOGINCODE,
+							tps.NICKNAME,
+							tps.STUDENTID,
+							tpsd.DEPARTNAME 
+						FROM t_permissions_studentinfo tps 
+						LEFT JOIN t_permissions_student_depart tpsd ON tps.DEPARTID = tpsd.DEPARTID
+						where 1=1
+							AND tpsd.DEPARTID = (SELECT tps.DEPARTID FROM t_permissions_studentinfo tps WHERE tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+							OR tpsd.PARENTID = (SELECT tps.DEPARTID FROM t_permissions_studentinfo tps WHERE tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+		) res where 1=1
+		and res.STUDENTID not in <foreach collection="userIdList" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+		<if test="nickname != null and nickname != ''" >
+			and upper(res.NICKNAME) LIKE upper(CONCAT('%', #{nickname,jdbcType=VARCHAR}, '%'))
+		</if>
+		<if test="departid != null and departid != ''" >
+			and res.DEPARTID = #{departid,jdbcType=VARCHAR}
+		</if>
+		<if test="logincode != null and logincode != ''" >
+			and upper(res.LOGINCODE) LIKE upper(CONCAT('%', #{logincode,jdbcType=VARCHAR}, '%'))
+		</if>
+	ORDER BY res.`NAME` DESC
+  </select>
+</mapper>

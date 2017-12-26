@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.app.TUserLearningCourseMapper" >
+  <resultMap id="BaseResultMap" type="com.zxtech.ui.vo.app.TUserLearningCourse" >
+    <id column="COURSEID" property="courseid" jdbcType="VARCHAR" />
+    <id column="USERID" property="userid" jdbcType="VARCHAR" />
+    <id column="LEARNINGNUMBER" property="learningnumber" jdbcType="INTEGER" />
+    <result column="STARTTIME" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="ENDTIME" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="NODEID" property="nodeid" jdbcType="VARCHAR" />
+    <result column="LEARNINGSTATE" property="learningstate" jdbcType="VARCHAR" />
+    <result column="LEARNINGTIME" property="learningtime" jdbcType="DOUBLE" />
+    <result column="ISUSEPAPER" property="isusepaper" jdbcType="VARCHAR" />
+    <result column="EXAMRESULTS" property="examresults" jdbcType="DOUBLE" />
+    <result column="LASTSTARTTIME" property="laststarttime" jdbcType="TIMESTAMP" />
+    <result column="LASTENDTIME" property="lastendtime" jdbcType="TIMESTAMP" />
+    <result column="CREDITS" property="credits" jdbcType="DOUBLE" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    COURSEID, USERID, LEARNINGNUMBER, STARTTIME, ENDTIME, NODEID, LEARNINGSTATE, LEARNINGTIME, 
+    ISUSEPAPER, EXAMRESULTS, LASTSTARTTIME, LASTENDTIME, CREDITS, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TUserLearningCourseKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_learning_course
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+      and LEARNINGNUMBER = #{learningnumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.zxtech.ui.vo.app.TUserLearningCourseKey" >
+    delete from t_user_learning_course
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+      and LEARNINGNUMBER = #{learningnumber,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.app.TUserLearningCourse" >
+    insert into t_user_learning_course (COURSEID, USERID, LEARNINGNUMBER, 
+      STARTTIME, ENDTIME, NODEID, 
+      LEARNINGSTATE, LEARNINGTIME, ISUSEPAPER, 
+      EXAMRESULTS, LASTSTARTTIME, LASTENDTIME, 
+      CREDITS, STATUS)
+    values (#{courseid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{learningnumber,jdbcType=INTEGER}, 
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{nodeid,jdbcType=VARCHAR}, 
+      #{learningstate,jdbcType=VARCHAR}, #{learningtime,jdbcType=DOUBLE}, #{isusepaper,jdbcType=VARCHAR}, 
+      #{examresults,jdbcType=DOUBLE}, #{laststarttime,jdbcType=TIMESTAMP}, #{lastendtime,jdbcType=TIMESTAMP}, 
+      #{credits,jdbcType=DOUBLE}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.app.TUserLearningCourse" >
+    insert into t_user_learning_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        COURSEID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="learningnumber != null" >
+        LEARNINGNUMBER,
+      </if>
+      <if test="starttime != null" >
+        STARTTIME,
+      </if>
+      <if test="endtime != null" >
+        ENDTIME,
+      </if>
+      <if test="nodeid != null" >
+        NODEID,
+      </if>
+      <if test="learningstate != null" >
+        LEARNINGSTATE,
+      </if>
+      <if test="learningtime != null" >
+        LEARNINGTIME,
+      </if>
+      <if test="isusepaper != null" >
+        ISUSEPAPER,
+      </if>
+      <if test="examresults != null" >
+        EXAMRESULTS,
+      </if>
+      <if test="laststarttime != null" >
+        LASTSTARTTIME,
+      </if>
+      <if test="lastendtime != null" >
+        LASTENDTIME,
+      </if>
+      <if test="credits != null" >
+        CREDITS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="learningnumber != null" >
+        #{learningnumber,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nodeid != null" >
+        #{nodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="learningstate != null" >
+        #{learningstate,jdbcType=VARCHAR},
+      </if>
+      <if test="learningtime != null" >
+        #{learningtime,jdbcType=DOUBLE},
+      </if>
+      <if test="isusepaper != null" >
+        #{isusepaper,jdbcType=VARCHAR},
+      </if>
+      <if test="examresults != null" >
+        #{examresults,jdbcType=DOUBLE},
+      </if>
+      <if test="laststarttime != null" >
+        #{laststarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastendtime != null" >
+        #{lastendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="credits != null" >
+        #{credits,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.app.TUserLearningCourse" >
+    update t_user_learning_course
+    <set >
+      <if test="starttime != null" >
+        STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nodeid != null" >
+        NODEID = #{nodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="learningstate != null" >
+        LEARNINGSTATE = #{learningstate,jdbcType=VARCHAR},
+      </if>
+      <if test="learningtime != null" >
+        LEARNINGTIME = #{learningtime,jdbcType=DOUBLE},
+      </if>
+      <if test="isusepaper != null" >
+        ISUSEPAPER = #{isusepaper,jdbcType=VARCHAR},
+      </if>
+      <if test="examresults != null" >
+        EXAMRESULTS = #{examresults,jdbcType=DOUBLE},
+      </if>
+      <if test="laststarttime != null" >
+        LASTSTARTTIME = #{laststarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastendtime != null" >
+        LASTENDTIME = #{lastendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="credits != null" >
+        CREDITS = #{credits,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.app.TUserLearningCourse" >
+    update t_user_learning_course
+    set STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      NODEID = #{nodeid,jdbcType=VARCHAR},
+      LEARNINGSTATE = #{learningstate,jdbcType=VARCHAR},
+      LEARNINGTIME = #{learningtime,jdbcType=DOUBLE},
+      ISUSEPAPER = #{isusepaper,jdbcType=VARCHAR},
+      EXAMRESULTS = #{examresults,jdbcType=DOUBLE},
+      LASTSTARTTIME = #{laststarttime,jdbcType=TIMESTAMP},
+      LASTENDTIME = #{lastendtime,jdbcType=TIMESTAMP},
+      CREDITS = #{credits,jdbcType=DOUBLE},
+      STATUS = #{status,jdbcType=VARCHAR}
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+      and LEARNINGNUMBER = #{learningnumber,jdbcType=INTEGER}
+  </update>
+</mapper>

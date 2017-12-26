@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.app.TRankingMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, total_score
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_ranking
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_ranking
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.app.TRanking" >
+    insert into t_ranking (id, total_score)
+    values (#{id,jdbcType=VARCHAR}, #{totalScore,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.app.TRanking" >
+    insert into t_ranking
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="totalScore != null" >
+        total_score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.app.TRanking" >
+    update t_ranking
+    <set >
+      <if test="totalScore != null" >
+        total_score = #{totalScore,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.app.TRanking" >
+    update t_ranking
+    set total_score = #{totalScore,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getRankingInfo" resultMap="BaseResultMap">
+	  	SELECT t1.id,
+	  	       t1.total_score as totalScore,
+	  	       t2.NICKNAME as nickName,
+	  	       t2.PHOTONAME as photoName
+	  	  FROM t_ranking t1
+	 LEFT JOIN t_permissions_studentinfo t2
+	        ON t1.id = t2.STUDENTID
+	  ORDER BY t1.total_score DESC ,t1.update_date ASC
+  </select>
+  <select id="selectRankingAll" resultMap="BaseResultMap">
+  	SELECT t1.id,t2.NICKNAME as 'nick_name' ,t1.total_score,t1.update_date,t2.PHOTONAME as photo_name FROM t_ranking t1
+	LEFT JOIN t_permissions_studentinfo t2 ON t1.id = t2.STUDENTID
+	ORDER BY t1.total_score DESC ,t1.update_date ASC
+  </select>
+  
+  
+    <select id="selectRankByUser" resultMap="BaseResultMap">
+    		select 
+    			b.id,
+    			b.total_score,
+    			b.rank
+    		from (
+			  	select
+				a.id,
+				a.total_score, (
+					select
+						count(*)
+					from
+						t_ranking
+					where total_score &gt;= a.total_score) as rank
+			from
+				t_ranking a ) b
+			where
+			b.id = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectRankingList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TRanking" >
+    SELECT
+		t1.id,
+		t1.total_score as totalScore,
+		date_format(t1.update_date,"%Y-%m-%d %H:%i:%s") as updateDate,
+		t2.NICKNAME as nickName
+	FROM
+		t_ranking t1
+	LEFT JOIN t_permissions_studentinfo t2 ON t1.id = t2.studentid
+	where 1 = 1
+	and 
+	   t2.departid = #{departId,jdbcType=VARCHAR}
+    <if test="nickName != null and nickName != ''" >
+    	and upper(t2.NICKNAME) LIKE upper(CONCAT('%', #{nickName,jdbcType=VARCHAR}, '%'))
+	</if>
+	ORDER BY TOTALSCORE DESC, UPDATEDATE
+  </select>
+</mapper>

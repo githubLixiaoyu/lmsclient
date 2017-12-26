@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.app.TCourseTypeMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="COURSETYPENAME" property="coursetypename" jdbcType="VARCHAR" />
+    <result column="COURSETYPENAME_EN" property="coursetypenameEn" jdbcType="VARCHAR" />
+    <result column="PARENTID" property="parentid" jdbcType="BIGINT" />
+    <result column="SORT" property="sort" jdbcType="TINYINT" />
+    <result column="IMAGENAME" property="imagename" jdbcType="VARCHAR" />
+    <result column="IMAGEMOBILENAME" property="imagemobilename" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="REMOVED" property="removed" jdbcType="TINYINT" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="PARENTNAME" property="parentname" jdbcType="VARCHAR" />
+    <result column="COURSETYPENAME_EN" property="coursetypenameEn" jdbcType="VARCHAR" />
+    <result column="LANGUAGEFLAG" property="languageflag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, COURSETYPENAME, PARENTID, SORT, IMAGENAME, IMAGEMOBILENAME, REMARKS, REMOVED, CREATETIME, UPDATETIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_course_type
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_course_type
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    insert into t_course_type (ID, COURSETYPENAME, PARENTID, 
+      SORT, IMAGENAME, REMARKS, REMOVED, 
+      CREATETIME, UPDATETIME)
+    values (#{id,jdbcType=BIGINT}, #{coursetypename,jdbcType=VARCHAR}, #{parentid,jdbcType=BIGINT}, 
+      #{sort,jdbcType=TINYINT}, #{imagename,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{removed,jdbcType=TINYINT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    insert into t_course_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="coursetypename != null" >
+        COURSETYPENAME,
+      </if>
+      <if test="coursetypenameEn != null" >
+        COURSETYPENAME_EN,
+      </if>
+      <if test="parentid != null" >
+        PARENTID,
+      </if>
+      <if test="sort != null" >
+        SORT,
+      </if>
+      <if test="imagename != null" >
+        IMAGENAME,
+      </if>
+      <if test="imagemobilename != null" >
+        IMAGEMOBILENAME,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="removed != null" >
+        REMOVED,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="coursetypename != null" >
+        #{coursetypename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetypenameEn != null" >
+        #{coursetypenameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="imagename != null" >
+        #{imagename,jdbcType=VARCHAR},
+      </if>
+      <if test="imagemobilename != null" >
+        #{imagemobilename,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=TINYINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    update t_course_type
+    <set >
+      <if test="coursetypename != null" >
+        COURSETYPENAME = #{coursetypename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetypenameEn != null" >
+        COURSETYPENAME_EN = #{coursetypenameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        PARENTID = #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="sort != null" >
+        SORT = #{sort,jdbcType=TINYINT},
+      </if>
+      <if test="imagename != null" >
+        IMAGENAME = #{imagename,jdbcType=VARCHAR},
+      </if>
+      <if test="imagemobilename != null" >
+        IMAGEMOBILENAME = #{imagemobilename,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        REMOVED = #{removed,jdbcType=TINYINT},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    update t_course_type
+    set COURSETYPENAME = #{coursetypename,jdbcType=VARCHAR},
+      PARENTID = #{parentid,jdbcType=BIGINT},
+      SORT = #{sort,jdbcType=TINYINT},
+      IMAGENAME = #{imagename,jdbcType=VARCHAR},
+      REMOVED = #{removed,jdbcType=TINYINT},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectCourseType" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    SELECT
+		t2.ID as parent_id,
+		t2.COURSETYPENAME as parent_name,
+		t2.SORT,
+		t1.ID AS child_id,
+		t1.COURSETYPENAME AS child_name,
+		t1.COURSETYPENAME_EN AS child_name_en,
+		t1.SORT AS a3,
+		t1.IMAGEMOBILENAME as image
+	FROM
+		t_course_type t1
+	JOIN (
+		SELECT
+			ID,
+			COURSETYPENAME,
+			SORT,
+			REMOVED
+		FROM
+			t_course_type
+		WHERE
+			PARENTID = 0
+	) t2 ON t1.PARENTID = t2.ID
+	WHERE t1.REMOVED =0 AND t2.REMOVED =0
+	<if test="languageflag != null and languageflag != ''" >
+		and (t1.LANGUAGEFLAG = #{languageflag,jdbcType=VARCHAR} or t1.LANGUAGEFLAG = 'all')
+	</if>
+  </select>
+  <select id="selectLearningCourseType" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    SELECT t1.COURSEID,t2.COURSEID,t2.courseSecType as child_id,t3.PARENTID,t3.IMAGEMOBILENAME as image,t3.COURSETYPENAME as child_name,t3.COURSETYPENAME_EN as child_name_en from t_user_learning_course t1
+	JOIN t_courseinfo t2 ON t1.COURSEID = t2.COURSEID
+	JOIN t_course_type t3 ON t2.courseSecType = t3.ID
+	WHERE USERID = #{userId,jdbcType=VARCHAR}
+	<if test="languageflag != null and languageflag != ''" >
+		and (t3.LANGUAGEFLAG = #{languageflag,jdbcType=VARCHAR} or t3.LANGUAGEFLAG = 'all')
+	</if>
+	GROUP BY t2.courseSecType
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+  	select *
+  	  from t_course_type
+  	 where removed = 0
+    <if test="languageflag != null and languageflag != ''" >
+		and ((parentid = 0) or (parentid > 0 and (languageflag = #{languageflag,jdbcType=VARCHAR} or languageflag = 'all')))
+	</if>
+     order by parentid, sort
+  </select>
+  <select id="selectAllByUserId" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseType">
+	  	select t1.*,
+	  	       case when t2.count is null then 0 else t2.count end as count
+	  	  from t_course_type t1
+	 left join (select count(model1.COURSEID) count,
+	                   model1.courseSecType
+	              from t_courseinfo model1,
+	                   t_user_learning_course model2
+	             where model1.COURSEID = model2.COURSEID
+	               and model2.USERID = #{userId,jdbcType=VARCHAR}
+	               and model1.ACTIVE = '6'
+	          group by model1.courseSecType) t2
+	        on t1.id = t2.courseSecType
+	  	 where removed = 0
+	    <if test="languageflag != null and languageflag != ''" >
+			and ((t1.parentid = 0) or (t1.parentid > 0 and (t1.languageflag = #{languageflag,jdbcType=VARCHAR} or t1.languageflag = 'all')))
+		</if>
+	  order by t1.parentid,
+	           t1.sort
+  </select>
+  <select id="selectCourseTypeParent" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+  	SELECT ID as parent_id,COURSETYPENAME as parent_name,COURSETYPENAME_EN as parent_name_en FROM t_course_type WHERE PARENTID = 0 AND REMOVED = 0
+  </select>
+  
+  <select id="selectCourseTypeList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    select 
+	    a.ID,
+		a.COURSETYPENAME,
+		a.COURSETYPENAME_EN,
+		a.PARENTID,
+		a.SORT,
+		a.IMAGENAME,
+		a.IMAGEMOBILENAME,
+		a.REMARKS,
+		a.REMOVED,
+		date_format(a.CREATETIME, '%Y-%m-%d') CREATETIME,
+		date_format(a.UPDATETIME, '%Y-%m-%d') UPDATETIME,
+		(select t.COURSETYPENAME from t_course_type t where t.REMOVED = '0' and t.id=a.PARENTID) PARENTNAME
+    from t_course_type a
+    where a.REMOVED = '0'
+    <if test="parentid != null" >
+		and a.PARENTID = #{parentid,jdbcType=BIGINT}
+	</if>
+    <if test="coursetypename != null and coursetypename != ''" >
+		and a.COURSETYPENAME LIKE CONCAT('%', #{coursetypename,jdbcType=VARCHAR}, '%')
+	</if>
+    <if test="coursetypenameEn != null and coursetypenameEn != ''" >
+		and a.COURSETYPENAME_EN LIKE CONCAT('%', #{coursetypenameEn,jdbcType=VARCHAR}, '%')
+	</if>
+	ORDER BY a.SORT
+  </select>
+  
+  <insert id="insertCourse" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    insert into t_course_type (COURSETYPENAME, PARENTID, 
+      SORT, IMAGENAME, IMAGEMOBILENAME, ,REMARKS, REMOVED, 
+      CREATETIME, UPDATETIME)
+    values (#{coursetypename,jdbcType=VARCHAR}, #{parentid,jdbcType=BIGINT}, #{sort,jdbcType=TINYINT}, 
+    	#{imagename,jdbcType=VARCHAR}, #{imagemobilename,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+    	#{removed,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <select id="selectTopSort" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseType" >
+    select sort from t_course_type where parentid = #{parentid,jdbcType=BIGINT} ORDER BY sort desc LIMIT 1 
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteCourseType" parameterType="java.util.List">
+	update t_course_type set REMOVED = '1', UPDATETIME = now()
+       where ID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+       or PARENTID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+	
+
+</mapper>

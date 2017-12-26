@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.question.TQuestionstypeMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="TYPEID" property="typeid" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TYPEID, NAME, STATUS, STANDBY1, STANDBY2, STANDBY3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_questionstype
+    where TYPEID = #{typeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_questionstype
+    where TYPEID = #{typeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.question.TQuestionstype" >
+    insert into t_questionstype (TYPEID, NAME, STATUS, 
+      STANDBY1, STANDBY2, STANDBY3
+      )
+    values (#{typeid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{standby1,jdbcType=VARCHAR}, #{standby2,jdbcType=VARCHAR}, #{standby3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.question.TQuestionstype" >
+    insert into t_questionstype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        TYPEID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.question.TQuestionstype" >
+    update t_questionstype
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TYPEID = #{typeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.question.TQuestionstype" >
+    update t_questionstype
+    set NAME = #{name,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR}
+    where TYPEID = #{typeid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectQuestionstypeList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.question.TQuestionstype" >
+    select 
+	<include refid="Base_Column_List" />
+      from t_questionstype
+     where 1=1 and STATUS = '0'
+  </select>
+</mapper>

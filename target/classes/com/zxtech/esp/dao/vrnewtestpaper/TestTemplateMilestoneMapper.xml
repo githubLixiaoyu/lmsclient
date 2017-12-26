@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.esp.dao.vrnewtestpaper.TestTemplateMilestoneMapper">
+	<resultMap id="BaseResultMap" type="java.util.Map">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="version" property="version" jdbcType="BIGINT" />
+		<result column="mile_stone_name" property="mileStoneName"
+			jdbcType="VARCHAR" />
+		<result column="test_template_id" property="testTemplateId"
+			jdbcType="BIGINT" />
+		<result column="sequence_number" property="sequenceNumber"
+			jdbcType="BIGINT" />
+		<result column="status_type_id" property="statusTypeId"
+			jdbcType="BIGINT" />
+		<result column="type_id" property="typeId" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="request_user_id" property="requestUserId"
+			jdbcType="VARCHAR" />
+		<result column="allow_maximum_time" property="allowMaximumTime"
+			jdbcType="BIGINT" />
+		<result column="detial_info_id" property="detialInfoId"
+			jdbcType="BIGINT" />
+		<result column="open_type" property="openType" jdbcType="BIGINT" />
+		<result column="movie_id" property="movieId" jdbcType="BIGINT" />
+		<result column="simulator_type" property="simulatorType"
+			jdbcType="VARCHAR" />
+		<result column="url_protocol" property="urlProtocol" jdbcType="VARCHAR" />
+		<result column="status_type" property="statusType" jdbcType="VARCHAR" />
+		<result column="test_name" property="testName" jdbcType="VARCHAR" />
+		<result column="paperScore" property="paperScore" jdbcType="VARCHAR" />
+		<result column="plateform_flag" property="plateformFlag" jdbcType="VARCHAR" />
+		
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, version, mile_stone_name, test_template_id,
+		sequence_number,
+		status_type_id,
+		type_id, create_date, description,
+		request_user_id, allow_maximum_time,
+		detial_info_id,
+		open_type,
+		movie_id, simulator_type, url_protocol,plateform_flag
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from test_template_milestone
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		test_template_milestone
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateMilestone">
+		insert into test_template_milestone (id, version,
+		mile_stone_name,
+		test_template_id, sequence_number, status_type_id,
+		type_id, create_date, description,
+		request_user_id, allow_maximum_time,
+		detial_info_id,
+		open_type, movie_id,
+		simulator_type,
+		url_protocol,plateform_flag)
+		values (#{id,jdbcType=BIGINT},
+		#{version,jdbcType=BIGINT},
+		#{mileStoneName,jdbcType=VARCHAR},
+		#{testTemplateId,jdbcType=BIGINT}, #{sequenceNumber,jdbcType=BIGINT},
+		#{statusTypeId,jdbcType=VARCHAR},
+		#{typeId,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{description,jdbcType=VARCHAR},
+		#{requestUserId,jdbcType=VARCHAR}, #{allowMaximumTime,jdbcType=BIGINT},
+		#{detialInfoId,jdbcType=BIGINT},
+		#{openType,jdbcType=BIGINT},
+		#{movieId,jdbcType=BIGINT},
+		#{simulatorType,jdbcType=VARCHAR}, #{urlProtocol,jdbcType=VARCHAR},
+		#{plateformFlag,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateMilestone">
+		insert into test_template_milestone
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="mileStoneName != null">
+				mile_stone_name,
+			</if>
+			<if test="testTemplateId != null">
+				test_template_id,
+			</if>
+			<if test="sequenceNumber != null">
+				sequence_number,
+			</if>
+			<if test="statusTypeId != null">
+				status_type_id,
+			</if>
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="requestUserId != null">
+				request_user_id,
+			</if>
+			<if test="allowMaximumTime != null">
+				allow_maximum_time,
+			</if>
+			<if test="detialInfoId != null">
+				detial_info_id,
+			</if>
+			<if test="openType != null">
+				open_type,
+			</if>
+			<if test="movieId != null">
+				movie_id,
+			</if>
+			<if test="simulatorType != null">
+				simulator_type,
+			</if>
+			<if test="urlProtocol != null">
+				url_protocol,
+			</if>
+			<if test="plateformFlag != null">
+				plateform_flag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=BIGINT},
+			</if>
+			<if test="mileStoneName != null">
+				#{mileStoneName,jdbcType=VARCHAR},
+			</if>
+			<if test="testTemplateId != null">
+				#{testTemplateId,jdbcType=BIGINT},
+			</if>
+			<if test="sequenceNumber != null">
+				#{sequenceNumber,jdbcType=BIGINT},
+			</if>
+			<if test="statusTypeId != null">
+				#{statusTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=BIGINT},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="requestUserId != null">
+				#{requestUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="allowMaximumTime != null">
+				#{allowMaximumTime,jdbcType=BIGINT},
+			</if>
+			<if test="detialInfoId != null">
+				#{detialInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="openType != null">
+				#{openType,jdbcType=BIGINT},
+			</if>
+			<if test="movieId != null">
+				#{movieId,jdbcType=BIGINT},
+			</if>
+			<if test="simulatorType != null">
+				#{simulatorType,jdbcType=VARCHAR},
+			</if>
+			<if test="urlProtocol != null">
+				#{urlProtocol,jdbcType=VARCHAR},
+			</if>
+			<if test="plateformFlag != null">
+				#{plateformFlag,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateMilestone">
+		update test_template_milestone
+		<set>
+			<if test="version != null">
+				version = #{version,jdbcType=BIGINT},
+			</if>
+			<if test="mileStoneName != null">
+				mile_stone_name = #{mileStoneName,jdbcType=VARCHAR},
+			</if>
+			<if test="testTemplateId != null">
+				test_template_id = #{testTemplateId,jdbcType=BIGINT},
+			</if>
+			<if test="sequenceNumber != null">
+				sequence_number = #{sequenceNumber,jdbcType=BIGINT},
+			</if>
+			<if test="statusTypeId != null">
+				status_type_id = #{statusTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="typeId != null">
+				type_id = #{typeId,jdbcType=BIGINT},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="requestUserId != null">
+				request_user_id = #{requestUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="allowMaximumTime != null">
+				allow_maximum_time = #{allowMaximumTime,jdbcType=BIGINT},
+			</if>
+			<if test="detialInfoId != null">
+				detial_info_id = #{detialInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="openType != null">
+				open_type = #{openType,jdbcType=BIGINT},
+			</if>
+			<if test="movieId != null">
+				movie_id = #{movieId,jdbcType=BIGINT},
+			</if>
+			<if test="simulatorType != null">
+				simulator_type = #{simulatorType,jdbcType=VARCHAR},
+			</if>
+			<if test="urlProtocol != null">
+				url_protocol = #{urlProtocol,jdbcType=VARCHAR},
+			</if>
+			<if test="plateformFlag != null">
+				#{plateform_flag,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateMilestone">
+		update test_template_milestone
+		set version =
+		#{version,jdbcType=BIGINT},
+		mile_stone_name =
+		#{mileStoneName,jdbcType=VARCHAR},
+		test_template_id =
+		#{testTemplateId,jdbcType=BIGINT},
+		sequence_number =
+		#{sequenceNumber,jdbcType=BIGINT},
+		status_type_id =
+		#{statusTypeId,jdbcType=BIGINT},
+		type_id = #{typeId,jdbcType=BIGINT},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		description =
+		#{description,jdbcType=VARCHAR},
+		request_user_id =
+		#{requestUserId,jdbcType=VARCHAR},
+		allow_maximum_time =
+		#{allowMaximumTime,jdbcType=BIGINT},
+		detial_info_id =
+		#{detialInfoId,jdbcType=BIGINT},
+		open_type =
+		#{openType,jdbcType=BIGINT},
+		movie_id = #{movieId,jdbcType=BIGINT},
+		simulator_type =
+		#{simulatorType,jdbcType=VARCHAR},
+		url_protocol =
+		#{urlProtocol,jdbcType=VARCHAR},
+		plateform_flag =
+		#{plateformFlag,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="selectTestTemplateMilestoneList" resultMap="BaseResultMap"
+		parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplateMilestone">
+		SELECT
+		ttm.id,
+		ttm.version,
+		ttm.mile_stone_name,
+		ttm.test_template_id,
+		ttm.sequence_number,
+		ttm.status_type_id,
+		ttm.type_id,
+		date_format(ttm.create_date, "%Y-%m-%d %H:%i:%s")
+		create_date,
+		ttm.description,
+		ttm.request_user_id,
+		ttm.allow_maximum_time,
+		ttm.detial_info_id,
+		ttm.open_type,
+		ttm.movie_id,
+		ttm.simulator_type,
+		ttm.url_protocol,
+		ttm.plateform_flag,
+		tmst.status_type,
+		tt.test_name,
+		(select sum(tpo.score) from test_paper_operation tpo where
+		tpo.milestone_id=ttm.id) paperScore
+		FROM
+		test_template_milestone ttm
+		LEFT JOIN templ_milestone_status_type
+		tmst
+		ON tmst.id =
+		ttm.status_type_id
+		LEFT JOIN test_template tt
+		ON tt.id =
+		ttm.test_template_id
+		WHERE
+		ttm.type_id = 3 
+		and
+		ttm.plateform_flag = 'etp'
+		<if test="testTemplateId != null and testTemplateId != ''">
+			AND ttm.test_template_id =
+			#{testTemplateId,jdbcType=BIGINT}
+		</if>
+		<if test="openType != null">
+			AND ttm.open_type = #{openType,jdbcType=BIGINT}
+		</if>
+		<if test="mileStoneName != null and mileStoneName != ''">
+			and upper(ttm.mile_stone_name) LIKE upper(CONCAT('%',
+			#{mileStoneName,jdbcType=VARCHAR}, '%'))
+		</if>
+		<if test="statusTypeId != null">
+			and ttm.status_type_id =#{statusTypeId,jdbcType=BIGINT}
+		</if>
+		ORDER BY ttm.create_date desc
+	</select>
+
+	<!--修改考试状态 -->
+	<update id="updateTestStatusType" parameterType="java.util.List">
+		UPDATE test_template_milestone SET status_type_id = '1'
+		WHERE id IN
+		<foreach collection="list" open="(" separator="," close=")"
+			item="id">#{id,jdbcType=VARCHAR}</foreach>
+	</update>
+	<update id="deleteTestStatusType" parameterType="java.util.List">
+		UPDATE test_template_milestone SET status_type_id = '2'
+		WHERE id IN
+		<foreach collection="list" open="(" separator="," close=")"
+			item="id">#{id,jdbcType=VARCHAR}</foreach>
+	</update>
+
+	<select id="selectTestTemplateMilestoneListById" resultMap="BaseResultMap">
+		SELECT
+		ttm.id,
+		ttm.version,
+		ttm.mile_stone_name,
+		ttm.test_template_id,
+		ttm.sequence_number,
+		ttm.status_type_id,
+		ttm.type_id,
+		date_format(ttm.create_date, "%Y-%m-%d %H:%i:%s")
+		create_date,
+		ttm.description,
+		ttm.request_user_id,
+		ttm.allow_maximum_time,
+		ttm.detial_info_id,
+		ttm.open_type,
+		ttm.movie_id,
+		ttm.simulator_type,
+		ttm.url_protocol,
+		ttm.plateform_flag,
+		tmst.status_type,
+		tt.test_name
+		FROM
+		test_template_milestone ttm
+		LEFT JOIN templ_milestone_status_type
+		tmst
+		ON tmst.id = ttm.status_type_id
+		LEFT JOIN test_template tt
+		ON tt.id =
+		ttm.test_template_id
+		WHERE
+		ttm.plateform_flag = 'etp'
+		AND ttm.id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	
+	<insert id="insertTestTemplateMilestone" parameterType="java.util.Map" keyProperty="milestoneId" useGeneratedKeys="true">
+		insert into test_template_milestone (version,
+		mile_stone_name,
+		test_template_id, sequence_number, status_type_id,
+		type_id, create_date, description,
+		request_user_id, allow_maximum_time,
+		detial_info_id,
+		open_type, movie_id,
+		simulator_type,
+		url_protocol,
+		plateform_flag
+		)
+		values (
+		#{version,jdbcType=BIGINT},
+		#{mileStoneName,jdbcType=VARCHAR},
+		#{testTemplateId,jdbcType=BIGINT}, #{sequenceNumber,jdbcType=BIGINT},
+		#{statusTypeId,jdbcType=VARCHAR},
+		#{typeId,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{description,jdbcType=VARCHAR},
+		#{requestUserId,jdbcType=VARCHAR}, #{allowMaximumTime,jdbcType=BIGINT},
+		#{detialInfoId,jdbcType=BIGINT},
+		#{openType,jdbcType=BIGINT},
+		#{movieId,jdbcType=BIGINT},
+		#{simulatorType,jdbcType=VARCHAR}, #{urlProtocol,jdbcType=VARCHAR},
+		#{plateformFlag,jdbcType=VARCHAR}
+		)
+	</insert>
+</mapper>

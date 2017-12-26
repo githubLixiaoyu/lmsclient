@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.esp.dao.vrnewexam.TestInstanceRequestMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="request_user_id" property="requestUserId" jdbcType="VARCHAR" />
+    <result column="test_template_id" property="testTemplateId" jdbcType="BIGINT" />
+    <result column="test_template_mile_stone_id" property="testTemplateMileStoneId" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="test_end_date" property="testEndDate" jdbcType="TIMESTAMP" />
+    <result column="test_start_date" property="testStartDate" jdbcType="TIMESTAMP" />
+    <result column="is_end" property="isEnd" jdbcType="BIGINT" />
+    <result column="paper_score" property="paperScore" jdbcType="BIGINT" />
+    <result column="exam_type" property="examType" jdbcType="VARCHAR" />
+    <result column="exam_kind" property="examKind" jdbcType="VARCHAR" />
+    <result column="exam_target" property="examTarget" jdbcType="VARCHAR" />
+    <result column="exam_time" property="examTime" jdbcType="INTEGER" />
+    <result column="pass_score" property="passScore" jdbcType="DECIMAL" />
+    <result column="pass_score_status" property="passScoreStatus" jdbcType="INTEGER" />
+    <result column="image_name" property="imageName" jdbcType="VARCHAR" />
+    <result column="mile_stone_name" property="mileStoneName" jdbcType="VARCHAR" />
+    <result column="test_name" property="testName" jdbcType="VARCHAR" />
+    <result column="status_type_id" property="statusTypeId" jdbcType="VARCHAR" />
+    <result column="status_type" property="statusType" jdbcType="VARCHAR" />
+		
+	<!-- 2017.09.18 -->
+	<result column="EXAMID" property="examid" jdbcType="VARCHAR" />
+	<result column="EXAMNAME" property="examname" jdbcType="VARCHAR" />
+	<result column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+	<result column="EXAMSCORESTATUS" property="examscorestatus" jdbcType="VARCHAR" />
+   	<result column="STARTTIME" property="starttime" jdbcType="TIMESTAMP" />
+ 	<result column="ENDTIME" property="endtime" jdbcType="TIMESTAMP" />
+ 	<result column="SHOWPOINT" property="showpoint" jdbcType="VARCHAR" />
+ 	<!-- 23 -->
+ 	<result column="EXAMTIME" property="examtime" jdbcType="DOUBLE" />
+ 	<result column="examKhzl" property="examkhzl" jdbcType="VARCHAR" />
+ 	<!-- 14 -->
+ 	<result column="CREATEDATE" property="createDate" jdbcType="VARCHAR" />
+ 	<result column="CONTINUETIME" property="continuetime" jdbcType="DOUBLE" />
+ 	<result column="SCORE" property="score" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="REMARK" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="AUDITREMARK" property="auditremark" jdbcType="LONGVARCHAR" />
+    <result column="CONTINUEREASON" property="continuereason" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, version, description, request_user_id, test_template_id, test_template_mile_stone_id, 
+    create_date, test_end_date, test_start_date, is_end, paper_score, exam_type, exam_kind, 
+    exam_target, exam_time, pass_score, pass_score_status, image_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from test_instance_request
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from test_instance_request
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequest" >
+    insert into test_instance_request (id, version, description, 
+      request_user_id, test_template_id, test_template_mile_stone_id, 
+      create_date, test_end_date, test_start_date, 
+      is_end, paper_score, exam_type, 
+      exam_kind, exam_target, exam_time, 
+      pass_score, pass_score_status, image_name)
+    values (#{id,jdbcType=BIGINT}, #{version,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, 
+      #{requestUserId,jdbcType=VARCHAR}, #{testTemplateId,jdbcType=BIGINT}, #{testTemplateMileStoneId,jdbcType=BIGINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{testEndDate,jdbcType=TIMESTAMP}, #{testStartDate,jdbcType=TIMESTAMP}, 
+      #{isEnd,jdbcType=BIGINT}, #{paperScore,jdbcType=BIGINT}, #{examType,jdbcType=VARCHAR}, 
+      #{examKind,jdbcType=VARCHAR}, #{examTarget,jdbcType=VARCHAR}, #{examTime,jdbcType=INTEGER}, 
+      #{passScore,jdbcType=DECIMAL}, #{passScoreStatus,jdbcType=INTEGER}, #{imageName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequest" >
+    insert into test_instance_request
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="requestUserId != null" >
+        request_user_id,
+      </if>
+      <if test="testTemplateId != null" >
+        test_template_id,
+      </if>
+      <if test="testTemplateMileStoneId != null" >
+        test_template_mile_stone_id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="testEndDate != null" >
+        test_end_date,
+      </if>
+      <if test="testStartDate != null" >
+        test_start_date,
+      </if>
+      <if test="isEnd != null" >
+        is_end,
+      </if>
+      <if test="paperScore != null" >
+        paper_score,
+      </if>
+      <if test="examType != null" >
+        exam_type,
+      </if>
+      <if test="examKind != null" >
+        exam_kind,
+      </if>
+      <if test="examTarget != null" >
+        exam_target,
+      </if>
+      <if test="examTime != null" >
+        exam_time,
+      </if>
+      <if test="passScore != null" >
+        pass_score,
+      </if>
+      <if test="passScoreStatus != null" >
+        pass_score_status,
+      </if>
+      <if test="imageName != null" >
+        image_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUserId != null" >
+        #{requestUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="testTemplateId != null" >
+        #{testTemplateId,jdbcType=BIGINT},
+      </if>
+      <if test="testTemplateMileStoneId != null" >
+        #{testTemplateMileStoneId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testEndDate != null" >
+        #{testEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testStartDate != null" >
+        #{testStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnd != null" >
+        #{isEnd,jdbcType=BIGINT},
+      </if>
+      <if test="paperScore != null" >
+        #{paperScore,jdbcType=BIGINT},
+      </if>
+      <if test="examType != null" >
+        #{examType,jdbcType=VARCHAR},
+      </if>
+      <if test="examKind != null" >
+        #{examKind,jdbcType=VARCHAR},
+      </if>
+      <if test="examTarget != null" >
+        #{examTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="examTime != null" >
+        #{examTime,jdbcType=INTEGER},
+      </if>
+      <if test="passScore != null" >
+        #{passScore,jdbcType=INTEGER},
+      </if>
+      <if test="passScoreStatus != null" >
+        #{passScoreStatus,jdbcType=INTEGER},
+      </if>
+      <if test="imageName != null" >
+        #{imageName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequest" >
+    update test_instance_request
+    <set >
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUserId != null" >
+        request_user_id = #{requestUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="testTemplateId != null" >
+        test_template_id = #{testTemplateId,jdbcType=BIGINT},
+      </if>
+      <if test="testTemplateMileStoneId != null" >
+        test_template_mile_stone_id = #{testTemplateMileStoneId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testEndDate != null" >
+        test_end_date = #{testEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testStartDate != null" >
+        test_start_date = #{testStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnd != null" >
+        is_end = #{isEnd,jdbcType=BIGINT},
+      </if>
+      <if test="paperScore != null" >
+        paper_score = #{paperScore,jdbcType=BIGINT},
+      </if>
+      <if test="examType != null" >
+        exam_type = #{examType,jdbcType=VARCHAR},
+      </if>
+      <if test="examKind != null" >
+        exam_kind = #{examKind,jdbcType=VARCHAR},
+      </if>
+      <if test="examTarget != null" >
+        exam_target = #{examTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="examTime != null" >
+        exam_time = #{examTime,jdbcType=INTEGER},
+      </if>
+      <if test="passScore != null" >
+        pass_score = #{passScore,jdbcType=DECIMAL},
+      </if>
+      <if test="passScoreStatus != null" >
+        pass_score_status = #{passScoreStatus,jdbcType=INTEGER},
+      </if>
+      <if test="imageName != null" >
+        image_name = #{imageName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequest" >
+    update test_instance_request
+    set version = #{version,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR},
+      request_user_id = #{requestUserId,jdbcType=VARCHAR},
+      test_template_id = #{testTemplateId,jdbcType=BIGINT},
+      test_template_mile_stone_id = #{testTemplateMileStoneId,jdbcType=BIGINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      test_end_date = #{testEndDate,jdbcType=TIMESTAMP},
+      test_start_date = #{testStartDate,jdbcType=TIMESTAMP},
+      is_end = #{isEnd,jdbcType=BIGINT},
+      paper_score = #{paperScore,jdbcType=BIGINT},
+      exam_type = #{examType,jdbcType=VARCHAR},
+      exam_kind = #{examKind,jdbcType=VARCHAR},
+      exam_target = #{examTarget,jdbcType=VARCHAR},
+      exam_time = #{examTime,jdbcType=INTEGER},
+      pass_score = #{passScore,jdbcType=DECIMAL},
+      pass_score_status = #{passScoreStatus,jdbcType=INTEGER},
+      image_name = #{imageName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectTestInstanceRequestList" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequest" resultMap="BaseResultMap">
+  	SELECT * FROM(
+	  	SELECT
+			t.id,
+			t.version,
+			t.description,
+			t.request_user_id,
+			t.test_template_id,
+			t.test_template_mile_stone_id,
+			date_format(t.create_date, "%Y-%m-%d %H:%i:%s") create_date,
+			date_format(t.test_end_date, "%Y-%m-%d %H:%i:%s") test_end_date,
+			date_format(t.test_start_date, "%Y-%m-%d %H:%i:%s") test_start_date,
+			t.is_end,
+			t.paper_score,
+			t.exam_type,
+			t.exam_kind,
+			t.exam_target,
+			t.exam_time,
+			t.pass_score,
+			t.pass_score_status,
+			t.image_name,
+			tm.mile_stone_name,
+			a.test_name,
+			tm.status_type_id,
+			tmst.status_type,
+			tm.plateform_flag
+		FROM
+			test_instance_request t
+		LEFT JOIN test_template_milestone tm ON t.test_template_mile_stone_id = tm.id
+		LEFT JOIN test_template a ON t.test_template_id = a.id
+		LEFT JOIN templ_milestone_status_type tmst ON tmst.id = tm.status_type_id
+  	) RES WHERE RES.plateform_flag='etp'
+	<if test="id != null and id != ''">
+		and RES.id = #{id,jdbcType=BIGINT}
+	</if>
+	<if test="testTemplateId != null and testTemplateId != ''">
+		and RES.test_template_id = #{testTemplateId,jdbcType=VARCHAR}
+	</if>
+	<if test="statusTypeId != null and statusTypeId != ''">
+		and RES.status_type_id = #{statusTypeId,jdbcType=VARCHAR}
+	</if>
+	<if test="examType != null and examType != ''">
+		and RES.exam_type = #{examType,jdbcType=VARCHAR}
+	</if>
+	<if test="mileStoneName != null and mileStoneName != ''">
+		and upper(RES.mile_stone_name) LIKE upper(CONCAT('%', #{mileStoneName,jdbcType=VARCHAR}, '%'))
+	</if>
+	ORDER BY RES.create_date DESC
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteTestInstanceRequest" parameterType="java.util.List">
+	update test_template_milestone set status_type_id = '2'
+       where id in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+  
+  <!-- 发布 -->
+  <update id="sendTestInstanceRequest" parameterType="java.util.List">
+	update test_template_milestone set status_type_id = '1'
+       where id in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+  
+  <select id="selectTemplMilestoneStatusTypeList" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequest" resultMap="BaseResultMap">
+  	SELECT t.id, t.status_type from templ_milestone_status_type t ORDER BY t.id
+  </select>
+
+	<select id="selectVrExamInfoByFilter" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo"
+		resultMap="ResultMapWithBLOBs">
+		SELECT
+			t1.id AS EXAMID,
+			t4.mile_stone_name AS EXAMNAME,
+			'' AS PAPERID,
+			t3.total_score AS EXAMSCORE,
+			CASE
+		WHEN t1.test_start_date IS NOT NULL THEN
+			DATE_FORMAT(
+				t1.test_start_date,
+				'%Y/%m/%d'
+			)
+		ELSE
+			''
+		END AS STARTTIME,
+		CASE
+		WHEN t1.test_end_date IS NOT NULL THEN
+			DATE_FORMAT(
+				t1.test_end_date,
+				'%Y/%m/%d'
+			)
+		ELSE
+			''
+		END AS ENDTIME,
+		'0' AS SHOWPOINT,
+		 t3.total_time AS EXAMTIME,
+		 t1.exam_kind AS examKhzl,
+		 t1.create_date AS CREATEDATE,
+		 t4.allow_maximum_time AS CONTINUETIME
+		FROM
+			test_instance_request t1
+		LEFT JOIN test_instance_request_users t2 ON t2.test_instance_request_id = t1.id
+		LEFT JOIN test_instance t3 ON t1.id = t3.test_instance_request_id
+		AND t2.user_id = t3.user_id
+		LEFT JOIN test_template_milestone t4 ON t1.test_template_mile_stone_id = t4.id
+		WHERE
+			t2.user_id = #{loginUserId,jdbcType=VARCHAR}
+		AND t4.status_type_id = '1'
+		<if test="reviewStatus == 1" >
+			 AND t2.user_test_state_type_id = '2'
+		</if>
+		<if test="reviewStatus == 0" >
+			AND t2.user_test_state_type_id &lt;&gt; '2'
+		</if>
+		AND t4.plateform_flag = 'etp'
+		ORDER BY
+			t1.create_date DESC
+	</select>
+
+	<select id="getVrNoExamNum" resultMap="ResultMapWithBLOBs"
+		parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo">
+
+		SELECT
+			case when count(t1.id) is null then 0 else count(t1.id) end AS count
+		FROM
+			test_instance_request t1
+		LEFT JOIN test_instance_request_users t2 ON t2.test_instance_request_id = t1.id
+		LEFT JOIN test_instance t3 ON t1.id = t3.test_instance_request_id
+		AND t2.user_id = t3.user_id
+		LEFT JOIN test_template_milestone t4 ON t1.test_template_mile_stone_id = t4.id
+		WHERE
+			t2.user_id = #{loginUserId,jdbcType=VARCHAR}
+		AND t4.status_type_id = '1'
+		<![CDATA[AND t2.user_test_state_type_id <> '2']]>
+		AND t4.plateform_flag = 'etp'
+	</select>
+	
+	<select id="getVrExamedNum" resultMap="ResultMapWithBLOBs"
+		parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo">
+		SELECT
+			case when count(t1.id) is null then 0 else count(t1.id) end AS count
+		FROM
+			test_instance_request t1
+		LEFT JOIN test_instance_request_users t2 ON t2.test_instance_request_id = t1.id
+		LEFT JOIN test_instance t3 ON t1.id = t3.test_instance_request_id
+		AND t2.user_id = t3.user_id
+		LEFT JOIN test_template_milestone t4 ON t1.test_template_mile_stone_id = t4.id
+		WHERE
+			t2.user_id = #{loginUserId,jdbcType=VARCHAR}
+		AND t4.status_type_id = '1'
+		AND t2.user_test_state_type_id = '2'
+		AND t4.plateform_flag = 'etp'
+	</select>
+	<select id="getVrUserExamInfo" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+		SELECT  
+			t1.id AS EXAMID,
+			t4.mile_stone_name AS EXAMNAME,
+			'' AS PAPERID,
+			'0' as SHOWPOINT,
+			t4.allow_maximum_time as EXAMTIME,
+			t1.exam_kind as examKhzl,
+			t1.description as REMARK,
+			t3.total_time as CONTINUETIME
+		FROM
+			test_instance_request t1
+		LEFT join test_instance_request_users t2
+		ON  t2.test_instance_request_id = t1.id
+		LEFT JOIN test_instance t3 
+		ON t1.id = t3.test_instance_request_id
+		AND t2.user_id = t3.user_id
+		LEFT JOIN test_template_milestone t4 
+		ON t1.test_template_mile_stone_id = t4.id
+		WHERE t2.user_id = #{loginUserId,jdbcType=VARCHAR}
+		AND t4.status_type_id = '1'
+		AND t1.id = #{examid,jdbcType=VARCHAR}
+		AND t4.plateform_flag = 'etp'
+  </select>
+	<select id="selectVrAnswersByFilter" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+		select
+		  t3.id as pid,
+		  t3.mile_stone_name as pname,
+		  t4.id as cid,
+		  t4.operation_name as cname,
+		  t7.name as tname,
+		  case
+		    when t6.is_passed is null
+		    then 0
+		    else t6.is_passed
+		  end as ispass,
+		  t8.total_time as examTime,
+		  t1.exam_kind as examkind
+		from
+		  test_instance_request t1
+		  left join test_paper_operation t2
+		    on t1.test_template_mile_stone_id = t2.milestone_id
+		  left join test_template_milestone t3
+		    on t3.id = t2.reference_milestone_id
+		  left join test_template_operation t4
+		    on t4.id = t2.reference_operation_id
+		  LEFT JOIN main_oper_task t7
+		    ON t4.id = t7.operation_id
+		  left join test_instance t8
+		    on t8.test_template_mile_stone_id = t1.test_template_mile_stone_id
+		   AND t8.user_id = #{loginUserId,jdbcType=VARCHAR}
+		  left join test_instance_operation t5
+		    on t5.test_template_mile_stone_id = t1.test_template_mile_stone_id
+		    and t5.test_instance_id = t8.test_template_id
+		  LEFT JOIN main_exam_result_oper_task t6
+		    on t6.owner_id = t5.id
+		    AND t6.task_id = t7.id
+		  LEFT JOIN test_template_milestone t9 
+		    ON t1.test_template_mile_stone_id = t9.id
+		where t1.id = #{examid,jdbcType=VARCHAR}
+		  AND t9.plateform_flag = 'etp'
+		order by t3.id,
+		  t4.sequence_number,
+		  t4.sequence_number
+  </select>
+  
+</mapper>

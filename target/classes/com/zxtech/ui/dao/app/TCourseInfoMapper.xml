@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.app.TCourseInfoMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="COURSEID" property="courseid" jdbcType="VARCHAR" />
+    <result column="COURSENAME" property="coursename" jdbcType="VARCHAR" />
+    <result column="ACTIVE" property="active" jdbcType="VARCHAR" />
+    <result column="CONTROL" property="control" jdbcType="VARCHAR" />
+    <result column="CATEGORYID" property="categoryid" jdbcType="VARCHAR" />
+    <result column="STAFFID" property="staffid" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="AUDITID" property="auditid" jdbcType="VARCHAR" />
+    <result column="AUDITTIME" property="audittime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="KEYWORDS" property="keywords" jdbcType="VARCHAR" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+    <result column="FLAG" property="flag" jdbcType="VARCHAR" />
+    <result column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+    <result column="USERPAPER" property="userpaper" jdbcType="VARCHAR" />
+    <result column="RELEASER" property="releaser" jdbcType="VARCHAR" />
+    <result column="RELEASETIME" property="releasetime" jdbcType="TIMESTAMP" />
+    <result column="TRUSTOR" property="trustor" jdbcType="VARCHAR" />
+    <result column="TRUSTORTIME" property="trustortime" jdbcType="TIMESTAMP" />
+    <result column="ADDAUTHORIZEFLAG" property="addauthorizeflag" jdbcType="VARCHAR" />
+    <result column="PERIOD" property="period" jdbcType="DOUBLE" />
+    <result column="DISABLEDPERSONS" property="disabledpersons" jdbcType="VARCHAR" />
+    <result column="PASSSCORE" property="passscore" jdbcType="DOUBLE" />
+    <result column="FORPEOPLE" property="forpeople" jdbcType="VARCHAR" />
+    <result column="AUTHORIZEDVISIBLE" property="authorizedvisible" jdbcType="VARCHAR" />
+    <result column="LEARNINGPERIOD" property="learningperiod" jdbcType="DOUBLE" />
+    <result column="COURSEPRICE" property="courseprice" jdbcType="DOUBLE" />
+    <result column="DISCOUNT" property="discount" jdbcType="DOUBLE" />
+    <result column="courseSecType" property="coursesectype" jdbcType="VARCHAR" />
+    <result column="courseThirType" property="coursethirtype" jdbcType="VARCHAR" />
+    <result column="ifFreeCourse" property="iffreecourse" jdbcType="VARCHAR" />
+    <result column="zanNum" property="zannum" jdbcType="VARCHAR" />
+    <result column="into" property="into" jdbcType="VARCHAR" />
+    <result column="espKey" property="espkey" jdbcType="VARCHAR" />
+    <result column="courseUploadType" property="courseuploadtype" jdbcType="VARCHAR" />
+    <result column="courseTypeName" property="courseTypeName" jdbcType="VARCHAR" />
+    <result column="courseSecTypeName" property="courseSecTypeName" jdbcType="VARCHAR" />
+    <result column="IMGMOBILENAME" property="imagemobilename" jdbcType="VARCHAR" />
+    <result column="IMGNAME" property="imagename" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="AUDITMARKS" property="auditmarks" jdbcType="LONGVARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="LONGVARCHAR" />
+    <result column="RELEASEMARKS" property="releasemarks" jdbcType="LONGVARCHAR" />
+    <result column="TRUSTORMARKS" property="trustormarks" jdbcType="LONGVARCHAR" />
+    <result column="ADDAUTHORIZEREMARKS" property="addauthorizeremarks" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    COURSEID, COURSENAME, ACTIVE, CONTROL, CATEGORYID, STAFFID, CREATETIME, AUDITID, 
+    AUDITTIME, VERSION, KEYWORDS, STANDBY1, STANDBY2, STANDBY3, FLAG, PAPERID, USERPAPER, 
+    RELEASER, RELEASETIME, TRUSTOR, TRUSTORTIME, ADDAUTHORIZEFLAG, PERIOD, DISABLEDPERSONS, 
+    PASSSCORE, FORPEOPLE, AUTHORIZEDVISIBLE, LEARNINGPERIOD, COURSEPRICE, DISCOUNT, courseSecType, 
+    courseThirType, ifFreeCourse, zanNum, espKey, courseUploadType
+  </sql>
+  <sql id="Blob_Column_List" >
+    AUDITMARKS, REMARKS, RELEASEMARKS, TRUSTORMARKS, ADDAUTHORIZEREMARKS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_courseinfo
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_courseinfo
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.app.TCourseInfoWithBLOBs" >
+    insert into t_courseinfo (COURSEID, COURSENAME, ACTIVE, 
+      CONTROL, CATEGORYID, STAFFID, 
+      CREATETIME, AUDITID, AUDITTIME, 
+      VERSION, KEYWORDS, STANDBY1, 
+      STANDBY2, STANDBY3, FLAG, 
+      PAPERID, USERPAPER, RELEASER, 
+      RELEASETIME, TRUSTOR, TRUSTORTIME, 
+      ADDAUTHORIZEFLAG, PERIOD, DISABLEDPERSONS, 
+      PASSSCORE, FORPEOPLE, AUTHORIZEDVISIBLE, 
+      LEARNINGPERIOD, COURSEPRICE, DISCOUNT, 
+      courseSecType, courseThirType, ifFreeCourse, 
+      zanNum, into, espKey, 
+      courseUploadType, AUDITMARKS, REMARKS, 
+      RELEASEMARKS, TRUSTORMARKS, ADDAUTHORIZEREMARKS
+      )
+    values (#{courseid,jdbcType=VARCHAR}, #{coursename,jdbcType=VARCHAR}, #{active,jdbcType=VARCHAR}, 
+      #{control,jdbcType=VARCHAR}, #{categoryid,jdbcType=VARCHAR}, #{staffid,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{auditid,jdbcType=VARCHAR}, #{audittime,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, #{standby1,jdbcType=VARCHAR}, 
+      #{standby2,jdbcType=VARCHAR}, #{standby3,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, 
+      #{paperid,jdbcType=VARCHAR}, #{userpaper,jdbcType=VARCHAR}, #{releaser,jdbcType=VARCHAR}, 
+      #{releasetime,jdbcType=TIMESTAMP}, #{trustor,jdbcType=VARCHAR}, #{trustortime,jdbcType=TIMESTAMP}, 
+      #{addauthorizeflag,jdbcType=VARCHAR}, #{period,jdbcType=DOUBLE}, #{disabledpersons,jdbcType=VARCHAR}, 
+      #{passscore,jdbcType=DOUBLE}, #{forpeople,jdbcType=VARCHAR}, #{authorizedvisible,jdbcType=VARCHAR}, 
+      #{learningperiod,jdbcType=DOUBLE}, #{courseprice,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, 
+      #{coursesectype,jdbcType=VARCHAR}, #{coursethirtype,jdbcType=VARCHAR}, #{iffreecourse,jdbcType=VARCHAR}, 
+      #{zannum,jdbcType=VARCHAR}, #{into,jdbcType=VARCHAR}, #{espkey,jdbcType=VARCHAR}, 
+      #{courseuploadtype,jdbcType=VARCHAR}, #{auditmarks,jdbcType=LONGVARCHAR}, #{remarks,jdbcType=LONGVARCHAR}, 
+      #{releasemarks,jdbcType=LONGVARCHAR}, #{trustormarks,jdbcType=LONGVARCHAR}, #{addauthorizeremarks,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.app.TCourseInfoWithBLOBs" >
+    insert into t_courseinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        COURSEID,
+      </if>
+      <if test="coursename != null" >
+        COURSENAME,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="control != null" >
+        CONTROL,
+      </if>
+      <if test="categoryid != null" >
+        CATEGORYID,
+      </if>
+      <if test="staffid != null" >
+        STAFFID,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="auditid != null" >
+        AUDITID,
+      </if>
+      <if test="audittime != null" >
+        AUDITTIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="keywords != null" >
+        KEYWORDS,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+      <if test="flag != null" >
+        FLAG,
+      </if>
+      <if test="paperid != null" >
+        PAPERID,
+      </if>
+      <if test="userpaper != null" >
+        USERPAPER,
+      </if>
+      <if test="releaser != null" >
+        RELEASER,
+      </if>
+      <if test="releasetime != null" >
+        RELEASETIME,
+      </if>
+      <if test="trustor != null" >
+        TRUSTOR,
+      </if>
+      <if test="trustortime != null" >
+        TRUSTORTIME,
+      </if>
+      <if test="addauthorizeflag != null" >
+        ADDAUTHORIZEFLAG,
+      </if>
+      <if test="period != null" >
+        PERIOD,
+      </if>
+      <if test="disabledpersons != null" >
+        DISABLEDPERSONS,
+      </if>
+      <if test="passscore != null" >
+        PASSSCORE,
+      </if>
+      <if test="forpeople != null" >
+        FORPEOPLE,
+      </if>
+      <if test="authorizedvisible != null" >
+        AUTHORIZEDVISIBLE,
+      </if>
+      <if test="learningperiod != null" >
+        LEARNINGPERIOD,
+      </if>
+      <if test="courseprice != null" >
+        COURSEPRICE,
+      </if>
+      <if test="discount != null" >
+        DISCOUNT,
+      </if>
+      <if test="coursesectype != null" >
+        courseSecType,
+      </if>
+      <if test="coursethirtype != null" >
+        courseThirType,
+      </if>
+      <if test="iffreecourse != null" >
+        ifFreeCourse,
+      </if>
+      <if test="zannum != null" >
+        zanNum,
+      </if>
+      <if test="into != null" >
+        into,
+      </if>
+      <if test="espkey != null" >
+        espKey,
+      </if>
+      <if test="courseuploadtype != null" >
+        courseUploadType,
+      </if>
+      <if test="auditmarks != null" >
+        AUDITMARKS,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="releasemarks != null" >
+        RELEASEMARKS,
+      </if>
+      <if test="trustormarks != null" >
+        TRUSTORMARKS,
+      </if>
+      <if test="addauthorizeremarks != null" >
+        ADDAUTHORIZEREMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="coursename != null" >
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=VARCHAR},
+      </if>
+      <if test="control != null" >
+        #{control,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="staffid != null" >
+        #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditid != null" >
+        #{auditid,jdbcType=VARCHAR},
+      </if>
+      <if test="audittime != null" >
+        #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null" >
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="userpaper != null" >
+        #{userpaper,jdbcType=VARCHAR},
+      </if>
+      <if test="releaser != null" >
+        #{releaser,jdbcType=VARCHAR},
+      </if>
+      <if test="releasetime != null" >
+        #{releasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trustor != null" >
+        #{trustor,jdbcType=VARCHAR},
+      </if>
+      <if test="trustortime != null" >
+        #{trustortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addauthorizeflag != null" >
+        #{addauthorizeflag,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=DOUBLE},
+      </if>
+      <if test="disabledpersons != null" >
+        #{disabledpersons,jdbcType=VARCHAR},
+      </if>
+      <if test="passscore != null" >
+        #{passscore,jdbcType=DOUBLE},
+      </if>
+      <if test="forpeople != null" >
+        #{forpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizedvisible != null" >
+        #{authorizedvisible,jdbcType=VARCHAR},
+      </if>
+      <if test="learningperiod != null" >
+        #{learningperiod,jdbcType=DOUBLE},
+      </if>
+      <if test="courseprice != null" >
+        #{courseprice,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="coursesectype != null" >
+        #{coursesectype,jdbcType=VARCHAR},
+      </if>
+      <if test="coursethirtype != null" >
+        #{coursethirtype,jdbcType=VARCHAR},
+      </if>
+      <if test="iffreecourse != null" >
+        #{iffreecourse,jdbcType=VARCHAR},
+      </if>
+      <if test="zannum != null" >
+        #{zannum,jdbcType=VARCHAR},
+      </if>
+      <if test="into != null" >
+        #{into,jdbcType=VARCHAR},
+      </if>
+      <if test="espkey != null" >
+        #{espkey,jdbcType=VARCHAR},
+      </if>
+      <if test="courseuploadtype != null" >
+        #{courseuploadtype,jdbcType=VARCHAR},
+      </if>
+      <if test="auditmarks != null" >
+        #{auditmarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="releasemarks != null" >
+        #{releasemarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="trustormarks != null" >
+        #{trustormarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addauthorizeremarks != null" >
+        #{addauthorizeremarks,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.app.TCourseInfoWithBLOBs" >
+    update t_courseinfo
+    <set >
+      <if test="coursename != null" >
+        COURSENAME = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=VARCHAR},
+      </if>
+      <if test="control != null" >
+        CONTROL = #{control,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        CATEGORYID = #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="staffid != null" >
+        STAFFID = #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditid != null" >
+        AUDITID = #{auditid,jdbcType=VARCHAR},
+      </if>
+      <if test="audittime != null" >
+        AUDITTIME = #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        KEYWORDS = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        FLAG = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null" >
+        PAPERID = #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="userpaper != null" >
+        USERPAPER = #{userpaper,jdbcType=VARCHAR},
+      </if>
+      <if test="releaser != null" >
+        RELEASER = #{releaser,jdbcType=VARCHAR},
+      </if>
+      <if test="releasetime != null" >
+        RELEASETIME = #{releasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trustor != null" >
+        TRUSTOR = #{trustor,jdbcType=VARCHAR},
+      </if>
+      <if test="trustortime != null" >
+        TRUSTORTIME = #{trustortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addauthorizeflag != null" >
+        ADDAUTHORIZEFLAG = #{addauthorizeflag,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        PERIOD = #{period,jdbcType=DOUBLE},
+      </if>
+      <if test="disabledpersons != null" >
+        DISABLEDPERSONS = #{disabledpersons,jdbcType=VARCHAR},
+      </if>
+      <if test="passscore != null" >
+        PASSSCORE = #{passscore,jdbcType=DOUBLE},
+      </if>
+      <if test="forpeople != null" >
+        FORPEOPLE = #{forpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizedvisible != null" >
+        AUTHORIZEDVISIBLE = #{authorizedvisible,jdbcType=VARCHAR},
+      </if>
+      <if test="learningperiod != null" >
+        LEARNINGPERIOD = #{learningperiod,jdbcType=DOUBLE},
+      </if>
+      <if test="courseprice != null" >
+        COURSEPRICE = #{courseprice,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null" >
+        DISCOUNT = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="coursesectype != null" >
+        courseSecType = #{coursesectype,jdbcType=VARCHAR},
+      </if>
+      <if test="coursethirtype != null" >
+        courseThirType = #{coursethirtype,jdbcType=VARCHAR},
+      </if>
+      <if test="iffreecourse != null" >
+        ifFreeCourse = #{iffreecourse,jdbcType=VARCHAR},
+      </if>
+      <if test="zannum != null" >
+        zanNum = #{zannum,jdbcType=VARCHAR},
+      </if>
+      <if test="into != null" >
+        into = #{into,jdbcType=VARCHAR},
+      </if>
+      <if test="espkey != null" >
+        espKey = #{espkey,jdbcType=VARCHAR},
+      </if>
+      <if test="courseuploadtype != null" >
+        courseUploadType = #{courseuploadtype,jdbcType=VARCHAR},
+      </if>
+      <if test="auditmarks != null" >
+        AUDITMARKS = #{auditmarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="releasemarks != null" >
+        RELEASEMARKS = #{releasemarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="trustormarks != null" >
+        TRUSTORMARKS = #{trustormarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addauthorizeremarks != null" >
+        ADDAUTHORIZEREMARKS = #{addauthorizeremarks,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.app.TCourseInfoWithBLOBs" >
+    update t_courseinfo
+    set COURSENAME = #{coursename,jdbcType=VARCHAR},
+      ACTIVE = #{active,jdbcType=VARCHAR},
+      CONTROL = #{control,jdbcType=VARCHAR},
+      CATEGORYID = #{categoryid,jdbcType=VARCHAR},
+      STAFFID = #{staffid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      AUDITID = #{auditid,jdbcType=VARCHAR},
+      AUDITTIME = #{audittime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=VARCHAR},
+      KEYWORDS = #{keywords,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      FLAG = #{flag,jdbcType=VARCHAR},
+      PAPERID = #{paperid,jdbcType=VARCHAR},
+      USERPAPER = #{userpaper,jdbcType=VARCHAR},
+      RELEASER = #{releaser,jdbcType=VARCHAR},
+      RELEASETIME = #{releasetime,jdbcType=TIMESTAMP},
+      TRUSTOR = #{trustor,jdbcType=VARCHAR},
+      TRUSTORTIME = #{trustortime,jdbcType=TIMESTAMP},
+      ADDAUTHORIZEFLAG = #{addauthorizeflag,jdbcType=VARCHAR},
+      PERIOD = #{period,jdbcType=DOUBLE},
+      DISABLEDPERSONS = #{disabledpersons,jdbcType=VARCHAR},
+      PASSSCORE = #{passscore,jdbcType=DOUBLE},
+      FORPEOPLE = #{forpeople,jdbcType=VARCHAR},
+      AUTHORIZEDVISIBLE = #{authorizedvisible,jdbcType=VARCHAR},
+      LEARNINGPERIOD = #{learningperiod,jdbcType=DOUBLE},
+      COURSEPRICE = #{courseprice,jdbcType=DOUBLE},
+      DISCOUNT = #{discount,jdbcType=DOUBLE},
+      courseSecType = #{coursesectype,jdbcType=VARCHAR},
+      courseThirType = #{coursethirtype,jdbcType=VARCHAR},
+      ifFreeCourse = #{iffreecourse,jdbcType=VARCHAR},
+      zanNum = #{zannum,jdbcType=VARCHAR},
+      into = #{into,jdbcType=VARCHAR},
+      espKey = #{espkey,jdbcType=VARCHAR},
+      courseUploadType = #{courseuploadtype,jdbcType=VARCHAR},
+      AUDITMARKS = #{auditmarks,jdbcType=LONGVARCHAR},
+      REMARKS = #{remarks,jdbcType=LONGVARCHAR},
+      RELEASEMARKS = #{releasemarks,jdbcType=LONGVARCHAR},
+      TRUSTORMARKS = #{trustormarks,jdbcType=LONGVARCHAR},
+      ADDAUTHORIZEREMARKS = #{addauthorizeremarks,jdbcType=LONGVARCHAR}
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.app.TCourseInfo" >
+    update t_courseinfo
+    set COURSENAME = #{coursename,jdbcType=VARCHAR},
+      ACTIVE = #{active,jdbcType=VARCHAR},
+      CONTROL = #{control,jdbcType=VARCHAR},
+      CATEGORYID = #{categoryid,jdbcType=VARCHAR},
+      STAFFID = #{staffid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      AUDITID = #{auditid,jdbcType=VARCHAR},
+      AUDITTIME = #{audittime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=VARCHAR},
+      KEYWORDS = #{keywords,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      FLAG = #{flag,jdbcType=VARCHAR},
+      PAPERID = #{paperid,jdbcType=VARCHAR},
+      USERPAPER = #{userpaper,jdbcType=VARCHAR},
+      RELEASER = #{releaser,jdbcType=VARCHAR},
+      RELEASETIME = #{releasetime,jdbcType=TIMESTAMP},
+      TRUSTOR = #{trustor,jdbcType=VARCHAR},
+      TRUSTORTIME = #{trustortime,jdbcType=TIMESTAMP},
+      ADDAUTHORIZEFLAG = #{addauthorizeflag,jdbcType=VARCHAR},
+      PERIOD = #{period,jdbcType=DOUBLE},
+      DISABLEDPERSONS = #{disabledpersons,jdbcType=VARCHAR},
+      PASSSCORE = #{passscore,jdbcType=DOUBLE},
+      FORPEOPLE = #{forpeople,jdbcType=VARCHAR},
+      AUTHORIZEDVISIBLE = #{authorizedvisible,jdbcType=VARCHAR},
+      LEARNINGPERIOD = #{learningperiod,jdbcType=DOUBLE},
+      COURSEPRICE = #{courseprice,jdbcType=DOUBLE},
+      DISCOUNT = #{discount,jdbcType=DOUBLE},
+      courseSecType = #{coursesectype,jdbcType=VARCHAR},
+      courseThirType = #{coursethirtype,jdbcType=VARCHAR},
+      ifFreeCourse = #{iffreecourse,jdbcType=VARCHAR},
+      zanNum = #{zannum,jdbcType=VARCHAR},
+      into = #{into,jdbcType=VARCHAR},
+      espKey = #{espkey,jdbcType=VARCHAR},
+      courseUploadType = #{courseuploadtype,jdbcType=VARCHAR}
+    where COURSEID = #{courseid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectCourseInfoByFillter" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseInfo" >
+    SELECT
+		t1.COURSEID as courseid,
+		t1.COURSENAME as coursename,
+		t1.STANDBY1 as filename,
+		t1.courseUploadType,
+		t1.espKey,
+		t2.IMGNAME as imagename,
+		case when t3.count is null then 0 else t3.count end as praisecount,
+		case when t4.count is null then 0 else t4.count end as commentcount,
+		case when t6.id is null then 0 else 1 end as praiseflag
+	FROM
+		t_courseinfo t1
+	LEFT JOIN t_course_image t2
+	  ON t1.COURSEID = t2.COURSEID
+	LEFT JOIN (select count(id) count, course_id
+	             from t_course_praise
+	         group by course_id) t3
+	  ON t1.COURSEID = t3.course_id
+	LEFT JOIN (select count(id) count, course_id
+	             from t_course_comment
+	            where enable_flag = '1'
+	              and parent_id is null
+	         group by course_id) t4
+	  ON t1.COURSEID = t4.course_id
+	LEFT JOIN t_user_learning_course t5
+	  ON t1.COURSEID = t5.COURSEID
+	 AND t5.USERID = #{userId,jdbcType=VARCHAR}
+	LEFT JOIN t_course_praise t6
+	  ON t1.COURSEID = t6.course_id
+	 AND t6.user_id = #{userId,jdbcType=VARCHAR}
+	WHERE
+		t1.ACTIVE = '6'
+	  AND
+		t1.courseSecType = #{coursesectype,jdbcType=VARCHAR}
+      AND
+        t5.COURSEID is not null
+   ORDER BY t1.CREATETIME
+  </select>
+  <select id="selectByCourseType" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseInfo" >
+    SELECT
+		t1.COURSEID as courseid,
+		t1.COURSENAME as coursename,
+		t1.STANDBY1 as filename,
+		t1.courseUploadType,
+		t1.espKey,
+		t2.IMGNAME as imagename,
+		t3.COURSETYPENAME as coursetypename,
+		t3.COURSETYPENAME_EN as coursetypenameEn,
+		case when t4.count is null then 0 else t4.count end as praisecount,
+		case when t5.count is null then 0 else t5.count end as commentcount,
+		case when t6.COURSEID is null then 0 else 1 end as learnState
+	FROM
+		t_courseinfo t1
+	LEFT JOIN t_course_image t2
+	  ON t1.COURSEID = t2.COURSEID
+	LEFT JOIN t_course_type t3
+	  ON t1.courseSecType = t3.id
+	 AND t3.REMOVED = 0
+	LEFT JOIN (select count(id) count, course_id
+	             from t_course_praise
+	         group by course_id) t4
+	  ON t1.COURSEID = t4.course_id
+	LEFT JOIN (select count(id) count, course_id
+	             from t_course_comment
+	            where enable_flag = '1'
+	              and parent_id is null
+	         group by course_id) t5
+	  ON t1.COURSEID = t5.course_id
+	LEFT JOIN t_user_learning_course t6
+	  ON t1.COURSEID = t6.COURSEID
+	 AND t6.USERID = #{userId,jdbcType=VARCHAR}
+	WHERE
+		t1.ACTIVE = '6'
+	  AND
+		t1.courseSecType = #{coursesectype,jdbcType=VARCHAR}
+	ORDER BY t1.CREATETIME
+  </select>
+  <select id="selectCourseDetailByCourseId" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseInfo" >
+    SELECT
+		t1.COURSENAME as coursename,
+		t1.STANDBY1 as filename,
+		t1.courseUploadType,
+		t1.espKey,
+		case when t2.IMGNAME is null then '' else t2.IMGNAME end as imagename,
+		t1.CREATETIME as createtime,
+		t3.COURSETYPENAME as courseflagname,
+		t3.COURSETYPENAME_EN as courseflagnameEn,
+		t4.COURSETYPENAME as coursesectypename,
+		t4.COURSETYPENAME_EN as coursesectypenameEn,
+		case when t5.count is null then 0 else t5.count end as commentcount
+	FROM
+		t_courseinfo t1
+	LEFT JOIN t_course_image t2
+	  ON t1.COURSEID = t2.COURSEID
+	LEFT JOIN t_course_type t3
+	  ON t1.flag = t3.id
+	 AND t3.REMOVED = 0
+	LEFT JOIN t_course_type t4
+	  ON t1.courseSecType = t4.id
+	 AND t3.REMOVED = 0
+	LEFT JOIN (select count(id) count, course_id
+	             from t_course_comment
+	            where enable_flag = '1'
+	              and parent_id is null
+	         group by course_id) t5
+	  ON t1.COURSEID = t5.course_id
+	WHERE
+		t1.COURSEID = #{courseid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectCourseByTypeId" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.app.TCourseInfo" >
+    SELECT
+		t.COURSEID as course_id,
+		COURSENAME as course_name,
+		AUDITMARKS as course_desc,
+		DATE_FORMAT(RELEASETIME, '%Y-%m-%d') as create_time,
+		STANDBY1 AS file_name,
+		t2.IMGMOBILENAME as image_name,
+			t2.IMGNAME as big_image_name  
+	FROM
+		t_courseinfo t
+	LEFT JOIN t_course_image t2 ON t.COURSEID = t2.COURSEID
+	WHERE
+		courseSecType = #{typeId,jdbcType=VARCHAR} and ACTIVE=6 and courseUploadType in(1,3)
+	ORDER BY t.CREATETIME
+  </select>
+  
+  
+   <select id="selectLearningCourse" resultMap="ResultMapWithBLOBs" >
+   SELECT
+		c.COURSEID as course_id,
+		COURSENAME as course_name,
+		AUDITMARKS as course_desc,
+		DATE_FORMAT(RELEASETIME, '%Y-%m-%d') as create_time,
+		STANDBY1 AS file_name,
+		ci.IMGMOBILENAME as image_name,
+		ci.IMGNAME as big_image_name,
+		lc.credits ,
+		lc.learningtime,
+					case
+		when (
+			select
+				count(1)
+			from
+				t_course_praise p
+			where
+				p.course_id = lc.courseid
+			and p.user_id = #{1}
+		) then
+			'1'
+		else
+			'0'
+		end as 'is_praise'
+		
+from
+	t_user_learning_course lc
+LEFT JOIN t_courseinfo c ON lc.COURSEID = c.COURSEID
+	LEFT JOIN t_course_image ci ON c.COURSEID = ci.COURSEID
+	WHERE
+		courseSecType = #{0} and lc.userid = #{1} and ACTIVE=6 and courseUploadType in(1,3)
+	ORDER BY c.CREATETIME
+  </select>
+  
+  <select id="selectCourseInfoList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseInfo" >
+    select 
+    	a.COURSEID,
+		a.COURSENAME,
+		a.ACTIVE,
+		a.CONTROL,
+		a.CATEGORYID,
+		a.STAFFID,
+		date_format(a.CREATETIME, "%Y-%m-%d") CREATETIME,
+		a.AUDITID,
+		a.AUDITTIME,
+		a.VERSION,
+		a.KEYWORDS,
+		a.STANDBY1,
+		a.STANDBY2,
+		a.STANDBY3,
+		a.FLAG,
+		a.PAPERID,
+		a.USERPAPER,
+		a.RELEASER,
+		a.RELEASETIME,
+		a.TRUSTOR,
+		a.TRUSTORTIME,
+		a.ADDAUTHORIZEFLAG,
+		a.PERIOD,
+		a.DISABLEDPERSONS,
+		a.PASSSCORE,
+		a.FORPEOPLE,
+		a.AUTHORIZEDVISIBLE,
+		a.LEARNINGPERIOD,
+		a.COURSEPRICE,
+		a.DISCOUNT,
+		a.courseSecType,
+		a.courseThirType,
+		a.ifFreeCourse,
+		a.zanNum,
+		a.espKey,
+		a.courseUploadType,
+		a.AUDITMARKS, a.REMARKS, a.RELEASEMARKS, a.TRUSTORMARKS, a.ADDAUTHORIZEREMARKS,
+		(select t.COURSETYPENAME from t_course_type t where t.ID = a.FLAG) courseTypeName,
+		(select t.COURSETYPENAME from t_course_type t where t.ID = a.courseSecType) courseSecTypeName,
+		b.IMGNAME,
+		b.IMGMOBILENAME,
+		b.id as imageId
+    from t_courseinfo a, t_course_image b
+    where a.COURSEID = b.COURSEID
+    and ACTIVE in('0','6')
+    <if test="coursename != null and coursename != ''" >
+		and upper(COURSENAME) LIKE upper(CONCAT('%', #{coursename,jdbcType=VARCHAR}, '%'))
+	</if>
+<!--     <if test="staffid != null and staffid != ''" > -->
+<!-- 		and STAFFID = #{staffid,jdbcType=VARCHAR} -->
+<!-- 	</if> -->
+    <if test="flag != null and flag != ''" >
+		and FLAG = #{flag,jdbcType=VARCHAR}
+	</if>
+    <if test="coursesectype != null and coursesectype != ''" >
+		and coursesectype = #{coursesectype,jdbcType=VARCHAR}
+	</if>
+    <if test="courseuploadtype != null and courseuploadtype != ''" >
+		and courseuploadtype = #{courseuploadtype,jdbcType=VARCHAR}
+	</if>
+    <if test="active != null and active != ''" >
+	    and ACTIVE = #{active,jdbcType=VARCHAR}
+	</if>
+	ORDER BY CREATETIME DESC
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteCourseInfo" parameterType="java.util.List">
+	update t_courseinfo set ACTIVE = '9'
+       where COURSEID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+  
+  <!-- 发布 -->
+  <update id="sendCourseInfo" parameterType="com.zxtech.ui.vo.app.TCourseInfo">
+	update t_courseinfo set releaser = #{releaser,jdbcType=VARCHAR}, RELEASETIME = now(), ACTIVE = #{active,jdbcType=VARCHAR}
+       where COURSEID = #{courseid,jdbcType=VARCHAR}
+  </update>
+</mapper>

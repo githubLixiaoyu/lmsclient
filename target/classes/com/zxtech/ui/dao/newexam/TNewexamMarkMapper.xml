@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newexam.TNewexamMarkMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="EXAMID" property="examid" jdbcType="VARCHAR" />
+    <id column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+    <id column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="COMMENTS" property="comments" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EXAMID, PAPERID, USERID, SCORE
+  </sql>
+  <sql id="Blob_Column_List" >
+    COMMENTS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewexamMarkKey" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_newexam_mark
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.zxtech.ui.vo.newexam.TNewexamMarkKey" >
+    delete from t_newexam_mark
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newexam.TNewexamMark" >
+    insert into t_newexam_mark (EXAMID, PAPERID, USERID, 
+      SCORE, COMMENTS)
+    values (#{examid,jdbcType=VARCHAR}, #{paperid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{score,jdbcType=DECIMAL}, #{comments,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newexam.TNewexamMark" >
+    insert into t_newexam_mark
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examid != null" >
+        EXAMID,
+      </if>
+      <if test="paperid != null" >
+        PAPERID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="score != null" >
+        SCORE,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examid != null" >
+        #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null" >
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newexam.TNewexamMark" >
+    update t_newexam_mark
+    <set >
+      <if test="score != null" >
+        SCORE = #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewexamMark" >
+    update t_newexam_mark
+    set SCORE = #{score,jdbcType=DECIMAL},
+      COMMENTS = #{comments,jdbcType=LONGVARCHAR}
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newexam.TNewexamMark" >
+    update t_newexam_mark
+    set SCORE = #{score,jdbcType=DECIMAL}
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

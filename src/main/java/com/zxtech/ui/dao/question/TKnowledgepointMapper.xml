@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.question.TKnowledgepointMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="POINT" property="point" jdbcType="VARCHAR" />
+    <result column="PARENTPOINT" property="parentpoint" jdbcType="VARCHAR" />
+    <result column="POINTNAME" property="pointname" jdbcType="VARCHAR" />
+    <result column="CATEGORYID" property="categoryid" jdbcType="VARCHAR" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="CATEGORYNAME" property="categoryname" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="REMARK" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    POINT, PARENTPOINT, POINTNAME, CATEGORYID, STANDBY1
+  </sql>
+  <sql id="Blob_Column_List" >
+    REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_knowledgepoint
+    where POINT = #{point,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_knowledgepoint
+    where POINT = #{point,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.question.TKnowledgepoint" >
+    insert into t_knowledgepoint (POINT, PARENTPOINT, POINTNAME, 
+      CATEGORYID, REMARK)
+    values (#{point,jdbcType=VARCHAR}, #{parentpoint,jdbcType=VARCHAR}, #{pointname,jdbcType=VARCHAR}, 
+      #{categoryid,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.question.TKnowledgepoint" >
+    insert into t_knowledgepoint
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="point != null" >
+        POINT,
+      </if>
+      <if test="parentpoint != null" >
+        PARENTPOINT,
+      </if>
+      <if test="pointname != null" >
+        POINTNAME,
+      </if>
+      <if test="categoryid != null" >
+        CATEGORYID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="point != null" >
+        #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="parentpoint != null" >
+        #{parentpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="pointname != null" >
+        #{pointname,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.question.TKnowledgepoint" >
+    update t_knowledgepoint
+    <set >
+      <if test="parentpoint != null" >
+        PARENTPOINT = #{parentpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="pointname != null" >
+        POINTNAME = #{pointname,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        CATEGORYID = #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where POINT = #{point,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.question.TKnowledgepoint" >
+    update t_knowledgepoint
+    set PARENTPOINT = #{parentpoint,jdbcType=VARCHAR},
+      POINTNAME = #{pointname,jdbcType=VARCHAR},
+      CATEGORYID = #{categoryid,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=LONGVARCHAR}
+    where POINT = #{point,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.question.TKnowledgepoint" >
+    update t_knowledgepoint
+    set PARENTPOINT = #{parentpoint,jdbcType=VARCHAR},
+      POINTNAME = #{pointname,jdbcType=VARCHAR},
+      CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+    where POINT = #{point,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectKnowledgepointList" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.question.TKnowledgepoint" >
+    SELECT
+		t.POINT,
+		t.PARENTPOINT,
+		t.POINTNAME,
+		t.CATEGORYID,
+		t.REMARK,
+		a.CATEGORYNAME
+	FROM
+		t_knowledgepoint t
+	LEFT JOIN t_question_category a ON t.CATEGORYID = a.CATEGORYID
+     where 1=1 and t.STANDBY1 = '0'
+	<if test="point != null and point != ''" >
+		and t.POINT = #{point,jdbcType=VARCHAR}
+	</if>
+	<if test="parentpoint != null" >
+		and t.PARENTPOINT = #{parentpoint,jdbcType=VARCHAR}
+	</if>
+	<if test="pointname != null and pointname != ''" >
+		and upper(t.POINTNAME) LIKE upper(CONCAT('%', #{pointname,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="remark != null and remark != ''" >
+		and upper(t.REMARK) LIKE upper(CONCAT('%', #{remark,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="categoryid != null and categoryid != ''" >
+		and t.CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+	</if>
+	<if test="standby1 != null and standby1 != ''" >
+		and t.STANDBY1 = #{standby1,jdbcType=VARCHAR}
+	</if>
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteKnowledgepoint" parameterType="java.util.List">
+	update t_knowledgepoint set STANDBY1 = '1'
+       where POINT in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+       or PARENTPOINT in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.question.TQuestionsOptionsMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="OPTIONSID" property="optionsid" jdbcType="VARCHAR" />
+    <result column="QUESTIONSID" property="questionsid" jdbcType="VARCHAR" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="OPTIONSCONTENT" property="optionscontent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OPTIONSID, QUESTIONSID, STANDBY1, STANDBY2, STANDBY3, level
+  </sql>
+  <sql id="Blob_Column_List" >
+    OPTIONSCONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_questions_options
+    where OPTIONSID = #{optionsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_questions_options
+    where OPTIONSID = #{optionsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.question.TQuestionsOptions" >
+    insert into t_questions_options (OPTIONSID, QUESTIONSID, STANDBY1, 
+      STANDBY2, STANDBY3, level, 
+      OPTIONSCONTENT)
+    values (#{optionsid,jdbcType=VARCHAR}, #{questionsid,jdbcType=VARCHAR}, #{standby1,jdbcType=VARCHAR}, 
+      #{standby2,jdbcType=VARCHAR}, #{standby3,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
+      #{optionscontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.question.TQuestionsOptions" >
+    insert into t_questions_options
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="optionsid != null" >
+        OPTIONSID,
+      </if>
+      <if test="questionsid != null" >
+        QUESTIONSID,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="optionscontent != null" >
+        OPTIONSCONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="optionsid != null" >
+        #{optionsid,jdbcType=VARCHAR},
+      </if>
+      <if test="questionsid != null" >
+        #{questionsid,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="optionscontent != null" >
+        #{optionscontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.question.TQuestionsOptions" >
+    update t_questions_options
+    <set >
+      <if test="questionsid != null" >
+        QUESTIONSID = #{questionsid,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="optionscontent != null" >
+        OPTIONSCONTENT = #{optionscontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where OPTIONSID = #{optionsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.question.TQuestionsOptions" >
+    update t_questions_options
+    set QUESTIONSID = #{questionsid,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      OPTIONSCONTENT = #{optionscontent,jdbcType=LONGVARCHAR}
+    where OPTIONSID = #{optionsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.question.TQuestionsOptions" >
+    update t_questions_options
+    set QUESTIONSID = #{questionsid,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER}
+    where OPTIONSID = #{optionsid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectQuestionsOptionsList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.question.TQuestionsOptions" >
+    select 
+	<include refid="Base_Column_List" />,
+	<include refid="Blob_Column_List" />
+      from t_questions_options
+     where 1=1
+     <if test="questionsid != null and questionsid != ''" >
+		and QUESTIONSID = #{questionsid,jdbcType=VARCHAR}
+	</if>
+     <if test="optionscontent != null and optionscontent != ''" >
+     	and upper(OPTIONSCONTENT) LIKE upper(CONCAT('%', #{optionscontent,jdbcType=VARCHAR}, '%'))
+	</if>
+     <if test="optionsid != null and optionsid != ''" >
+		and OPTIONSID = #{optionsid,jdbcType=VARCHAR}
+	</if>
+	order by level
+  </select>
+  
+  <delete id="deleteByQuestionsid" parameterType="java.lang.String" >
+    delete from t_questions_options
+    where QUESTIONSID = #{questionsid,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除 -->
+  <delete id="deleteQuestionsOptions" parameterType="java.util.List" >
+	  delete from t_questions_options
+	    where QUESTIONSID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+</mapper>

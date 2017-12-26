@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.permissions.TLoginInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zxtech.ui.vo.permissions.TLoginInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="LOGINCODE" property="logincode" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="auth_id" property="authId" jdbcType="VARCHAR" />
+    <result column="DEPARTID" property="departid" jdbcType="VARCHAR" />
+    <result column="DEPARTNAME" property="departname" jdbcType="VARCHAR" />
+    <result column="auth_name" property="authName" jdbcType="VARCHAR" />
+    <result column="loginNum" property="loginNum" jdbcType="VARCHAR" />
+    <result column="lastLoginDate" property="lastLoginDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, student_id, create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_login_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_login_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.permissions.TLoginInfo" >
+    insert into t_login_info (id, student_id, create_date
+      )
+    values (#{id,jdbcType=BIGINT}, #{studentId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.permissions.TLoginInfo" >
+    insert into t_login_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.permissions.TLoginInfo" >
+    update t_login_info
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.permissions.TLoginInfo" >
+    update t_login_info
+    set student_id = #{studentId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectLoginIfoList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.permissions.TLoginInfo" >
+  	SELECT * FROM(
+  		SELECT
+			t.student_id,
+			t.create_date,
+			tps.`NAME`,
+			tps.LOGINCODE,
+			tps.NICKNAME,
+			tps.auth_id,
+			tps.DEPARTID,
+			tpsd.DEPARTNAME,
+			(SELECT auth_name FROM t_auth t WHERE t.id = tps.auth_id) auth_name,
+			COUNT(t.student_id) loginNum,
+			date_format(max(t.create_date), "%Y-%m-%d %H:%i:%s") as lastLoginDate
+		FROM
+			t_login_info t
+		LEFT JOIN t_permissions_studentinfo tps ON t.student_id = tps.STUDENTID
+		LEFT JOIN t_permissions_student_depart tpsd ON tps.DEPARTID = tpsd.DEPARTID
+		WHERE 1=1
+		<if test="studentId != null and studentId != ''" >
+			and t.student_id = #{studentId,jdbcType=VARCHAR}
+		</if>
+		<if test="startDate != null and startDate != ''" >
+			<![CDATA[ 
+				 AND t.create_date > DATE_FORMAT(#{startDate,jdbcType=VARCHAR}, '%Y-%m-%d %H:%i:%s')
+			]]> 
+		</if>
+		<if test="endDate != null and endDate != ''" >
+			<![CDATA[ 
+				 AND t.create_date < DATE_FORMAT(#{endDate,jdbcType=VARCHAR}, '%Y-%m-%d %H:%i:%s')
+			]]> 
+		</if>
+		<if test="departid != null and departid != ''" >
+			and tps.DEPARTID = #{departid,jdbcType=BIGINT}
+		</if>
+		<if test="authId != null and authId != ''" >
+			and tps.auth_id = #{authId,jdbcType=BIGINT}
+		</if>
+		<if test="logincode != null and logincode != ''" >
+			and upper(tps.LOGINCODE) LIKE upper(CONCAT('%', #{logincode,jdbcType=VARCHAR}, '%'))
+		</if>
+		<if test="name != null and name != ''" >
+			and upper(tps.NAME) LIKE upper(CONCAT('%', #{name,jdbcType=VARCHAR}, '%'))
+		</if>
+		GROUP BY t.student_id
+  	) res WHERE 1=1
+  	<if test="startTimes != null and startTimes != ''" >
+		<![CDATA[ 
+			 AND res.loginNum > #{startTimes,jdbcType=BIGINT}
+		]]> 
+	</if>
+  	<if test="endTimes != null and endTimes != ''" >
+		<![CDATA[ 
+			 AND res.loginNum < #{endTimes,jdbcType=BIGINT}
+		]]> 
+	</if>
+  	
+  </select>
+</mapper>

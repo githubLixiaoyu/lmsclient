@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newtestpaper.TNewtestpaperQuestionMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+    <id column="QUESTIONID" property="questionid" jdbcType="VARCHAR" />
+    <id column="TYPEID" property="typeid" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="DOUBLE" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="DIFFICULTY" property="difficulty" jdbcType="VARCHAR" />
+    <result column="POINTSID" property="pointsid" jdbcType="VARCHAR" />
+    <result column="difficultyName" property="difficultyname" jdbcType="VARCHAR" />
+    <result column="categoryname" property="categoryname" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="OPTIONSCONTENT" property="optionsContent" jdbcType="VARCHAR" />
+    <result column="TOTLEQUESTIONS" property="totleQuestions" jdbcType="DOUBLE" />
+    <result column="TITLESCORE" property="titleScore" jdbcType="DOUBLE" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="USERANSWER" property="userAnswer" jdbcType="VARCHAR" />
+    <result column="PROBLEMSTATE" property="problemState" jdbcType="VARCHAR" />
+    <result column="ANSWER" property="answer" jdbcType="VARCHAR" />
+    <result column="OPTIONSID" property="optionsId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PAPERID, QUESTIONID, TYPEID, SCORE, DISPALY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestionKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_newtestpaper_question
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+      and QUESTIONID = #{questionid,jdbcType=VARCHAR}
+      and TYPEID = #{typeid,jdbcType=VARCHAR}
+  </select>
+  <select id="getPaperInfoById" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newtestpaper.TNewTestpaperInfo" >
+       select t1.QUESTIONID,
+              t1.TYPEID,
+              t1.SCORE,
+              t2.CONTENT,
+              t3.NAME,
+              t4.OPTIONSID,
+              t4.OPTIONSCONTENT,
+              t4.level,
+              t5.TOTLEQUESTIONS,
+              t5.TITLESCORE
+         from t_newtestpaper_question t1
+    left join t_questionsinfo t2
+           on t1.QUESTIONID = t2.QUESTIONSID
+    left join t_questionstype t3
+           on t1.TYPEID = t3.TYPEID
+    left join t_questions_options t4
+           on t2.QUESTIONSID = t4.QUESTIONSID
+    left join t_randompaper_questiontype t5
+           on t1.PAPERID = t5.PAPERID
+          and t1.TYPEID = t5.TYPEID
+    left join t_new_testpaper_info t6
+           on t1.PAPERID = t6.PAPERID
+        where t2.FLOWSTATUS = '2'
+<!--           and t6.STATUS = '2' -->
+          and t1.PAPERID = #{paperid,jdbcType=VARCHAR}
+     order by t1.TYPEID, t1.QUESTIONID, t4.LEVEL
+  </select>
+  <select id="selectPaperOptionsByFilter" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+       select t1.QUESTIONID,
+              t1.TYPEID,
+              t1.SCORE,
+              t2.CONTENT,
+              t2.ANSWER,
+              case when t2.REMARKS is not null then t2.REMARKS else '' end AS REMARKS,
+              t3.NAME,
+              t4.OPTIONSID,
+              t4.OPTIONSCONTENT,
+              t4.level,
+              t5.TOTLEQUESTIONS,
+              t5.TITLESCORE,
+              case when t8.ANSWER is not null then t8.ANSWER else '' end AS USERANSWER,
+              case when t8.PROBLEMSTATE is not null then t8.PROBLEMSTATE else '0' end AS PROBLEMSTATE
+         from t_newtestpaper_question t1
+    left join t_questionsinfo t2
+           on t1.QUESTIONID = t2.QUESTIONSID
+    left join t_questionstype t3
+           on t1.TYPEID = t3.TYPEID
+    left join t_questions_options t4
+           on t2.QUESTIONSID = t4.QUESTIONSID
+    left join t_randompaper_questiontype t5
+           on t1.PAPERID = t5.PAPERID
+          and t1.TYPEID = t5.TYPEID
+    left join t_newexam_info t6
+           on t1.PAPERID = t6.USERPAPER
+    left join t_new_testpaper_info t7
+           on t1.PAPERID = t7.PAPERID
+    left join t_newexam_procedure t8
+           on t6.EXAMID = t8.EXAMID
+          and t1.QUESTIONID = t8.QUESTIONID
+          and t8.USERID = #{loginUserId,jdbcType=VARCHAR}
+        where t2.FLOWSTATUS = '2'
+          and t6.STATUS = '2'
+          and t7.STATUS = '2'
+          and t6.EXAMID = #{examid,jdbcType=VARCHAR}
+     order by t1.TYPEID, t1.QUESTIONID, t4.LEVEL
+  </select>
+  <select id="selectPaperAnswersByFilter" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+       select t1.QUESTIONID,
+              t2.ANSWER,
+              case when t2.REMARKS is not null then t2.REMARKS else '' end AS REMARKS,
+              t3.level
+         from t_newtestpaper_question t1
+    left join t_questionsinfo t2
+           on t1.QUESTIONID = t2.QUESTIONSID
+    left join t_questions_options t3
+           on INSTR(t2.ANSWER,t3.OPTIONSID) > 0
+    left join t_newexam_info t4
+           on t1.PAPERID = t4.USERPAPER
+    left join t_new_testpaper_info t5
+           on t1.PAPERID = t5.PAPERID
+        where t5.STATUS = '2'
+          and t2.FLOWSTATUS = '2'
+          and t4.STATUS = '2'
+          and t4.EXAMID = #{examid,jdbcType=VARCHAR}
+     order by t1.TYPEID, t1.QUESTIONID, t3.LEVEL
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestionKey" >
+    delete from t_newtestpaper_question
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+      and QUESTIONID = #{questionid,jdbcType=VARCHAR}
+      and TYPEID = #{typeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestion" >
+    insert into t_newtestpaper_question (PAPERID, QUESTIONID, TYPEID, 
+      SCORE, DISPALY)
+    values (#{paperid,jdbcType=VARCHAR}, #{questionid,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, 
+      #{score,jdbcType=DOUBLE}, #{dispaly,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestion" >
+    insert into t_newtestpaper_question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paperid != null" >
+        PAPERID,
+      </if>
+      <if test="questionid != null" >
+        QUESTIONID,
+      </if>
+      <if test="typeid != null" >
+        TYPEID,
+      </if>
+      <if test="score != null" >
+        SCORE,
+      </if>
+      <if test="dispaly != null" >
+        DISPALY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paperid != null" >
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="questionid != null" >
+        #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="dispaly != null" >
+        #{dispaly,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestion" >
+    update t_newtestpaper_question
+    <set >
+      <if test="score != null" >
+        SCORE = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="dispaly != null" >
+        DISPALY = #{dispaly,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+      and QUESTIONID = #{questionid,jdbcType=VARCHAR}
+      and TYPEID = #{typeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestion" >
+    update t_newtestpaper_question
+    set SCORE = #{score,jdbcType=DOUBLE},
+      DISPALY = #{dispaly,jdbcType=VARCHAR}
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+      and QUESTIONID = #{questionid,jdbcType=VARCHAR}
+      and TYPEID = #{typeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectNewtestpaperQuestionList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestion" >
+    select * from (
+    	select t.PAPERID,t.TYPEID,t.QUESTIONID,t.SCORE,t.DISPALY,q.CONTENT ,q.DIFFICULTY,q.POINTSID,
+		(select a.difficulty_name from t_question_difficulty a where a.difficulty_id=q.DIFFICULTY) difficultyName,
+		(select c.CATEGORYNAME from t_question_category c where c.CATEGORYID = q.POINTSID) categoryname
+		from t_newtestpaper_question t 
+		LEFT JOIN t_questionsinfo q 
+		on t.QUESTIONID=q.QUESTIONSID 
+		where t.PAPERID = #{paperid,jdbcType=VARCHAR} and t.TYPEID = #{typeid,jdbcType=VARCHAR}
+    ) res where 1=1
+	<if test="difficulty != null and difficulty != ''" >
+		and res.DIFFICULTY = #{difficulty,jdbcType=VARCHAR}
+	</if>
+	<if test="content != null and content != ''" >
+		and upper(res.CONTENT) LIKE upper(CONCAT('%', #{content,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="pointsid != null and pointsid != ''" >
+		and res.POINTSID = #{pointsid,jdbcType=VARCHAR}
+	</if>
+  </select>
+  <delete id="deleteByTypeIdAndPaperId" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestionKey" >
+    delete from t_newtestpaper_question
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+      and TYPEID = #{typeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertRandomQuestions" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestion" >
+    INSERT INTO t_newtestpaper_question (
+			paperid,
+			typeid,
+			questionid,
+			score,
+			dispaly,
+			DIFFICULTYDETAILID
+		) SELECT
+			#{paperid,jdbcType=VARCHAR},
+			res.TYPEID,
+			res.QUESTIONSID,
+			#{score,jdbcType=VARCHAR},
+			#{dispaly,jdbcType=VARCHAR},
+			#{difficultydetailid,jdbcType=VARCHAR}
+			from (
+				select * from(
+					SELECT t.TYPEID, t.QUESTIONSID, t.POINTSID,t.DIFFICULTY, t.FLOWSTATUS FROM t_questionsinfo t
+						LEFT JOIN t_permissions_studentinfo tps on t.STAFFID = tps.STUDENTID 
+						LEFT JOIN t_permissions_student_depart tpsd on tps.DEPARTID = tpsd.DEPARTID
+	     			where 1=1
+				     and tpsd.DEPARTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+					  or tpsd.PARENTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+				) r1 where r1.QUESTIONSID not in(select tnq.QUESTIONID from t_newtestpaper_question tnq where tnq.PAPERID=#{paperid,jdbcType=VARCHAR} and tnq.TYPEID=#{typeid,jdbcType=VARCHAR})
+			)res
+		WHERE
+			res.FLOWSTATUS = 2
+			AND res.TYPEID = #{typeid,jdbcType=VARCHAR}
+		<if test="difficulty != null and difficulty != ''" >
+			and res.DIFFICULTY = #{difficulty,jdbcType=VARCHAR}
+		</if>
+<!-- 		<if test="difficulty == '3e08af3e-7266-11e7-8cf7-a6006ad3dba0'" > -->
+<!-- 			AND res.DIFFICULTY in('3e08af3e-7266-11e7-8cf7-a6006ad3dba0','1') -->
+<!-- 		</if> -->
+<!-- 		<if test="difficulty == '3e08b556-7266-11e7-8cf7-a6006ad3dba0'" > -->
+<!-- 			AND res.DIFFICULTY in('3e08b556-7266-11e7-8cf7-a6006ad3dba0','3') -->
+<!-- 		</if> -->
+<!-- 		<if test="difficulty == '3e08b7ae-7266-11e7-8cf7-a6006ad3dba0'" > -->
+<!-- 			AND res.DIFFICULTY in('3e08b7ae-7266-11e7-8cf7-a6006ad3dba0','5') -->
+<!-- 		</if> -->
+		<if test="pointsid != null and pointsid != ''" >
+			and res.POINTSID = #{pointsid,jdbcType=VARCHAR}
+		</if>
+		ORDER BY
+			RAND()
+		LIMIT #{randomNum,jdbcType=INTEGER}
+  </insert>
+  <delete id="deleteRandomQuestions" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperQuestion" >
+    delete from t_newtestpaper_question
+    where DIFFICULTYDETAILID in(select t.ID from t_randompaper_difficulty t where t.DIFFICULTYID = #{difficultydetailid,jdbcType=VARCHAR})
+  </delete>
+</mapper>

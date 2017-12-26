@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//Apache//DTD Log4j 1.2//EN"
+                                    "http://logging.apache.org/log4j/docs/api/org/apache/log4j/xml/log4j.dtd">
+<log4j:configuration>
+	<appender class="org.apache.log4j.ConsoleAppender" name="RootConsoleAppender">
+		<param name="Threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+		</layout>
+	</appender>
+	<appender name="filelog_daily" class="com.zxtech.support.log.DailyRollingFileAppender">       
+        <param name="File" value="logs/daily.log" />       
+        <param name="DatePattern" value="'daily.'yyyy-MM-dd'.log'" />
+        <param name="maxBackupIndex" value="7" />         
+        <layout class="org.apache.log4j.PatternLayout">       
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />       
+        </layout>       
+    </appender>
+    <appender name="errorlog_daily" class="com.zxtech.support.log.DailyRollingFileAppender">
+    	<param name="Threshold" value="error" />       
+        <param name="File" value="logs/error.log" />       
+        <param name="DatePattern" value="'daily.'yyyy-MM-dd'.log'" />
+        <param name="maxBackupIndex" value="7" />         
+        <layout class="org.apache.log4j.PatternLayout">       
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />       
+        </layout>       
+    </appender>
+	<root>
+		<level value="debug" />
+		<appender-ref ref="RootConsoleAppender" />
+		<appender-ref ref="filelog_daily" />
+		<appender-ref ref="errorlog_daily" />
+	</root>
+
+</log4j:configuration>

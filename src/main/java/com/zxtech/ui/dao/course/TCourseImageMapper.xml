@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.course.TCourseImageMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="COURSEID" property="courseid" jdbcType="VARCHAR" />
+    <result column="IMGPATH" property="imgpath" jdbcType="VARCHAR" />
+    <result column="IMGTYPE" property="imgtype" jdbcType="VARCHAR" />
+    <result column="IMGNAME" property="imgname" jdbcType="VARCHAR" />
+    <result column="IMGMOBILENAME" property="imgmobilename" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, COURSEID, IMGPATH, IMGTYPE, IMGNAME, IMGMOBILENAME, TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_course_image
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_course_image
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.course.TCourseImage" >
+    insert into t_course_image (ID, COURSEID, IMGPATH, 
+      IMGTYPE, IMGNAME, IMGMOBILENAME, 
+      TYPE)
+    values (#{id,jdbcType=VARCHAR}, #{courseid,jdbcType=VARCHAR}, #{imgpath,jdbcType=VARCHAR}, 
+      #{imgtype,jdbcType=VARCHAR}, #{imgname,jdbcType=VARCHAR}, #{imgmobilename,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.course.TCourseImage" >
+    insert into t_course_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="courseid != null" >
+        COURSEID,
+      </if>
+      <if test="imgpath != null" >
+        IMGPATH,
+      </if>
+      <if test="imgtype != null" >
+        IMGTYPE,
+      </if>
+      <if test="imgname != null" >
+        IMGNAME,
+      </if>
+      <if test="imgmobilename != null" >
+        IMGMOBILENAME,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtype != null" >
+        #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="imgname != null" >
+        #{imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="imgmobilename != null" >
+        #{imgmobilename,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.course.TCourseImage" >
+    update t_course_image
+    <set >
+      <if test="courseid != null" >
+        COURSEID = #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        IMGPATH = #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtype != null" >
+        IMGTYPE = #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="imgname != null" >
+        IMGNAME = #{imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="imgmobilename != null" >
+        IMGMOBILENAME = #{imgmobilename,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.course.TCourseImage" >
+    update t_course_image
+    set COURSEID = #{courseid,jdbcType=VARCHAR},
+      IMGPATH = #{imgpath,jdbcType=VARCHAR},
+      IMGTYPE = #{imgtype,jdbcType=VARCHAR},
+      IMGNAME = #{imgname,jdbcType=VARCHAR},
+      IMGMOBILENAME = #{imgmobilename,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectCourseImageList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.course.TCourseImage" >
+    select 
+	    <include refid="Base_Column_List" />
+    from t_course_image
+    where 1 = 1
+    <if test="courseid != null" >
+		and COURSEID = #{courseid,jdbcType=BIGINT}
+	</if>
+  </select>
+</mapper>

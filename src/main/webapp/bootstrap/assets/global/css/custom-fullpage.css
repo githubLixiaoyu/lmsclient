@@ -1,0 +1,16 @@
+html{overflow-x: hidden; overflow-y: auto; }
+.page-header-fixed .page-container,
+.page-content-wrapper .page-content{ margin:0; padding:0;}
+
+/* È¥³ýÒ³Ãæ±ß¾à */
+@media (max-width:991px){
+.page-content-wrapper .page-content{ padding:0 !important; }
+}
+
+@media (max-width:992px){
+.page-sidebar-closed .page-content-wrapper .page-content{ margin-left:0 !important;}
+}
+
+@media (min-width:992px){
+.page-sidebar-closed .page-content-wrapper .page-content{ margin-left:0 !important;}
+}

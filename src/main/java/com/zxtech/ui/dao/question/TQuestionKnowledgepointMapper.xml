@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.question.TQuestionKnowledgepointMapper" >
+  <resultMap id="BaseResultMap" type="com.zxtech.ui.vo.question.TQuestionKnowledgepoint" >
+    <result column="QUESTIONID" property="questionid" jdbcType="VARCHAR" />
+    <result column="POINTID" property="pointid" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.question.TQuestionKnowledgepoint" >
+    insert into t_question_knowledgepoint (QUESTIONID, POINTID, STATUS
+      )
+    values (#{questionid,jdbcType=VARCHAR}, #{pointid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.question.TQuestionKnowledgepoint" >
+    insert into t_question_knowledgepoint
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionid != null" >
+        QUESTIONID,
+      </if>
+      <if test="pointid != null" >
+        POINTID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionid != null" >
+        #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="pointid != null" >
+        #{pointid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteByQuestionsid" parameterType="java.lang.String" >
+    delete from t_question_knowledgepoint
+    where QUESTIONID = #{questionsid,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除 -->
+  <delete id="deleteQuestionKnowledgepoint" parameterType="java.util.List" >
+	  delete from t_question_knowledgepoint
+	    where QUESTIONID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+</mapper>

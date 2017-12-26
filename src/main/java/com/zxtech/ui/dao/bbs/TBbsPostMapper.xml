@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.bbs.TBbsPostMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="BaseResult" type="com.zxtech.ui.vo.bbs.TBbsPost" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="enable_flag" property="enableFlag" jdbcType="CHAR" />
+    <id column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <id column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <id column="look_num" property="lookNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, type, subject, body, create_user, create_date, enable_flag, look_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.bbs.TBbsPostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_bbs_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResult" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bbs_post
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_bbs_post
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.bbs.TBbsPost" >
+    insert into t_bbs_post (id, type, subject, 
+      body, create_user, create_date, 
+      enable_flag, look_num)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, 
+      #{body,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{enableFlag,jdbcType=CHAR}, #{lookNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.bbs.TBbsPost" >
+    insert into t_bbs_post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="enableFlag != null" >
+        enable_flag,
+      </if>
+      <if test="lookNum != null" >
+        look_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enableFlag != null" >
+        #{enableFlag,jdbcType=CHAR},
+      </if>
+      <if test="lookNum != null" >
+        #{lookNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.bbs.TBbsPost" >
+    update t_bbs_post
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enableFlag != null" >
+        enable_flag = #{enableFlag,jdbcType=CHAR},
+      </if>
+      <if test="lookNum != null" >
+        look_num = #{lookNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.bbs.TBbsPost" >
+    update t_bbs_post
+    set type = #{type,jdbcType=INTEGER},
+      subject = #{subject,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      enable_flag = #{enableFlag,jdbcType=CHAR},
+      reply_num = #{replyNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="addBbsLookNum" parameterType="java.lang.String" >
+    update t_bbs_post
+    set look_num = look_num + 1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBbsInfo" resultMap="BaseResultMap" >
+        select t1.id,
+			   t1.type,
+			   t1.subject,
+			   t1.body,
+			   t1.create_user as createUser,
+			   date_format(t1.create_date,"%Y-%m-%d %H:%i:%s") as createDate,
+			   t1.look_num as lookNum,
+			   t2.type_name as typeName,
+			   t2.type_name_en as typeNameEn,
+			   case when t3.count is null then 0 else t3.count end as replyNum,
+			   t4.PHOTONAME as photoName,
+			   t4.NICKNAME as nickName
+		  from t_bbs_post t1
+	 left join t_bbs_type t2
+	        on t1.type = t2.id
+	 left join (select count(id) count,
+	                   post_id
+	              from t_bbs_post_reply
+	             where enable_flag = '1'
+	               and parent_id is null
+	          group by post_id) t3
+	        on t1.id = t3.post_id
+	 left join t_permissions_studentinfo t4
+	        on t1.create_user = t4.STUDENTID
+		 where t1.enable_flag = '1'
+	  order by create_date desc
+  </select>
+  
+  <select id="selectBbsPost" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+			p.id,
+			p.type,
+			p.`subject`,
+			p.body,
+			p.look_num,
+			date_format(p.create_date,"%Y-%m-%d %H:%i:%s") as create_date,
+			t.type_name,
+			t.type_name_en,
+			p.create_user,
+			s.NICKNAME as post_user,
+			s.PHOTONAME as post_user_photo,
+			(select count(1) from t_bbs_post_reply r where r.enable_flag = '1' and r.post_id = p.id) as 'reply_num'
+		from
+			t_bbs_post p
+		left join t_bbs_type t on p.type = t.id
+		left join t_permissions_studentinfo s on p.create_user = s.STUDENTID
+		where
+			enable_flag = '1'
+			order by create_date desc
+  </select>
+  
+  <select id="selectBbsPostList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.bbs.TBbsPost" >
+        select
+			p.id,
+			p.type,
+			p.`subject`,
+			p.body,
+			p.look_num,
+			p.enable_flag,
+			date_format(p.create_date,"%Y-%m-%d %H:%i:%s") as create_date,
+			t.type_name,
+			t.type_name_en,
+			(select count(1) from t_bbs_post_reply r where r.enable_flag = '1' and r.post_id = p.id) as 'reply_num'
+		from
+			t_bbs_post p
+		left join t_bbs_type t on p.type = t.id
+		where
+			1 = 1
+			<if test="subject != null and subject != ''" >
+				and upper(p.`subject`) LIKE upper(CONCAT('%', #{subject,jdbcType=VARCHAR}, '%'))
+			</if>
+			<if test="type != null and type != ''" >
+				and p.type = #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="body != null and body != ''" >
+				and upper(p.body) LIKE upper(CONCAT('%', #{body,jdbcType=VARCHAR}, '%'))
+			</if>
+			<if test="enableFlag != null and enableFlag != ''" >
+				and p.enable_flag = #{enableFlag,jdbcType=VARCHAR}
+			</if>
+			order by create_date desc
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteBbsPost" parameterType="java.util.List">
+	update t_bbs_post set enable_flag = '0'
+       where ID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+</mapper>

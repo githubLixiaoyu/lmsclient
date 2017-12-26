@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.permissions.TPermissionsStudentinfoMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="STUDENTID" property="studentid" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DEPARTID" property="departid" jdbcType="VARCHAR" />
+    <result column="LOGINCODE" property="logincode" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="AGE" property="age" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="NATION" property="nation" jdbcType="VARCHAR" />
+    <result column="POLITICAL" property="political" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="ZIPCODE" property="zipcode" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="STAFFLEVEL" property="stafflevel" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="DATE" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="CREDENTID" property="credentid" jdbcType="VARCHAR" />
+    <result column="CREDENTTYPE" property="credenttype" jdbcType="VARCHAR" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+    <result column="ISONLINE" property="isonline" jdbcType="VARCHAR" />
+    <result column="LASTLOGINTIME" property="lastlogintime" jdbcType="TIMESTAMP" />
+    <result column="LOGINNUMBER" property="loginnumber" jdbcType="INTEGER" />
+    <result column="USERTYPE" property="usertype" jdbcType="VARCHAR" />
+    <result column="ONLINETIME" property="onlinetime" jdbcType="INTEGER" />
+    <result column="idcardNum" property="idcardnum" jdbcType="VARCHAR" />
+    <result column="idcardNumCheck" property="idcardnumcheck" jdbcType="VARCHAR" />
+    <result column="PHOTONAME" property="photoname" jdbcType="VARCHAR" />
+    <result column="DEPARTNAME" property="departname" jdbcType="VARCHAR" />
+    <result column="auth_id" property="authId" jdbcType="VARCHAR" />
+    <result column="auth_code" property="authCode" jdbcType="VARCHAR" />
+    <result column="auth_name" property="authName" jdbcType="VARCHAR" />
+    <result column="DEPARTNAME" property="departname" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" extends="BaseResultMap" >
+    <result column="REMARKS" property="remarks" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STUDENTID, NAME, CODE, DEPARTID, LOGINCODE, PASSWORD, NICKNAME, SEX, AGE, STATUS, 
+    PHONE, TEL, NATION, POLITICAL, ADDRESS, ZIPCODE, EMAIL, STAFFLEVEL, CREATETIME, BIRTHDAY, 
+    CREDENTID, CREDENTTYPE, STANDBY1, STANDBY2, STANDBY3, ISONLINE, LASTLOGINTIME, LOGINNUMBER, 
+    USERTYPE, ONLINETIME, idcardNum, idcardNumCheck,PHOTONAME,AUTH_ID
+  </sql>
+  <sql id="Blob_Column_List" >
+    REMARKS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_permissions_studentinfo
+    where STUDENTID = #{studentid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_permissions_studentinfo
+    where STUDENTID = #{studentid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" >
+    insert into t_permissions_studentinfo (STUDENTID, NAME, CODE, 
+      DEPARTID, LOGINCODE, PASSWORD, 
+      NICKNAME, SEX, AGE, 
+      STATUS, PHONE, TEL, 
+      NATION, POLITICAL, ADDRESS, 
+      ZIPCODE, EMAIL, STAFFLEVEL, 
+      CREATETIME, BIRTHDAY, CREDENTID, 
+      CREDENTTYPE, STANDBY1, STANDBY2, 
+      STANDBY3, ISONLINE, LASTLOGINTIME, 
+      LOGINNUMBER, USERTYPE, ONLINETIME, 
+      idcardNum, idcardNumCheck, REMARKS
+      )
+    values (#{studentid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{departid,jdbcType=VARCHAR}, #{logincode,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{political,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{zipcode,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{stafflevel,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=DATE}, #{birthday,jdbcType=TIMESTAMP}, #{credentid,jdbcType=VARCHAR}, 
+      #{credenttype,jdbcType=VARCHAR}, #{standby1,jdbcType=VARCHAR}, #{standby2,jdbcType=VARCHAR}, 
+      #{standby3,jdbcType=VARCHAR}, #{isonline,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=TIMESTAMP}, 
+      #{loginnumber,jdbcType=INTEGER}, #{usertype,jdbcType=VARCHAR}, #{onlinetime,jdbcType=INTEGER}, 
+      #{idcardnum,jdbcType=VARCHAR}, #{idcardnumcheck,jdbcType=VARCHAR}, #{remarks,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" >
+    insert into t_permissions_studentinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        STUDENTID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="departid != null" >
+        DEPARTID,
+      </if>
+      <if test="logincode != null" >
+        LOGINCODE,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="nickname != null" >
+        NICKNAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="age != null" >
+        AGE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="tel != null" >
+        TEL,
+      </if>
+      <if test="nation != null" >
+        NATION,
+      </if>
+      <if test="political != null" >
+        POLITICAL,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="zipcode != null" >
+        ZIPCODE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="stafflevel != null" >
+        STAFFLEVEL,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="credentid != null" >
+        CREDENTID,
+      </if>
+      <if test="credenttype != null" >
+        CREDENTTYPE,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+      <if test="isonline != null" >
+        ISONLINE,
+      </if>
+      <if test="lastlogintime != null" >
+        LASTLOGINTIME,
+      </if>
+      <if test="loginnumber != null" >
+        LOGINNUMBER,
+      </if>
+      <if test="usertype != null" >
+        USERTYPE,
+      </if>
+      <if test="onlinetime != null" >
+        ONLINETIME,
+      </if>
+      <if test="idcardnum != null" >
+        idcardNum,
+      </if>
+      <if test="idcardnumcheck != null" >
+        idcardNumCheck,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="authId != null" >
+        auth_id,
+      </if>
+      <if test="photoname != null" >
+        PHOTONAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="departid != null" >
+        #{departid,jdbcType=VARCHAR},
+      </if>
+      <if test="logincode != null" >
+        #{logincode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="political != null" >
+        #{political,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="stafflevel != null" >
+        #{stafflevel,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="credentid != null" >
+        #{credentid,jdbcType=VARCHAR},
+      </if>
+      <if test="credenttype != null" >
+        #{credenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="isonline != null" >
+        #{isonline,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginnumber != null" >
+        #{loginnumber,jdbcType=INTEGER},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinetime != null" >
+        #{onlinetime,jdbcType=INTEGER},
+      </if>
+      <if test="idcardnum != null" >
+        #{idcardnum,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardnumcheck != null" >
+        #{idcardnumcheck,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="authId != null" >
+        #{authId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="photoname != null" >
+        #{photoname,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" >
+    update t_permissions_studentinfo
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="departid != null" >
+        DEPARTID = #{departid,jdbcType=VARCHAR},
+      </if>
+      <if test="logincode != null" >
+        LOGINCODE = #{logincode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        NICKNAME = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        AGE = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        NATION = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="political != null" >
+        POLITICAL = #{political,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        ZIPCODE = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="stafflevel != null" >
+        STAFFLEVEL = #{stafflevel,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="credentid != null" >
+        CREDENTID = #{credentid,jdbcType=VARCHAR},
+      </if>
+      <if test="credenttype != null" >
+        CREDENTTYPE = #{credenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="isonline != null" >
+        ISONLINE = #{isonline,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        LASTLOGINTIME = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginnumber != null" >
+        LOGINNUMBER = #{loginnumber,jdbcType=INTEGER},
+      </if>
+      <if test="usertype != null" >
+        USERTYPE = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinetime != null" >
+        ONLINETIME = #{onlinetime,jdbcType=INTEGER},
+      </if>
+      <if test="idcardnum != null" >
+        idcardNum = #{idcardnum,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardnumcheck != null" >
+        idcardNumCheck = #{idcardnumcheck,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+        <if test="photoname != null" >
+        PHOTONAME = #{photoname,jdbcType=LONGVARCHAR},
+      </if>
+        <if test="authId != null" >
+        auth_id = #{authId,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where STUDENTID = #{studentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" >
+    update t_permissions_studentinfo
+    set NAME = #{name,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      DEPARTID = #{departid,jdbcType=VARCHAR},
+      LOGINCODE = #{logincode,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      NICKNAME = #{nickname,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      AGE = #{age,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      NATION = #{nation,jdbcType=VARCHAR},
+      POLITICAL = #{political,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      ZIPCODE = #{zipcode,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      STAFFLEVEL = #{stafflevel,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=DATE},
+      BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      CREDENTID = #{credentid,jdbcType=VARCHAR},
+      CREDENTTYPE = #{credenttype,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      ISONLINE = #{isonline,jdbcType=VARCHAR},
+      LASTLOGINTIME = #{lastlogintime,jdbcType=TIMESTAMP},
+      LOGINNUMBER = #{loginnumber,jdbcType=INTEGER},
+      USERTYPE = #{usertype,jdbcType=VARCHAR},
+      ONLINETIME = #{onlinetime,jdbcType=INTEGER},
+      idcardNum = #{idcardnum,jdbcType=VARCHAR},
+      idcardNumCheck = #{idcardnumcheck,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=LONGVARCHAR}
+    where STUDENTID = #{studentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" >
+    update t_permissions_studentinfo
+    set NAME = #{name,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      DEPARTID = #{departid,jdbcType=VARCHAR},
+      LOGINCODE = #{logincode,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      NICKNAME = #{nickname,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      AGE = #{age,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      NATION = #{nation,jdbcType=VARCHAR},
+      POLITICAL = #{political,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      ZIPCODE = #{zipcode,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      STAFFLEVEL = #{stafflevel,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=DATE},
+      BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      CREDENTID = #{credentid,jdbcType=VARCHAR},
+      CREDENTTYPE = #{credenttype,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      ISONLINE = #{isonline,jdbcType=VARCHAR},
+      LASTLOGINTIME = #{lastlogintime,jdbcType=TIMESTAMP},
+      LOGINNUMBER = #{loginnumber,jdbcType=INTEGER},
+      USERTYPE = #{usertype,jdbcType=VARCHAR},
+      ONLINETIME = #{onlinetime,jdbcType=INTEGER},
+      idcardNum = #{idcardnum,jdbcType=VARCHAR},
+      idcardNumCheck = #{idcardnumcheck,jdbcType=VARCHAR}
+    where STUDENTID = #{studentid,jdbcType=VARCHAR}
+  </update>
+  <select id="login" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select t1.*,
+           t2.auth_code,
+           t3.DEPARTNAME
+      from t_permissions_studentinfo t1
+ 		left join t_auth t2
+        	on t2.removed = 0
+       		and t1.auth_id = t2.id
+		LEFT JOIN t_permissions_student_depart t3
+			ON t1.DEPARTID = t3.DEPARTID
+     where t1.logincode = #{logincode,jdbcType=VARCHAR}
+       and t1.status = '0'
+  </select>
+  <select id="mlogin" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" >
+    select *
+      from t_permissions_studentinfo
+     where logincode = #{logincode,jdbcType=VARCHAR}
+       and status = '0'
+  </select>
+  
+  <select id="selectTPermissionsStudentinfoList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" >
+  select * from ( 
+    select 
+		a.STUDENTID,
+		a.NAME,
+		a.CODE,
+		a.DEPARTID,
+		a.LOGINCODE,
+		a.PASSWORD,
+		a.NICKNAME,
+		a.SEX,
+		a.AGE,
+		a.STATUS,
+		a.PHONE,
+		a.TEL,
+		a.NATION,
+		a.POLITICAL,
+		a.ADDRESS,
+		a.ZIPCODE,
+		a.EMAIL,
+		a.STAFFLEVEL,
+		a.CREATETIME,
+		a.BIRTHDAY,
+		a.CREDENTID,
+		a.CREDENTTYPE,
+		a.STANDBY1,
+		a.STANDBY2,
+		a.STANDBY3,
+		a.ISONLINE,
+		a.LASTLOGINTIME,
+		a.LOGINNUMBER,
+		a.USERTYPE,
+		a.ONLINETIME,
+		a.idcardNum,
+		a.idcardNumCheck,
+		a.PHOTONAME,
+		a.AUTH_ID,
+		a.REMARKS,
+    (select DEPARTNAME from t_permissions_student_depart t where t.DEPARTID = a.DEPARTID ) DEPARTNAME,
+    (select auth_name from t_auth t where t.id = a.auth_id ) auth_name
+      from t_permissions_studentinfo a 
+		LEFT JOIN t_permissions_student_depart tpsd 
+		on a.DEPARTID = tpsd.DEPARTID
+      where
+		 tpsd.DEPARTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  or tpsd.PARENTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+    )res
+     where 1=1 and res.stafflevel != 1
+	<if test="status != null and status != ''" >
+		and res.STATUS = #{status,jdbcType=BIGINT}
+	</if>
+	<if test="departid != null and departid != ''" >
+		and res.DEPARTID = #{departid,jdbcType=BIGINT}
+	</if>
+	<if test="authId != null and authId != ''" >
+		and res.auth_id = #{authId,jdbcType=BIGINT}
+	</if>
+	<if test="logincode != null and logincode != ''" >
+		and upper(res.LOGINCODE) LIKE upper(CONCAT('%', #{logincode,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="name != null and name != ''" >
+		and upper(res.NAME) LIKE upper(CONCAT('%', #{name,jdbcType=VARCHAR}, '%'))
+	</if>
+	ORDER BY res.CREATETIME DESC, res.LOGINCODE, res.STUDENTID DESC 
+  </select>
+  
+  <select id="selectTPermissionsStudentinfoAllList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo" >
+  select * from ( 
+    select 
+		a.STUDENTID,
+		a.NAME,
+		a.CODE,
+		a.DEPARTID,
+		a.LOGINCODE,
+		a.PASSWORD,
+		a.NICKNAME,
+		a.SEX,
+		a.AGE,
+		a.STATUS,
+		a.PHONE,
+		a.TEL,
+		a.NATION,
+		a.POLITICAL,
+		a.ADDRESS,
+		a.ZIPCODE,
+		a.EMAIL,
+		a.STAFFLEVEL,
+		a.CREATETIME,
+		a.BIRTHDAY,
+		a.CREDENTID,
+		a.CREDENTTYPE,
+		a.STANDBY1,
+		a.STANDBY2,
+		a.STANDBY3,
+		a.ISONLINE,
+		a.LASTLOGINTIME,
+		a.LOGINNUMBER,
+		a.USERTYPE,
+		a.ONLINETIME,
+		a.idcardNum,
+		a.idcardNumCheck,
+		a.PHOTONAME,
+		a.AUTH_ID,
+		a.REMARKS,
+    (select DEPARTNAME from t_permissions_student_depart t where t.DEPARTID = a.DEPARTID ) DEPARTNAME,
+    (select auth_name from t_auth t where t.id = a.auth_id ) auth_name
+      from t_permissions_studentinfo a 
+    )res
+     where 1=1 and res.stafflevel != 1
+	<if test="status != null and status != ''" >
+		and res.STATUS = #{status,jdbcType=BIGINT}
+	</if>
+	<if test="departid != null and departid != ''" >
+		and res.DEPARTID = #{departid,jdbcType=BIGINT}
+	</if>
+	<if test="authId != null and authId != ''" >
+		and res.auth_id = #{authId,jdbcType=BIGINT}
+	</if>
+	<if test="logincode != null and logincode != ''" >
+		and upper(res.LOGINCODE) LIKE upper(CONCAT('%', #{logincode,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="name != null and name != ''" >
+		and upper(res.NAME) LIKE upper(CONCAT('%', #{name,jdbcType=VARCHAR}, '%'))
+	</if>
+	ORDER BY res.CREATETIME DESC, res.LOGINCODE, res.STUDENTID DESC 
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteTPermissionsStudentinfo" parameterType="java.util.List">
+	update t_permissions_studentinfo set STATUS = '2'
+       where STUDENTID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+
+	<select id="selectAllUserList" resultMap="BaseResultMap"
+		parameterType="com.zxtech.ui.vo.permissions.TPermissionsStudentinfo">
+		select
+		STUDENTID,
+		LOGINCODE
+		from t_permissions_studentinfo
+
+	</select>
+</mapper>

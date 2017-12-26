@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.app.TCourseCommentMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, owner_user_id, target_user_id, content, create_date, parent_id, course_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_course_comment
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_course_comment
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.app.TCourseComment" >
+    insert into t_course_comment (id, owner_user_id, target_user_id, 
+      content, create_date, parent_id, 
+      course_id)
+    values (#{id,jdbcType=VARCHAR}, #{ownerUserId,jdbcType=VARCHAR}, #{targetUserId,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{parentId,jdbcType=VARCHAR}, 
+      #{courseId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.app.TCourseComment" >
+    insert into t_course_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ownerUserId != null" >
+        owner_user_id,
+      </if>
+      <if test="targetUserId != null" >
+        target_user_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerUserId != null" >
+        #{ownerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetUserId != null" >
+        #{targetUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.app.TCourseComment" >
+    update t_course_comment
+    <set >
+      <if test="ownerUserId != null" >
+        owner_user_id = #{ownerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetUserId != null" >
+        target_user_id = #{targetUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.app.TCourseComment" >
+    update t_course_comment
+    set owner_user_id = #{ownerUserId,jdbcType=VARCHAR},
+      target_user_id = #{targetUserId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      course_id = #{courseId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getCourseCommentByCourseId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select t1.id,
+			   t1.owner_user_id as ownerUserId,
+			   t1.target_user_id as targetUserId,
+			   t1.content,
+			   date_format(t1.create_date,"%Y-%m-%d %H:%i:%s") as createDate,
+			   t1.parent_id as parentId,
+			   t2.nickname as ownerName,
+			   t2.photoname as ownerPhotoName
+		  from t_course_comment t1
+	 left join t_permissions_studentinfo t2
+	        on t1.owner_user_id = t2.studentid
+     left join t_permissions_studentinfo t3
+            on t1.target_user_id = t3.studentid
+		 where t1.enable_flag = '1'
+		   and t1.course_id = #{courseId,jdbcType=VARCHAR}
+	  order by t1.create_date 
+  </select>
+  
+  <select id="getCommentByCourseParent" resultMap="BaseResultMap" parameterType="java.lang.String" >
+          select
+			cc.id,
+			cc.owner_user_id,
+			u1.name as owner_name,
+			cc.target_user_id,
+			u2.name as target_name ,
+			cc.content,
+			date_format(cc.create_date,"%Y-%m-%d %H:%i:%s") as create_date,
+			cc.parent_id,
+			u1.PHOTONAME as 'photo_name'
+
+		from
+			t_course_comment cc
+			left join t_permissions_studentinfo u1 on cc.owner_user_id = u1.studentid
+			left join t_permissions_studentinfo u2 on cc.target_user_id = u2.studentid
+			where cc.parent_id is null
+			 <if test="_parameter != null" >
+			 and cc.course_id = #{course_id,jdbcType=VARCHAR}
+			</if>
+			order by cc.create_date 
+  </select>
+  
+  <select id="getCommentByCourseChild" resultMap="BaseResultMap" parameterType="java.lang.String" >
+          select
+			cc.id,
+			cc.owner_user_id,
+		    u1.name as owner_name,
+			cc.target_user_id,
+			u2.name as target_name ,
+			cc.content,
+			date_format(cc.create_date,"%Y-%m-%d %H:%i:%s") as create_date,
+			cc.parent_id,
+			u1.PHOTONAME as 'photo_name'
+
+		from
+			t_course_comment cc
+			left join t_permissions_studentinfo u1 on cc.owner_user_id = u1.studentid
+			left join t_permissions_studentinfo u2 on cc.target_user_id = u2.studentid
+			where  cc.parent_id is not null
+			 <if test="_parameter != null" >
+			 and cc.course_id = #{course_id,jdbcType=VARCHAR}
+			</if>
+			order by cc.create_date desc
+  </select>
+  
+  
+  <select id="getCommentNumByCourse" resultMap="BaseResultMap" parameterType="java.lang.String" >
+         select
+			course_id,
+			count(1) as count
+		from
+			t_course_comment
+		where
+			enable_flag = 1
+		and parent_id is null
+		and 
+			course_id = #{course_id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCourseCommentList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.app.TCourseComment" >
+		select t1.id,
+			   t1.owner_user_id as ownerUserId,
+			   t1.target_user_id as targetUserId,
+			   t1.content,
+			   t1.enable_flag as enableFlag,
+			   date_format(t1.create_date,"%Y-%m-%d %H:%i:%s") as createDate,
+			   t1.parent_id as parentId,
+			   t2.nickname as ownerName,
+			   t2.photoname as ownerPhotoName
+		  from t_course_comment t1
+	 left join t_permissions_studentinfo t2
+	        on t1.owner_user_id = t2.studentid
+		 where t1.course_id = #{courseId,jdbcType=VARCHAR}
+		<if test="content != null and content != ''" >
+			and upper(t1.content) LIKE upper(CONCAT('%', #{content,jdbcType=VARCHAR}, '%'))
+		</if>
+	  order by t1.create_date desc
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteCourseComment" parameterType="java.util.List">
+	update t_course_comment set enable_flag = '0'
+       where id in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+       or parent_id in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+</mapper>

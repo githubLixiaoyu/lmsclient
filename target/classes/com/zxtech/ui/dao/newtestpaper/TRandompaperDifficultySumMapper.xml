@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newtestpaper.TRandompaperDifficultySumMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+    <result column="TYPEID" property="typeid" jdbcType="VARCHAR" />
+    <result column="ADDTYPE" property="addtype" jdbcType="VARCHAR" />
+    <result column="CATEGORYNAME" property="categoryname" jdbcType="VARCHAR" />
+    <result column="POINTNAME" property="pointname" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="REMARK" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="CATEGORYID" property="categoryid" jdbcType="LONGVARCHAR" />
+    <result column="KNOWLEDGEPOINT" property="knowledgepoint" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PAPERID, TYPEID, ADDTYPE
+  </sql>
+  <sql id="Blob_Column_List" >
+    REMARK, CATEGORYID, KNOWLEDGEPOINT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_randompaper_difficulty_sum
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_randompaper_difficulty_sum
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficultySumWithBLOBs" >
+    insert into t_randompaper_difficulty_sum (ID, PAPERID, TYPEID, 
+      ADDTYPE, REMARK, CATEGORYID, 
+      KNOWLEDGEPOINT)
+    values (#{id,jdbcType=VARCHAR}, #{paperid,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, 
+      #{addtype,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}, #{categoryid,jdbcType=LONGVARCHAR}, 
+      #{knowledgepoint,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficultySumWithBLOBs" >
+    insert into t_randompaper_difficulty_sum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="paperid != null" >
+        PAPERID,
+      </if>
+      <if test="typeid != null" >
+        TYPEID,
+      </if>
+      <if test="addtype != null" >
+        ADDTYPE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="categoryid != null" >
+        CATEGORYID,
+      </if>
+      <if test="knowledgepoint != null" >
+        KNOWLEDGEPOINT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null" >
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="addtype != null" >
+        #{addtype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="knowledgepoint != null" >
+        #{knowledgepoint,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficultySumWithBLOBs" >
+    update t_randompaper_difficulty_sum
+    <set >
+      <if test="paperid != null" >
+        PAPERID = #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        TYPEID = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="addtype != null" >
+        ADDTYPE = #{addtype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        CATEGORYID = #{categoryid,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="knowledgepoint != null" >
+        KNOWLEDGEPOINT = #{knowledgepoint,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficultySumWithBLOBs" >
+    update t_randompaper_difficulty_sum
+    set PAPERID = #{paperid,jdbcType=VARCHAR},
+      TYPEID = #{typeid,jdbcType=VARCHAR},
+      ADDTYPE = #{addtype,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=LONGVARCHAR},
+      CATEGORYID = #{categoryid,jdbcType=LONGVARCHAR},
+      KNOWLEDGEPOINT = #{knowledgepoint,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficultySum" >
+    update t_randompaper_difficulty_sum
+    set PAPERID = #{paperid,jdbcType=VARCHAR},
+      TYPEID = #{typeid,jdbcType=VARCHAR},
+      ADDTYPE = #{addtype,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectRandompaperDifficultySumList" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficultySum" >
+   	select a.ID,a.PAPERID,a.TYPEID,a.REMARK,a.CATEGORYID,a.ADDTYPE,a.KNOWLEDGEPOINT,
+   	(select c.CATEGORYNAME from t_question_category c where c.CATEGORYID = a.CATEGORYID) CATEGORYNAME,
+   	(select c.POINTNAME from t_knowledgepoint c where c.POINT = a.KNOWLEDGEPOINT) POINTNAME
+   	from t_randompaper_difficulty_sum a 
+   	where 1=1
+	<if test="typeid != null and typeid != ''" >
+		and a.TYPEID = #{typeid,jdbcType=VARCHAR}
+	</if>
+	<if test="paperid != null and paperid != ''" >
+		and a.PAPERID = #{paperid,jdbcType=VARCHAR}
+	</if>
+	<if test="categoryid != null and categoryid != ''" >
+		and a.CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+	</if>
+	<if test="knowledgepoint != null and knowledgepoint != ''" >
+		and a.KNOWLEDGEPOINT = #{knowledgepoint,jdbcType=VARCHAR}
+	</if>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteRandompaperDifficultySum" parameterType="java.util.List" >
+	  delete from t_randompaper_difficulty_sum
+	    where ID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+</mapper>

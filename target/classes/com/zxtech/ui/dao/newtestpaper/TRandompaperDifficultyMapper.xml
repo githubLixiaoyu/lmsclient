@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newtestpaper.TRandompaperDifficultyMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DIFFICULTYID" property="difficultyid" jdbcType="VARCHAR" />
+    <result column="TOTLEQUESTIONS" property="totlequestions" jdbcType="DOUBLE" />
+    <result column="TITLESCORE" property="titlescore" jdbcType="DOUBLE" />
+    <result column="DIFFICULTY" property="difficulty" jdbcType="VARCHAR" />
+    <result column="difficulty_name" property="difficultyName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DIFFICULTYID, TOTLEQUESTIONS, TITLESCORE, DIFFICULTY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_randompaper_difficulty
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_randompaper_difficulty
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficulty" >
+    insert into t_randompaper_difficulty (ID, DIFFICULTYID, TOTLEQUESTIONS, 
+      TITLESCORE, DIFFICULTY)
+    values (#{id,jdbcType=VARCHAR}, #{difficultyid,jdbcType=VARCHAR}, #{totlequestions,jdbcType=DOUBLE}, 
+      #{titlescore,jdbcType=DOUBLE}, #{difficulty,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficulty" >
+    insert into t_randompaper_difficulty
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="difficultyid != null" >
+        DIFFICULTYID,
+      </if>
+      <if test="totlequestions != null" >
+        TOTLEQUESTIONS,
+      </if>
+      <if test="titlescore != null" >
+        TITLESCORE,
+      </if>
+      <if test="difficulty != null" >
+        DIFFICULTY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="difficultyid != null" >
+        #{difficultyid,jdbcType=VARCHAR},
+      </if>
+      <if test="totlequestions != null" >
+        #{totlequestions,jdbcType=DOUBLE},
+      </if>
+      <if test="titlescore != null" >
+        #{titlescore,jdbcType=DOUBLE},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficulty" >
+    update t_randompaper_difficulty
+    <set >
+      <if test="difficultyid != null" >
+        DIFFICULTYID = #{difficultyid,jdbcType=VARCHAR},
+      </if>
+      <if test="totlequestions != null" >
+        TOTLEQUESTIONS = #{totlequestions,jdbcType=DOUBLE},
+      </if>
+      <if test="titlescore != null" >
+        TITLESCORE = #{titlescore,jdbcType=DOUBLE},
+      </if>
+      <if test="difficulty != null" >
+        DIFFICULTY = #{difficulty,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficulty" >
+    update t_randompaper_difficulty
+    set DIFFICULTYID = #{difficultyid,jdbcType=VARCHAR},
+      TOTLEQUESTIONS = #{totlequestions,jdbcType=DOUBLE},
+      TITLESCORE = #{titlescore,jdbcType=DOUBLE},
+      DIFFICULTY = #{difficulty,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectRandompaperDifficultyList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficulty" >
+    select <include refid="Base_Column_List" /> ,
+    (select a.difficulty_name from t_question_difficulty a where a.difficulty_id=t.DIFFICULTY) difficulty_name
+    from t_randompaper_difficulty t where 1=1
+	<if test="difficultyid != null and difficultyid != ''" >
+		and t.DIFFICULTYID = #{difficultyid,jdbcType=VARCHAR}
+	</if>
+  </select>
+  
+  <select id="selectRandompaperDifficultyByPaperidList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+		t.*
+	FROM
+		t_randompaper_difficulty t
+	WHERE
+		1 = 1
+	AND t.DIFFICULTYID IN (
+		SELECT
+			a.ID
+		FROM
+			t_randompaper_difficulty_sum a
+		WHERE
+			a.paperid = #{paperid,jdbcType=VARCHAR}
+			and a.typeid = #{typeid,jdbcType=VARCHAR}
+	)
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteRandompaperDifficulty" parameterType="java.util.List" >
+	  delete from t_randompaper_difficulty
+	    where ID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+  <delete id="deleteRandompaperDifficultyById" parameterType="com.zxtech.ui.vo.newtestpaper.TRandompaperDifficulty" >
+	  delete from t_randompaper_difficulty
+	    where DIFFICULTYID = #{difficultyid,jdbcType=VARCHAR}
+  </delete>
+</mapper>

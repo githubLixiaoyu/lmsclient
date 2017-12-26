@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.question.TQuestionHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zxtech.ui.vo.question.TQuestionHistory" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="QUESTIONID" property="questionid" jdbcType="VARCHAR" />
+    <result column="PROMOTORID" property="promotorid" jdbcType="VARCHAR" />
+    <result column="PROMOTORNAME" property="promotorname" jdbcType="VARCHAR" />
+    <result column="RECEIVERID" property="receiverid" jdbcType="VARCHAR" />
+    <result column="RECEIVERNAME" property="receivername" jdbcType="VARCHAR" />
+    <result column="MATTER" property="matter" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, QUESTIONID, PROMOTORID, PROMOTORNAME, RECEIVERID, RECEIVERNAME, MATTER, CREATETIME, 
+    STANDBY1, STANDBY2, STANDBY3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_question_history
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_question_history
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.question.TQuestionHistory" >
+    insert into t_question_history (ID, QUESTIONID, PROMOTORID, 
+      PROMOTORNAME, RECEIVERID, RECEIVERNAME, 
+      MATTER, CREATETIME, STANDBY1, 
+      STANDBY2, STANDBY3)
+    values (#{id,jdbcType=VARCHAR}, #{questionid,jdbcType=VARCHAR}, #{promotorid,jdbcType=VARCHAR}, 
+      #{promotorname,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, #{receivername,jdbcType=VARCHAR}, 
+      #{matter,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{standby1,jdbcType=VARCHAR}, 
+      #{standby2,jdbcType=VARCHAR}, #{standby3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.question.TQuestionHistory" >
+    insert into t_question_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="questionid != null" >
+        QUESTIONID,
+      </if>
+      <if test="promotorid != null" >
+        PROMOTORID,
+      </if>
+      <if test="promotorname != null" >
+        PROMOTORNAME,
+      </if>
+      <if test="receiverid != null" >
+        RECEIVERID,
+      </if>
+      <if test="receivername != null" >
+        RECEIVERNAME,
+      </if>
+      <if test="matter != null" >
+        MATTER,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="questionid != null" >
+        #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="promotorid != null" >
+        #{promotorid,jdbcType=VARCHAR},
+      </if>
+      <if test="promotorname != null" >
+        #{promotorname,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverid != null" >
+        #{receiverid,jdbcType=VARCHAR},
+      </if>
+      <if test="receivername != null" >
+        #{receivername,jdbcType=VARCHAR},
+      </if>
+      <if test="matter != null" >
+        #{matter,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.question.TQuestionHistory" >
+    update t_question_history
+    <set >
+      <if test="questionid != null" >
+        QUESTIONID = #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="promotorid != null" >
+        PROMOTORID = #{promotorid,jdbcType=VARCHAR},
+      </if>
+      <if test="promotorname != null" >
+        PROMOTORNAME = #{promotorname,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverid != null" >
+        RECEIVERID = #{receiverid,jdbcType=VARCHAR},
+      </if>
+      <if test="receivername != null" >
+        RECEIVERNAME = #{receivername,jdbcType=VARCHAR},
+      </if>
+      <if test="matter != null" >
+        MATTER = #{matter,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.question.TQuestionHistory" >
+    update t_question_history
+    set QUESTIONID = #{questionid,jdbcType=VARCHAR},
+      PROMOTORID = #{promotorid,jdbcType=VARCHAR},
+      PROMOTORNAME = #{promotorname,jdbcType=VARCHAR},
+      RECEIVERID = #{receiverid,jdbcType=VARCHAR},
+      RECEIVERNAME = #{receivername,jdbcType=VARCHAR},
+      MATTER = #{matter,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 删除 -->
+  <delete id="deleteQuestionHistory" parameterType="java.util.List" >
+	  delete from t_question_history
+	    where QUESTIONID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+</mapper>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.esp.dao.vrnewexam.TestInstanceMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="test_template_id" property="testTemplateId" jdbcType="BIGINT" />
+    <result column="test_template_mile_stone_id" property="testTemplateMileStoneId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="test_instance_request_id" property="testInstanceRequestId" jdbcType="BIGINT" />
+    <result column="total_time" property="totalTime" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="total_score" property="totalScore" jdbcType="DOUBLE" />
+    <result column="test_instance_type_id" property="testInstanceTypeId" jdbcType="BIGINT" />
+    <result column="test_complete_operation_id" property="testCompleteOperationId" jdbcType="BIGINT" />
+    <result column="test_complete_operation_used_time" property="testCompleteOperationUsedTime" jdbcType="BIGINT" />
+    <result column="user_test_state_type_id" property="userTestStateTypeId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, version, test_template_id, test_template_mile_stone_id, user_id, test_instance_request_id, 
+    total_time, end_time, start_time, total_score, test_instance_type_id, test_complete_operation_id, 
+    test_complete_operation_used_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from test_instance
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from test_instance
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstance" >
+    insert into test_instance (id, version, test_template_id, 
+      test_template_mile_stone_id, user_id, test_instance_request_id, 
+      total_time, end_time, start_time, 
+      total_score, test_instance_type_id, test_complete_operation_id, 
+      test_complete_operation_used_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{version,jdbcType=BIGINT}, #{testTemplateId,jdbcType=BIGINT}, 
+      #{testTemplateMileStoneId,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{testInstanceRequestId,jdbcType=BIGINT}, 
+      #{totalTime,jdbcType=BIGINT}, #{endTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{totalScore,jdbcType=DOUBLE}, #{testInstanceTypeId,jdbcType=BIGINT}, #{testCompleteOperationId,jdbcType=BIGINT}, 
+      #{testCompleteOperationUsedTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstance" >
+    insert into test_instance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="testTemplateId != null" >
+        test_template_id,
+      </if>
+      <if test="testTemplateMileStoneId != null" >
+        test_template_mile_stone_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="testInstanceRequestId != null" >
+        test_instance_request_id,
+      </if>
+      <if test="totalTime != null" >
+        total_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="totalScore != null" >
+        total_score,
+      </if>
+      <if test="testInstanceTypeId != null" >
+        test_instance_type_id,
+      </if>
+      <if test="testCompleteOperationId != null" >
+        test_complete_operation_id,
+      </if>
+      <if test="testCompleteOperationUsedTime != null" >
+        test_complete_operation_used_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="testTemplateId != null" >
+        #{testTemplateId,jdbcType=BIGINT},
+      </if>
+      <if test="testTemplateMileStoneId != null" >
+        #{testTemplateMileStoneId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="testInstanceRequestId != null" >
+        #{testInstanceRequestId,jdbcType=BIGINT},
+      </if>
+      <if test="totalTime != null" >
+        #{totalTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=DOUBLE},
+      </if>
+      <if test="testInstanceTypeId != null" >
+        #{testInstanceTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="testCompleteOperationId != null" >
+        #{testCompleteOperationId,jdbcType=BIGINT},
+      </if>
+      <if test="testCompleteOperationUsedTime != null" >
+        #{testCompleteOperationUsedTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstance" >
+    update test_instance
+    <set >
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="testTemplateId != null" >
+        test_template_id = #{testTemplateId,jdbcType=BIGINT},
+      </if>
+      <if test="testTemplateMileStoneId != null" >
+        test_template_mile_stone_id = #{testTemplateMileStoneId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="testInstanceRequestId != null" >
+        test_instance_request_id = #{testInstanceRequestId,jdbcType=BIGINT},
+      </if>
+      <if test="totalTime != null" >
+        total_time = #{totalTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalScore != null" >
+        total_score = #{totalScore,jdbcType=DOUBLE},
+      </if>
+      <if test="testInstanceTypeId != null" >
+        test_instance_type_id = #{testInstanceTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="testCompleteOperationId != null" >
+        test_complete_operation_id = #{testCompleteOperationId,jdbcType=BIGINT},
+      </if>
+      <if test="testCompleteOperationUsedTime != null" >
+        test_complete_operation_used_time = #{testCompleteOperationUsedTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstance" >
+    update test_instance
+    set version = #{version,jdbcType=BIGINT},
+      test_template_id = #{testTemplateId,jdbcType=BIGINT},
+      test_template_mile_stone_id = #{testTemplateMileStoneId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=VARCHAR},
+      test_instance_request_id = #{testInstanceRequestId,jdbcType=BIGINT},
+      total_time = #{totalTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      total_score = #{totalScore,jdbcType=DOUBLE},
+      test_instance_type_id = #{testInstanceTypeId,jdbcType=BIGINT},
+      test_complete_operation_id = #{testCompleteOperationId,jdbcType=BIGINT},
+      test_complete_operation_used_time = #{testCompleteOperationUsedTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectTestInstanceList" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstance" resultMap="BaseResultMap">
+	SELECT
+		t.total_score,
+		t.user_id,
+		tiru.user_test_state_type_id
+	FROM
+		test_instance t
+	LEFT JOIN test_instance_request_users tiru ON t.user_id = tiru.user_id
+	AND t.test_instance_request_id = tiru.test_instance_request_id
+	LEFT JOIN test_template_milestone ttm on t.user_id = ttm.request_user_id
+	WHERE
+		ttm.plateform_flag='etp'
+	AND t.test_instance_request_id = #{testInstanceRequestId,jdbcType=BIGINT}
+	<if test="userIdStr != null and userIdStr != ''" >
+		and instr(#{userIdStr,jdbcType=VARCHAR}, t.user_id) > 0
+	</if>
+  </select>
+</mapper>

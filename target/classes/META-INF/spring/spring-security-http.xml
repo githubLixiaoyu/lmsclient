@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:s="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<!-- ss3:authorize动作权限所有过滤器 -->
+<!-- 	<bean id="webInvocationPrivilegeEvaluator" class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator"> -->
+<!-- 		<constructor-arg name="securityInterceptor" ref="securityFilter" /> -->
+<!-- 	</bean> -->
+	<!-- 设置登录页面为login.jsp且不拦截页面login.jsp后面的*防止带了参数 -->
+	<s:http auto-config="false" entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<s:intercept-url pattern="/index.jsp*" filters="none" />
+		<s:intercept-url pattern="/pages/common/**" filters="none" />
+		<s:intercept-url pattern="/pages/error/**" filters="none" />
+		<s:intercept-url pattern="/login.jsp*" filters="none" />
+		<s:intercept-url pattern="/pages/ui/about/about.jsp*" filters="none" />
+		<s:intercept-url pattern="/manager.jsp*" filters="none" />
+		<s:intercept-url pattern="/logout.do*" filters="none" />
+		<s:intercept-url pattern="/common/**" filters="none" />
+		<s:intercept-url pattern="/*.ico" filters="none" />
+		<s:intercept-url pattern="/" filters="none" />
+		<s:intercept-url pattern="/lib/**" filters="none" />
+		<s:intercept-url pattern="/login.jsp" filters="none" />
+		<s:intercept-url pattern="/favicon.ico" filters="none" />
+		<s:intercept-url pattern="/**/*.css" filters="none" />
+		<s:intercept-url pattern="/**/*.js" filters="none" />
+		<s:intercept-url pattern="/**/*.jpg" filters="none" />
+		<s:intercept-url pattern="/**/*.ttf" filters="none" />
+		<s:intercept-url pattern="/**/*.png" filters="none" />
+		<s:intercept-url pattern="/**/*.gif" filters="none" />
+		<s:intercept-url pattern="/rs/**" filters="none" />
+		<s:intercept-url pattern="/pdf/**" filters="none" />
+		<s:intercept-url pattern="/webservice/**" filters="none" />
+		<s:intercept-url pattern="/ui/mobile/registerUser.do" filters="none" />
+		<s:intercept-url pattern="/ui/tapp/getQrcode.do" filters="none" />
+		<s:intercept-url pattern="/pages/ui/download/download.jsp*" filters="none" />
+		
+		<!-- 
+		<s:intercept-url pattern="/rs/**" filters="none" />
+		 -->
+		 <!-- 无权限处理 -->
+		<s:access-denied-handler ref="accessDeniedHandler"/>
+		
+		<s:form-login login-page="/manager.jsp"
+			default-target-url="/pages/manager/test.jsp" authentication-failure-url="/manager.jsp?login_error=1" />
+		<s:logout invalidate-session="true" logout-url="/j_spring_security_logout" success-handler-ref="logoutSuccessHandler" />
+
+		<!-- <s:session-management session-fixation-protection="none"> <concurrency-control 
+			/> </s:session-management> -->
+		<s:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
+		<!-- session失效的跳转路径 -->
+		<s:session-management invalid-session-url="/login.jsp"  />
+			
+		 
+		<!-- 只cache get,避免ajax post 被cache -->
+        <s:request-cache ref="httpSessionRequestCache"/>
+		<!-- 设置登录过滤器 
+		<s:custom-filter before="FORM_LOGIN_FILTER" ref="validateCodeAuthenticationFilter" />
+		-->
+		
+		<s:custom-filter before="FORM_LOGIN_FILTER" ref="jsonAuthenticationFilter" />
+		<s:custom-filter after="FORM_LOGIN_FILTER" ref="mobileAuthenticationFilter"  />
+		
+		<!-- session manager filter -->
+<!-- 		<s:custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER"/> -->
+		<!-- 权限控制过滤器 -->
+		<s:custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+		 
+		<!-- 摘要过滤器 -->
+		<s:custom-filter ref="headerFilter" before="BASIC_AUTH_FILTER" />
+		
+		<!-- 最后一步，更新缓存时间 -->
+		 <s:custom-filter ref="scpFilter" before="SECURITY_CONTEXT_FILTER" />
+	</s:http>
+	
+	<!-- 重写不cache -->
+	<bean id="httpSessionRequestCache" class="com.zxtech.auth.HttpSessionRequestCache">
+	</bean>
+	
+	<!-- 过滤失败(没登录)EntryPoint -->
+	<bean id="loginUrlAuthenticationEntryPoint" class="com.zxtech.auth.entrypoint.LoginUrlAuthenticationEntryPoint">
+		<property name="loginFormUrl" value="/login.jsp" />
+	</bean>
+	
+	<bean id="accessDeniedHandler" class="com.zxtech.auth.AccessDeniedHandler">
+		<property name="accessDeniedUrl" value="/pages/error/denied.jsp" />
+	</bean>
+	<!-- JSON登录成功 -->
+	<bean id="jsonAuthenticationSuccessHandler"
+		class="com.zxtech.auth.handler.JsonAuthenticationSuccessHandler">
+		<property name="defaultTargetUrl" value="/pages/manager/test.jsp" />
+	</bean>
+	
+	<!-- JSON登录失败 -->
+	<bean id="jsonAuthenticationFailureHandler"
+		class="com.zxtech.auth.handler.JsonAuthenticationFailureHandler">
+		<property name="defaultFailureUrl" value="/manager.jsp?login_error=4" />
+	</bean>
+	
+	<!-- json登录过滤器 -->
+	<bean id="jsonAuthenticationFilter" class="com.zxtech.auth.filter.ValidateCodeUsernamePasswordAuthenticationFilter">
+		<property name="authenticationSuccessHandler" ref="jsonAuthenticationSuccessHandler" />
+		<property name="authenticationFailureHandler" ref="jsonAuthenticationFailureHandler" />
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="filterProcessesUrl" value="/login"></property>
+		<property name="usernameParameter" value="login_id"></property>
+		<property name="passwordParameter" value="login_pwd"></property>
+		<property name="postOnly" value="false" />
+	</bean>
+	
+	<!-- m登录成功 -->
+	<bean id="mobileAuthenticationSuccessHandler"
+		class="com.zxtech.auth.handler.AuthenticationSuccessHandler">
+	</bean>
+	
+	<!-- m登录失败 -->
+	<bean id="mobileAuthenticationFailureHandler"
+		class="com.zxtech.auth.handler.AuthenticationFailureHandler">
+	</bean>
+	
+	<!-- m登录过滤器 -->
+	<bean id="mobileAuthenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<property name="authenticationSuccessHandler" ref="mobileAuthenticationSuccessHandler" />
+		<property name="authenticationFailureHandler" ref="mobileAuthenticationFailureHandler" />
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="filterProcessesUrl" value="/login_m"></property>
+		<property name="usernameParameter" value="login_id"></property>
+		<property name="passwordParameter" value="login_pwd"></property>
+		<property name="postOnly" value="false" />
+	</bean>
+	
+	<bean id="headerFilter" class=
+        "com.zxtech.auth.filter.CacheBasicAuthenticationFilter">
+      <property name="authenticationManager" ref="authenticationManager" />
+      <property name="authenticationEntryPoint" ref="headerEntryPoint"/>
+    </bean>
+    <bean id="headerEntryPoint" class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
+      <property name="realmName" value="Spring Security Application"/>
+    </bean>
+	
+	
+	<bean id="scpFilter" class="com.zxtech.auth.filter.CacheSecurityContextPersistenceFilter">
+    </bean>
+    
+    <!-- JSON登录失败 -->
+	<bean id="logoutSuccessHandler"
+		class="com.zxtech.auth.handler.LogoutSuccessHandler">
+	</bean>
+	
+<!-- 	<bean id="sessionManagementFilter" class="com.zxtech.auth.filter.SessionManagementFilter"> -->
+<!--     </bean> -->
+</beans>

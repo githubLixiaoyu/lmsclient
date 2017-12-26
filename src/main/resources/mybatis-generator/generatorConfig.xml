@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="D:/new/repo/mysql/mysql-connector-java/5.1.42/mysql-connector-java-5.1.42.jar"/>
+    <context id="gte3" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+<!--         <jdbcConnection driverClass="oracle.jdbc.OracleDriver" -->
+<!--                         connectionURL="jdbc:oracle:thin:@10.84.98.185:1521:NSA3DBP" userId="NSA3001P" -->
+<!--                         password="NSA3DB01P"/> -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/lmstest?characterEncoding=UTF-8" userId="root"
+                        password="a123456!"/>
+
+        <javaModelGenerator targetPackage="com.zxtech.ui.vo.user"
+                            targetProject="D:/new/workspace/lmsclient/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.zxtech.ui.dao.user"
+                         targetProject="D:/new/workspace/lmsclient/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.zxtech.ui.dao.user"
+                             targetProject="D:/new/workspace/lmsclient/src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="T_FEE_AGTBILL" domainObjectName="FeeAgentBill"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>-->
+		<!-- 角色用户关联表 
+        <table tableName="NS3_ROLE_USER_MST" domainObjectName="RoleUser"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        
+        <!-- 用途MASTER
+        <table tableName="NS3_USE_MST" domainObjectName="Use"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+         -->
+         
+         <!-- 用途机种 
+        <table tableName="NS3_USE_MACHINE_MST" domainObjectName="UseMachine"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- 机种MASTER 
+        <table tableName="NS_MACHINE_KIND_MST" domainObjectName="MachineKind"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- 机种规格MASTER  
+        <table tableName="NS_MACHINE_SPEC_MST" domainObjectName="MachineSpec"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- 直梯仕样展开  
+        <table tableName="NS_EL_EXTEND_MST" domainObjectName="ElExtend"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+         -->
+        <!-- 扶梯仕样展开 
+        <table tableName="NS_ES_EXTEND_MST" domainObjectName="EsExtend"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- 土建参数展开
+        <table tableName="NS3_CIVIL_MST" domainObjectName="Civil"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+         -->
+         
+        <!-- 直梯仕样展开可能 
+        <table tableName="NS3_EL_EXTENDABLE_MST" domainObjectName="ElExtendable"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- 扶梯仕样展开可能 
+        <table tableName="NS3_ES_EXTENDABLE_MST" domainObjectName="EsExtendable"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+         -->
+         
+         <!-- 扶梯仕样展开可能 
+        <table tableName="NS3_COMMON_SPEC_INFO" domainObjectName="CommonSpecInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        
+        <!-- 阶床别仕样展开可能 
+        <table tableName="NS3_FLOOR_SPEC_INFO" domainObjectName="FloorSpecInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- 仕样名称MST 
+        <table tableName="NS_WOF_NAME_MST" domainObjectName="WofName"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- 仕样内容MST 
+        <table tableName="NS_WOF_CONTENT_MST" domainObjectName="WofContent"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        
+        <!-- 产地MST 
+        <table tableName="NS_PRODUCE_LOCATION_EXTEND_MST" domainObjectName="ProduceLocation"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- 特殊运费
+        <table tableName="NS3_SPECIALTRANSPORT_EXP_MST" domainObjectName="SpecialTransport"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+         -->
+        
+        <!-- 特殊运费 
+        <table tableName="NS2_EVENT_MST" domainObjectName="Event"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        <!-- WOF依赖关系条件MASTER 
+        <table tableName="NS3_WOF_RELATION_COND" domainObjectName="WofRelationCond"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+        
+        <!-- WOF依赖关系结果MASTER 
+        <table tableName="NS3_WOF_RELATION_RESULT" domainObjectName="WofRelationResult"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+<!--         大项目申请情报 -->
+<!--         <table tableName="NS3_BIGPROJECT_ASK_INFO" domainObjectName="BigProjectAskInfo" -->
+<!--                enableCountByExample="false" enableUpdateByExample="false" -->
+<!--                enableDeleteByExample="false" enableSelectByExample="false" -->
+<!--                selectByExampleQueryId="false"> -->
+<!--         </table> -->
+        
+<!--         大项目申请号机情报 -->
+<!--         <table tableName="NS3_BIGPROJECT_MACHINE_INFO" domainObjectName="BigProjectMachineInfo" -->
+<!--                enableCountByExample="false" enableUpdateByExample="false" -->
+<!--                enableDeleteByExample="false" enableSelectByExample="false" -->
+<!--                selectByExampleQueryId="false"> -->
+<!--         </table> -->
+        
+<!--         大项目申请选项情报 -->
+<!--         <table tableName="NS3_BIGPROJECT_OPTION_INFO" domainObjectName="BigProjectOptionInfo" -->
+<!--                enableCountByExample="false" enableUpdateByExample="false" -->
+<!--                enableDeleteByExample="false" enableSelectByExample="false" -->
+<!--                selectByExampleQueryId="false"> -->
+<!--         </table> -->
+			
+<!-- 			<table tableName="ns_project_info" domainObjectName="ProjectInfo" -->
+<!--                enableCountByExample="false" enableUpdateByExample="false" -->
+<!--                enableDeleteByExample="false" enableSelectByExample="false" -->
+<!--                selectByExampleQueryId="false"> -->
+<!--         	</table> -->
+        	
+<!--         	<table tableName="ns_contract_info" domainObjectName="ContractInfo" -->
+<!--                enableCountByExample="false" enableUpdateByExample="false" -->
+<!--                enableDeleteByExample="false" enableSelectByExample="false" -->
+<!--                selectByExampleQueryId="false"> -->
+<!--         	</table> -->
+        	
+<!--         	<table tableName="ns_machine_info" domainObjectName="MachineInfo" -->
+<!--                enableCountByExample="false" enableUpdateByExample="false" -->
+<!--                enableDeleteByExample="false" enableSelectByExample="false" -->
+<!--                selectByExampleQueryId="false"> -->
+<!--         	</table> -->
+        	
+<!--         	<table tableName="ns_common_spec_info" domainObjectName="CommonSpecInfo" -->
+<!--                enableCountByExample="false" enableUpdateByExample="false" -->
+<!--                enableDeleteByExample="false" enableSelectByExample="false" -->
+<!--                selectByExampleQueryId="false"> -->
+<!--         	</table> -->
+        	
+<!--         	<table tableName="ns_floor_spec_info" domainObjectName="FloorSpecInfo" -->
+<!--                enableCountByExample="false" enableUpdateByExample="false" -->
+<!--                enableDeleteByExample="false" enableSelectByExample="false" -->
+<!--                selectByExampleQueryId="false"> -->
+<!--         	</table> -->
+
+				<table tableName="t_course_type" domainObjectName="TCourseType"
+	               enableCountByExample="false" enableUpdateByExample="false"
+	               enableDeleteByExample="false" enableSelectByExample="false"
+	               selectByExampleQueryId="false">
+	        	</table>
+	        	<table tableName="t_courseinfo" domainObjectName="TCourseInfo"
+	               enableCountByExample="false" enableUpdateByExample="false"
+	               enableDeleteByExample="false" enableSelectByExample="false"
+	               selectByExampleQueryId="false">
+	        	</table>
+	        	<table tableName="t_user_learning_course" domainObjectName="TUserLearningCourse"
+	               enableCountByExample="false" enableUpdateByExample="false"
+	               enableDeleteByExample="false" enableSelectByExample="false"
+	               selectByExampleQueryId="false">
+	        	</table>
+        
+        
+         
+       
+       
+
+    </context>
+</generatorConfiguration>

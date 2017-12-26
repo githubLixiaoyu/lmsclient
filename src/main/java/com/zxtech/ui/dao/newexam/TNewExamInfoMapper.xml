@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newexam.TNewExamInfoMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="EXAMID" property="examid" jdbcType="VARCHAR" />
+    <result column="EXAMNAME" property="examname" jdbcType="VARCHAR" />
+    <result column="EXAMCATEGROY" property="examcategroy" jdbcType="VARCHAR" />
+    <result column="EXAMSOCRE" property="examsocre" jdbcType="DECIMAL" />
+    <result column="PASSSCORE" property="passscore" jdbcType="DECIMAL" />
+    <result column="STARTTIME" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="ENDTIME" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="SHOWPOINT" property="showpoint" jdbcType="VARCHAR" />
+    <result column="EXAMTYPE" property="examtype" jdbcType="VARCHAR" />
+    <result column="EXAMMODE" property="exammode" jdbcType="VARCHAR" />
+    <result column="USERPAPER" property="userpaper" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATORID" property="creatorid" jdbcType="VARCHAR" />
+    <result column="CREATORTIME" property="creatortime" jdbcType="TIMESTAMP" />
+    <result column="AUDITORID" property="auditorid" jdbcType="VARCHAR" />
+    <result column="AUDITORTIME" property="auditortime" jdbcType="TIMESTAMP" />
+    <result column="SHOWPOINTTIME" property="showpointtime" jdbcType="TIMESTAMP" />
+    <result column="EXAMTIME" property="examtime" jdbcType="DOUBLE" />
+    <result column="PASSSCORESTATUS" property="passscorestatus" jdbcType="VARCHAR" />
+    <result column="EXAMSCORESTATUS" property="examscorestatus" jdbcType="VARCHAR" />
+    <result column="JOINNUMBER" property="joinnumber" jdbcType="DOUBLE" />
+    <result column="CONTINUEPERSON" property="continueperson" jdbcType="VARCHAR" />
+    <result column="CONTINUETIME" property="continuetime" jdbcType="DOUBLE" />
+    <result column="IFAPPEND" property="ifappend" jdbcType="VARCHAR" />
+    <result column="COURSEPRICE" property="courseprice" jdbcType="DOUBLE" />
+    <result column="DISCOUNT" property="discount" jdbcType="DOUBLE" />
+    <result column="examKhzl" property="examkhzl" jdbcType="VARCHAR" />
+    <result column="examKhxm" property="examkhxm" jdbcType="VARCHAR" />
+    <result column="PAPERNAME" property="papername" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="VARCHAR" />
+    <result column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+    <result column="EXAMSCORE" property="examscore" jdbcType="DECIMAL" />
+    <result column="createUserName" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="REMARK" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="AUDITREMARK" property="auditremark" jdbcType="LONGVARCHAR" />
+    <result column="CONTINUEREASON" property="continuereason" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EXAMID, EXAMNAME, EXAMCATEGROY, EXAMSOCRE, PASSSCORE, STARTTIME, ENDTIME, SHOWPOINT, 
+    EXAMTYPE, EXAMMODE, USERPAPER, STATUS, CREATORID, CREATORTIME, AUDITORID, AUDITORTIME, 
+    SHOWPOINTTIME, EXAMTIME, PASSSCORESTATUS, EXAMSCORESTATUS, JOINNUMBER, CONTINUEPERSON, 
+    CONTINUETIME, IFAPPEND, COURSEPRICE, DISCOUNT, examKhzl, examKhxm
+  </sql>
+  <sql id="Blob_Column_List" >
+    REMARK, AUDITREMARK, CONTINUEREASON
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_newexam_info
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_newexam_info
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfoWithBLOBs" >
+    insert into t_newexam_info (EXAMID, EXAMNAME, EXAMCATEGROY, 
+      EXAMSOCRE, PASSSCORE, STARTTIME, 
+      ENDTIME, SHOWPOINT, EXAMTYPE, 
+      EXAMMODE, USERPAPER, STATUS, 
+      CREATORID, CREATORTIME, AUDITORID, 
+      AUDITORTIME, SHOWPOINTTIME, EXAMTIME, 
+      PASSSCORESTATUS, EXAMSCORESTATUS, JOINNUMBER, 
+      CONTINUEPERSON, CONTINUETIME, IFAPPEND, 
+      COURSEPRICE, DISCOUNT, examKhzl, 
+      examKhxm, REMARK, AUDITREMARK, 
+      CONTINUEREASON)
+    values (#{examid,jdbcType=VARCHAR}, #{examname,jdbcType=VARCHAR}, #{examcategroy,jdbcType=VARCHAR}, 
+      #{examsocre,jdbcType=DECIMAL}, #{passscore,jdbcType=DECIMAL}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{showpoint,jdbcType=VARCHAR}, #{examtype,jdbcType=VARCHAR}, 
+      #{exammode,jdbcType=VARCHAR}, #{userpaper,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{creatorid,jdbcType=VARCHAR}, #{creatortime,jdbcType=TIMESTAMP}, #{auditorid,jdbcType=VARCHAR}, 
+      #{auditortime,jdbcType=TIMESTAMP}, #{showpointtime,jdbcType=TIMESTAMP}, #{examtime,jdbcType=DOUBLE}, 
+      #{passscorestatus,jdbcType=VARCHAR}, #{examscorestatus,jdbcType=VARCHAR}, #{joinnumber,jdbcType=DOUBLE}, 
+      #{continueperson,jdbcType=VARCHAR}, #{continuetime,jdbcType=DOUBLE}, #{ifappend,jdbcType=VARCHAR}, 
+      #{courseprice,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, #{examkhzl,jdbcType=VARCHAR}, 
+      #{examkhxm,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}, #{auditremark,jdbcType=LONGVARCHAR}, 
+      #{continuereason,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+    insert into t_newexam_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examid != null" >
+        EXAMID,
+      </if>
+      <if test="examname != null" >
+        EXAMNAME,
+      </if>
+      <if test="examcategroy != null" >
+        EXAMCATEGROY,
+      </if>
+      <if test="examsocre != null" >
+        EXAMSOCRE,
+      </if>
+      <if test="passscore != null" >
+        PASSSCORE,
+      </if>
+      <if test="starttime != null" >
+        STARTTIME,
+      </if>
+      <if test="endtime != null" >
+        ENDTIME,
+      </if>
+      <if test="showpoint != null" >
+        SHOWPOINT,
+      </if>
+      <if test="examtype != null" >
+        EXAMTYPE,
+      </if>
+      <if test="exammode != null" >
+        EXAMMODE,
+      </if>
+      <if test="userpaper != null" >
+        USERPAPER,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creatorid != null" >
+        CREATORID,
+      </if>
+      <if test="creatortime != null" >
+        CREATORTIME,
+      </if>
+      <if test="auditorid != null" >
+        AUDITORID,
+      </if>
+      <if test="auditortime != null" >
+        AUDITORTIME,
+      </if>
+      <if test="showpointtime != null" >
+        SHOWPOINTTIME,
+      </if>
+      <if test="examtime != null" >
+        EXAMTIME,
+      </if>
+      <if test="passscorestatus != null" >
+        PASSSCORESTATUS,
+      </if>
+      <if test="examscorestatus != null" >
+        EXAMSCORESTATUS,
+      </if>
+      <if test="joinnumber != null" >
+        JOINNUMBER,
+      </if>
+      <if test="continueperson != null" >
+        CONTINUEPERSON,
+      </if>
+      <if test="continuetime != null" >
+        CONTINUETIME,
+      </if>
+      <if test="ifappend != null" >
+        IFAPPEND,
+      </if>
+      <if test="courseprice != null" >
+        COURSEPRICE,
+      </if>
+      <if test="discount != null" >
+        DISCOUNT,
+      </if>
+      <if test="examkhzl != null" >
+        examKhzl,
+      </if>
+      <if test="examkhxm != null" >
+        examKhxm,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="auditremark != null" >
+        AUDITREMARK,
+      </if>
+      <if test="continuereason != null" >
+        CONTINUEREASON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examid != null" >
+        #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="examname != null" >
+        #{examname,jdbcType=VARCHAR},
+      </if>
+      <if test="examcategroy != null" >
+        #{examcategroy,jdbcType=VARCHAR},
+      </if>
+      <if test="examsocre != null" >
+        #{examsocre,jdbcType=DECIMAL},
+      </if>
+      <if test="passscore != null" >
+        #{passscore,jdbcType=DECIMAL},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showpoint != null" >
+        #{showpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="examtype != null" >
+        #{examtype,jdbcType=VARCHAR},
+      </if>
+      <if test="exammode != null" >
+        #{exammode,jdbcType=VARCHAR},
+      </if>
+      <if test="userpaper != null" >
+        #{userpaper,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorid != null" >
+        #{creatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="creatortime != null" >
+        #{creatortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditorid != null" >
+        #{auditorid,jdbcType=VARCHAR},
+      </if>
+      <if test="auditortime != null" >
+        #{auditortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showpointtime != null" >
+        #{showpointtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examtime != null" >
+        #{examtime,jdbcType=DOUBLE},
+      </if>
+      <if test="passscorestatus != null" >
+        #{passscorestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="examscorestatus != null" >
+        #{examscorestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinnumber != null" >
+        #{joinnumber,jdbcType=DOUBLE},
+      </if>
+      <if test="continueperson != null" >
+        #{continueperson,jdbcType=VARCHAR},
+      </if>
+      <if test="continuetime != null" >
+        #{continuetime,jdbcType=DOUBLE},
+      </if>
+      <if test="ifappend != null" >
+        #{ifappend,jdbcType=VARCHAR},
+      </if>
+      <if test="courseprice != null" >
+        #{courseprice,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="examkhzl != null" >
+        #{examkhzl,jdbcType=VARCHAR},
+      </if>
+      <if test="examkhxm != null" >
+        #{examkhxm,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditremark != null" >
+        #{auditremark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="continuereason != null" >
+        #{continuereason,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+    update t_newexam_info
+    <set >
+      <if test="examname != null" >
+        EXAMNAME = #{examname,jdbcType=VARCHAR},
+      </if>
+      <if test="examcategroy != null" >
+        EXAMCATEGROY = #{examcategroy,jdbcType=VARCHAR},
+      </if>
+      <if test="examsocre != null" >
+        EXAMSOCRE = #{examsocre,jdbcType=DECIMAL},
+      </if>
+      <if test="passscore != null" >
+        PASSSCORE = #{passscore,jdbcType=DECIMAL},
+      </if>
+      <if test="starttime != null" >
+        STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showpoint != null" >
+        SHOWPOINT = #{showpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="examtype != null" >
+        EXAMTYPE = #{examtype,jdbcType=VARCHAR},
+      </if>
+      <if test="exammode != null" >
+        EXAMMODE = #{exammode,jdbcType=VARCHAR},
+      </if>
+      <if test="userpaper != null" >
+        USERPAPER = #{userpaper,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorid != null" >
+        CREATORID = #{creatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="creatortime != null" >
+        CREATORTIME = #{creatortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditorid != null" >
+        AUDITORID = #{auditorid,jdbcType=VARCHAR},
+      </if>
+      <if test="auditortime != null" >
+        AUDITORTIME = #{auditortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showpointtime != null" >
+        SHOWPOINTTIME = #{showpointtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examtime != null" >
+        EXAMTIME = #{examtime,jdbcType=DOUBLE},
+      </if>
+      <if test="passscorestatus != null" >
+        PASSSCORESTATUS = #{passscorestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="examscorestatus != null" >
+        EXAMSCORESTATUS = #{examscorestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinnumber != null" >
+        JOINNUMBER = #{joinnumber,jdbcType=DOUBLE},
+      </if>
+      <if test="continueperson != null" >
+        CONTINUEPERSON = #{continueperson,jdbcType=VARCHAR},
+      </if>
+      <if test="continuetime != null" >
+        CONTINUETIME = #{continuetime,jdbcType=DOUBLE},
+      </if>
+      <if test="ifappend != null" >
+        IFAPPEND = #{ifappend,jdbcType=VARCHAR},
+      </if>
+      <if test="courseprice != null" >
+        COURSEPRICE = #{courseprice,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null" >
+        DISCOUNT = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="examkhzl != null" >
+        examKhzl = #{examkhzl,jdbcType=VARCHAR},
+      </if>
+      <if test="examkhxm != null" >
+        examKhxm = #{examkhxm,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditremark != null" >
+        AUDITREMARK = #{auditremark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="continuereason != null" >
+        CONTINUEREASON = #{continuereason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfoWithBLOBs" >
+    update t_newexam_info
+    set EXAMNAME = #{examname,jdbcType=VARCHAR},
+      EXAMCATEGROY = #{examcategroy,jdbcType=VARCHAR},
+      EXAMSOCRE = #{examsocre,jdbcType=DECIMAL},
+      PASSSCORE = #{passscore,jdbcType=DECIMAL},
+      STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      SHOWPOINT = #{showpoint,jdbcType=VARCHAR},
+      EXAMTYPE = #{examtype,jdbcType=VARCHAR},
+      EXAMMODE = #{exammode,jdbcType=VARCHAR},
+      USERPAPER = #{userpaper,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATORID = #{creatorid,jdbcType=VARCHAR},
+      CREATORTIME = #{creatortime,jdbcType=TIMESTAMP},
+      AUDITORID = #{auditorid,jdbcType=VARCHAR},
+      AUDITORTIME = #{auditortime,jdbcType=TIMESTAMP},
+      SHOWPOINTTIME = #{showpointtime,jdbcType=TIMESTAMP},
+      EXAMTIME = #{examtime,jdbcType=DOUBLE},
+      PASSSCORESTATUS = #{passscorestatus,jdbcType=VARCHAR},
+      EXAMSCORESTATUS = #{examscorestatus,jdbcType=VARCHAR},
+      JOINNUMBER = #{joinnumber,jdbcType=DOUBLE},
+      CONTINUEPERSON = #{continueperson,jdbcType=VARCHAR},
+      CONTINUETIME = #{continuetime,jdbcType=DOUBLE},
+      IFAPPEND = #{ifappend,jdbcType=VARCHAR},
+      COURSEPRICE = #{courseprice,jdbcType=DOUBLE},
+      DISCOUNT = #{discount,jdbcType=DOUBLE},
+      examKhzl = #{examkhzl,jdbcType=VARCHAR},
+      examKhxm = #{examkhxm,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=LONGVARCHAR},
+      AUDITREMARK = #{auditremark,jdbcType=LONGVARCHAR},
+      CONTINUEREASON = #{continuereason,jdbcType=LONGVARCHAR}
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+    update t_newexam_info
+    set EXAMNAME = #{examname,jdbcType=VARCHAR},
+      EXAMCATEGROY = #{examcategroy,jdbcType=VARCHAR},
+      EXAMSOCRE = #{examsocre,jdbcType=DECIMAL},
+      PASSSCORE = #{passscore,jdbcType=DECIMAL},
+      STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      SHOWPOINT = #{showpoint,jdbcType=VARCHAR},
+      EXAMTYPE = #{examtype,jdbcType=VARCHAR},
+      EXAMMODE = #{exammode,jdbcType=VARCHAR},
+      USERPAPER = #{userpaper,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATORID = #{creatorid,jdbcType=VARCHAR},
+      CREATORTIME = #{creatortime,jdbcType=TIMESTAMP},
+      AUDITORID = #{auditorid,jdbcType=VARCHAR},
+      AUDITORTIME = #{auditortime,jdbcType=TIMESTAMP},
+      SHOWPOINTTIME = #{showpointtime,jdbcType=TIMESTAMP},
+      EXAMTIME = #{examtime,jdbcType=DOUBLE},
+      PASSSCORESTATUS = #{passscorestatus,jdbcType=VARCHAR},
+      EXAMSCORESTATUS = #{examscorestatus,jdbcType=VARCHAR},
+      JOINNUMBER = #{joinnumber,jdbcType=DOUBLE},
+      CONTINUEPERSON = #{continueperson,jdbcType=VARCHAR},
+      CONTINUETIME = #{continuetime,jdbcType=DOUBLE},
+      IFAPPEND = #{ifappend,jdbcType=VARCHAR},
+      COURSEPRICE = #{courseprice,jdbcType=DOUBLE},
+      DISCOUNT = #{discount,jdbcType=DOUBLE},
+      examKhzl = #{examkhzl,jdbcType=VARCHAR},
+      examKhxm = #{examkhxm,jdbcType=VARCHAR}
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectNewExamInfoList" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+    select * from (SELECT
+		t.EXAMID,
+		t.EXAMNAME,
+		t.EXAMCATEGROY,
+		t.EXAMSOCRE,
+		t.PASSSCORE,
+		date_format(t.STARTTIME,"%Y-%m-%d") STARTTIME,
+		date_format(t.ENDTIME,"%Y-%m-%d") ENDTIME,
+		t.SHOWPOINT,
+		t.EXAMTYPE,
+		t.EXAMMODE,
+		t.USERPAPER,
+		t.STATUS,
+		t.CREATORID,
+		(SELECT b.NICKNAME FROM t_permissions_studentinfo b WHERE b.STUDENTID = t.CREATORID ) createUserName,
+		date_format(t.CREATORTIME, "%Y-%m-%d %H:%i:%s") CREATORTIME,
+		t.AUDITORID,
+		t.AUDITORTIME,
+		t.SHOWPOINTTIME,
+		t.EXAMTIME,
+		t.PASSSCORESTATUS,
+		t.EXAMSCORESTATUS,
+		t.JOINNUMBER,
+		t.CONTINUEPERSON,
+		t.CONTINUETIME,
+		t.IFAPPEND,
+		t.COURSEPRICE,
+		t.DISCOUNT,
+		t.examKhzl,
+		t.examKhxm,
+		t.REMARK,
+		t.AUDITREMARK,
+		t.CONTINUEREASON,
+	    a.id imgId,
+	    a.imgname imgName,
+		b.PAPERNAME,
+		b.SCORE,
+		(select c.POINTSNAME from t_newtestpaper_category c where c.pointsid = t.EXAMCATEGROY) cagetoryname
+	FROM
+		t_newexam_info t 
+		LEFT JOIN t_newexam_image a on t.EXAMID = a.EXAMID
+		LEFT JOIN t_new_testpaper_info b on t.USERPAPER = b.PAPERID
+		LEFT JOIN t_permissions_studentinfo tps 
+		on t.CREATORID = tps.STUDENTID 
+		LEFT JOIN t_permissions_student_depart tpsd 
+		on tps.DEPARTID = tpsd.DEPARTID
+     where 1=1 and t.status in(0,2)
+      and tpsd.DEPARTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  or tpsd.PARENTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  ) res where 1=1
+	<if test="examid != null and examid != ''" >
+		and res.EXAMID = #{examid,jdbcType=VARCHAR}
+	</if>
+	<if test="examcategroy != null and examcategroy != ''" >
+		and res.EXAMCATEGROY = #{examcategroy,jdbcType=VARCHAR}
+	</if>
+	<if test="examtype != null and examtype != ''" >
+		and res.EXAMTYPE = #{examtype,jdbcType=VARCHAR}
+	</if>
+	<if test="status != null and status != ''" >
+		and res.STATUS = #{status,jdbcType=VARCHAR}
+	</if>
+	<if test="examname != null and examname != ''" >
+		and upper(res.EXAMNAME) LIKE upper(CONCAT('%', #{examname,jdbcType=VARCHAR}, '%'))
+	</if>
+	ORDER BY res.CREATORTIME DESC
+  </select>
+  <select id="selectExamInfoByFilter" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+      select t1.EXAMID,
+             t1.EXAMNAME,
+             t1.USERPAPER AS PAPERID,
+             t1.EXAMSOCRE AS EXAMSCORE,
+             case when t1.STARTTIME is not null then DATE_FORMAT(t1.STARTTIME, '%Y/%m/%d') else '' end AS STARTTIME,
+             case when t1.ENDTIME is not null then DATE_FORMAT(t1.ENDTIME, '%Y/%m/%d') else '' end AS ENDTIME,
+             t1.SHOWPOINT,
+             t1.EXAMTIME,
+             t1.examKhzl,
+             t1.CREATORTIME AS CREATEDATE,
+             t3.CONTINUETIME,
+             case when t4.SCORE is null then 0 else t4.SCORE end AS SCORE
+		from t_newexam_info t1
+   left join t_newexam_authoruser t2
+          on t1.EXAMID = t2.EXAMID
+   left join t_newexam_details t3
+          on t1.EXAMID = t3.EXAMID
+         and t2.USERID = t3.USERID
+   left join t_newexam_mark t4
+          on t1.EXAMID = t4.EXAMID
+         and t2.USERID = t4.USERID
+	   where t1.STATUS = '2'
+	     and t2.USERID = #{loginUserId,jdbcType=VARCHAR}
+	<if test="reviewStatus == 1" >
+		 and t3.REVIEWSTATUS = '1'
+	</if>
+	<if test="reviewStatus == 0" >
+		 and (t3.REVIEWSTATUS is null or t3.REVIEWSTATUS = '0')
+	</if>
+	order by t1.CREATORTIME desc
+  </select>
+  <select id="getNoExamNum" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+      select case when count(t1.EXAMID) is null then 0 else count(t1.EXAMID) end AS count
+		from t_newexam_info t1
+   left join t_newexam_authoruser t2
+          on t1.EXAMID = t2.EXAMID
+   left join t_newexam_details t3
+          on t1.EXAMID = t3.EXAMID
+         and t2.USERID = t3.USERID
+	   where t1.STATUS = '2'
+	     and t2.USERID = #{loginUserId,jdbcType=VARCHAR}
+		 and (t3.REVIEWSTATUS is null or t3.REVIEWSTATUS = '0')
+  </select>
+  <select id="getExamedNum" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+      select case when count(t1.EXAMID) is null then 0 else count(t1.EXAMID) end AS count
+		from t_newexam_info t1
+   left join t_newexam_authoruser t2
+          on t1.EXAMID = t2.EXAMID
+   left join t_newexam_details t3
+          on t1.EXAMID = t3.EXAMID
+         and t2.USERID = t3.USERID
+	   where t1.STATUS = '2'
+	     and t2.USERID = #{loginUserId,jdbcType=VARCHAR}
+		 and t3.REVIEWSTATUS = '1'
+  </select>
+  <select id="getUserExamInfo" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewExamInfo" >
+      select t1.EXAMID,
+             t1.EXAMNAME,
+             t1.USERPAPER,
+             t1.SHOWPOINT,
+             t1.EXAMTIME,
+             t1.examKhzl,
+             t1.REMARK,
+             t2.CONTINUETIME
+		from t_newexam_info t1
+   left join t_newexam_details t2
+          on t1.EXAMID = t2.EXAMID
+	     and t2.USERID = #{loginUserId,jdbcType=VARCHAR}
+	   where t1.STATUS = '2'
+	     and t1.EXAMID = #{examid,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteNewExamInfo" parameterType="java.util.List" >
+	  delete from t_newexam_info
+	    where EXAMID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+  
+  <!-- 发布 -->
+  <update id="sendNewExamInfo" parameterType="java.util.List">
+	update t_newexam_info set STATUS = '2'
+       where EXAMID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+</mapper>

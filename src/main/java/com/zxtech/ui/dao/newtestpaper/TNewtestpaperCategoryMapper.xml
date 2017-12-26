@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newtestpaper.TNewtestpaperCategoryMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="POINTSID" property="pointsid" jdbcType="VARCHAR" />
+    <result column="POINTSNAME" property="pointsname" jdbcType="VARCHAR" />
+    <result column="POINTSPARENTID" property="pointsparentid" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="REMARK" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    POINTSID, POINTSNAME, POINTSPARENTID, STATUS, CREATER, STANDBY1, STANDBY2, STANDBY3
+  </sql>
+  <sql id="Blob_Column_List" >
+    REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_newtestpaper_category
+    where POINTSID = #{pointsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_newtestpaper_category
+    where POINTSID = #{pointsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperCategory" >
+    insert into t_newtestpaper_category (POINTSID, POINTSNAME, POINTSPARENTID, 
+      STATUS, CREATER, STANDBY1, 
+      STANDBY2, STANDBY3, REMARK
+      )
+    values (#{pointsid,jdbcType=VARCHAR}, #{pointsname,jdbcType=VARCHAR}, #{pointsparentid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{standby1,jdbcType=VARCHAR}, 
+      #{standby2,jdbcType=VARCHAR}, #{standby3,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperCategory" >
+    insert into t_newtestpaper_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pointsid != null" >
+        POINTSID,
+      </if>
+      <if test="pointsname != null" >
+        POINTSNAME,
+      </if>
+      <if test="pointsparentid != null" >
+        POINTSPARENTID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pointsid != null" >
+        #{pointsid,jdbcType=VARCHAR},
+      </if>
+      <if test="pointsname != null" >
+        #{pointsname,jdbcType=VARCHAR},
+      </if>
+      <if test="pointsparentid != null" >
+        #{pointsparentid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperCategory" >
+    update t_newtestpaper_category
+    <set >
+      <if test="pointsname != null" >
+        POINTSNAME = #{pointsname,jdbcType=VARCHAR},
+      </if>
+      <if test="pointsparentid != null" >
+        POINTSPARENTID = #{pointsparentid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where POINTSID = #{pointsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperCategory" >
+    update t_newtestpaper_category
+    set POINTSNAME = #{pointsname,jdbcType=VARCHAR},
+      POINTSPARENTID = #{pointsparentid,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=LONGVARCHAR}
+    where POINTSID = #{pointsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperCategory" >
+    update t_newtestpaper_category
+    set POINTSNAME = #{pointsname,jdbcType=VARCHAR},
+      POINTSPARENTID = #{pointsparentid,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR}
+    where POINTSID = #{pointsid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectNewtestpaperCategoryList" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newtestpaper.TNewtestpaperCategory" >
+    select 
+	<include refid="Base_Column_List" />,
+    <include refid="Blob_Column_List" />
+      from t_newtestpaper_category
+     where 1=1 and STANDBY1 = '0'
+	<if test="pointsid != null and pointsid != ''" >
+		and POINTSID = #{pointsid,jdbcType=BIGINT}
+	</if>
+<!-- 	<if test="pointsparentid != null" > -->
+<!-- 		and POINTSPARENTID = #{pointsparentid,jdbcType=BIGINT} -->
+<!-- 	</if> -->
+	<if test="pointsname != null and pointsname != ''" >
+		and upper(POINTSNAME) LIKE upper(CONCAT('%', #{pointsname,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="standby1 != null and standby1 != ''" >
+		and STANDBY1 = #{standby1,jdbcType=BIGINT}
+	</if>
+  </select>
+  
+  <!-- 删除 -->
+  <update id="deleteNewtestpaperCategory" parameterType="java.util.List">
+	update t_newtestpaper_category set STANDBY1 = '1'
+       where POINTSID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+<!--        or POINTSPARENTID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach> -->
+  </update>
+</mapper>

@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.esp.dao.user.MhUserMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="CN_USER_ID" property="cnUserId" jdbcType="VARCHAR" />
+    <result column="CN_HQ_ID" property="cnHqId" jdbcType="VARCHAR" />
+    <result column="CR_SAP_ID" property="crSapId" jdbcType="VARCHAR" />
+    <result column="CN_LOGIN_NAME" property="cnLoginName" jdbcType="VARCHAR" />
+    <result column="CN_PASSWORD" property="cnPassword" jdbcType="VARCHAR" />
+    <result column="CN_NO" property="cnNo" jdbcType="VARCHAR" />
+    <result column="CN_NAME" property="cnName" jdbcType="VARCHAR" />
+    <result column="CN_ENGLISH_NAME" property="cnEnglishName" jdbcType="VARCHAR" />
+    <result column="CN_ID_CARD" property="cnIdCard" jdbcType="VARCHAR" />
+    <result column="CN_ID_ADDRESS" property="cnIdAddress" jdbcType="VARCHAR" />
+    <result column="CN_PHONE" property="cnPhone" jdbcType="VARCHAR" />
+    <result column="CN_EMAIL" property="cnEmail" jdbcType="VARCHAR" />
+    <result column="CR_COMPANY_ID" property="crCompanyId" jdbcType="VARCHAR" />
+    <result column="CR_POST_ID" property="crPostId" jdbcType="VARCHAR" />
+    <result column="CR_STATUS_ID" property="crStatusId" jdbcType="VARCHAR" />
+    <result column="CN_CREATE_DATE" property="cnCreateDate" jdbcType="TIMESTAMP" />
+    <result column="CR_LEADER_ID" property="crLeaderId" jdbcType="VARCHAR" />
+    <result column="CN_STATUS" property="cnStatus" jdbcType="INTEGER" />
+    <result column="CN_UPDATE_DATE" property="cnUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="CN_APPROVE_POST_ID" property="cnApprovePostId" jdbcType="VARCHAR" />
+    <result column="CR_DEP_ID" property="crDepId" jdbcType="VARCHAR" />
+    <result column="CR_AREA_ID" property="crAreaId" jdbcType="VARCHAR" />
+    <result column="CN_LINE_MANAGER_ID" property="cnLineManagerId" jdbcType="VARCHAR" />
+    <result column="CN_ONE_ABOVE_MANAGER_ID" property="cnOneAboveManagerId" jdbcType="VARCHAR" />
+    <result column="CN_LINE_MANAGER_NAME" property="cnLineManagerName" jdbcType="VARCHAR" />
+    <result column="CN_ONE_ABOVE_MANAGER_NAME" property="cnOneAboveManagerName" jdbcType="VARCHAR" />
+    <result column="CN_ENTRY_TIME" property="cnEntryTime" jdbcType="VARCHAR" />
+    <result column="CN_POST_LEVEL" property="cnPostLevel" jdbcType="VARCHAR" />
+    <result column="CN_ROLE_EMPLOYEE" property="cnRoleEmployee" jdbcType="VARCHAR" />
+    <result column="CN_ROLE_LINE_MANAGER" property="cnRoleLineManager" jdbcType="VARCHAR" />
+    <result column="CN_ROLE_ONE_ABOVE_MANAGER" property="cnRoleOneAboveManager" jdbcType="VARCHAR" />
+    <result column="CN_DEPARTURE_TIME" property="cnDepartureTime" jdbcType="VARCHAR" />
+    <result column="CN_CHANGE_POSITION_TIME" property="cnChangePositionTime" jdbcType="VARCHAR" />
+    <result column="CN_PLT_POST_ID" property="cnPltPostId" jdbcType="VARCHAR" />
+    <result column="CN_BUKRS" property="cnBukrs" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CN_USER_ID, CN_HQ_ID, CR_SAP_ID, CN_LOGIN_NAME, CN_PASSWORD, CN_NO, CN_NAME, CN_ENGLISH_NAME, 
+    CN_ID_CARD, CN_ID_ADDRESS, CN_PHONE, CN_EMAIL, CR_COMPANY_ID, CR_POST_ID, CR_STATUS_ID, 
+    CN_CREATE_DATE, CR_LEADER_ID, CN_STATUS, CN_UPDATE_DATE, CN_APPROVE_POST_ID, CR_DEP_ID, 
+    CR_AREA_ID, CN_LINE_MANAGER_ID, CN_ONE_ABOVE_MANAGER_ID, CN_LINE_MANAGER_NAME, CN_ONE_ABOVE_MANAGER_NAME, 
+    CN_ENTRY_TIME, CN_POST_LEVEL, CN_ROLE_EMPLOYEE, CN_ROLE_LINE_MANAGER, CN_ROLE_ONE_ABOVE_MANAGER, 
+    CN_DEPARTURE_TIME, CN_CHANGE_POSITION_TIME, CN_PLT_POST_ID, CN_BUKRS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mh_user
+    where CN_USER_ID = #{cnUserId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mh_user
+    where CN_USER_ID = #{cnUserId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.esp.vo.user.MhUser" >
+    insert into mh_user (CN_USER_ID, CN_HQ_ID, CR_SAP_ID, 
+      CN_LOGIN_NAME, CN_PASSWORD, CN_NO, 
+      CN_NAME, CN_ENGLISH_NAME, CN_ID_CARD, 
+      CN_ID_ADDRESS, CN_PHONE, CN_EMAIL, 
+      CR_COMPANY_ID, CR_POST_ID, CR_STATUS_ID, 
+      CN_CREATE_DATE, CR_LEADER_ID, CN_STATUS, 
+      CN_UPDATE_DATE, CN_APPROVE_POST_ID, CR_DEP_ID, 
+      CR_AREA_ID, CN_LINE_MANAGER_ID, CN_ONE_ABOVE_MANAGER_ID, 
+      CN_LINE_MANAGER_NAME, CN_ONE_ABOVE_MANAGER_NAME, 
+      CN_ENTRY_TIME, CN_POST_LEVEL, CN_ROLE_EMPLOYEE, 
+      CN_ROLE_LINE_MANAGER, CN_ROLE_ONE_ABOVE_MANAGER, 
+      CN_DEPARTURE_TIME, CN_CHANGE_POSITION_TIME, 
+      CN_PLT_POST_ID, CN_BUKRS)
+    values (#{cnUserId,jdbcType=VARCHAR}, #{cnHqId,jdbcType=VARCHAR}, #{crSapId,jdbcType=VARCHAR}, 
+      #{cnLoginName,jdbcType=VARCHAR}, #{cnPassword,jdbcType=VARCHAR}, #{cnNo,jdbcType=VARCHAR}, 
+      #{cnName,jdbcType=VARCHAR}, #{cnEnglishName,jdbcType=VARCHAR}, #{cnIdCard,jdbcType=VARCHAR}, 
+      #{cnIdAddress,jdbcType=VARCHAR}, #{cnPhone,jdbcType=VARCHAR}, #{cnEmail,jdbcType=VARCHAR}, 
+      #{crCompanyId,jdbcType=VARCHAR}, #{crPostId,jdbcType=VARCHAR}, #{crStatusId,jdbcType=VARCHAR}, 
+      #{cnCreateDate,jdbcType=TIMESTAMP}, #{crLeaderId,jdbcType=VARCHAR}, #{cnStatus,jdbcType=INTEGER}, 
+      #{cnUpdateDate,jdbcType=TIMESTAMP}, #{cnApprovePostId,jdbcType=VARCHAR}, #{crDepId,jdbcType=VARCHAR}, 
+      #{crAreaId,jdbcType=VARCHAR}, #{cnLineManagerId,jdbcType=VARCHAR}, #{cnOneAboveManagerId,jdbcType=VARCHAR}, 
+      #{cnLineManagerName,jdbcType=VARCHAR}, #{cnOneAboveManagerName,jdbcType=VARCHAR}, 
+      #{cnEntryTime,jdbcType=VARCHAR}, #{cnPostLevel,jdbcType=VARCHAR}, #{cnRoleEmployee,jdbcType=VARCHAR}, 
+      #{cnRoleLineManager,jdbcType=VARCHAR}, #{cnRoleOneAboveManager,jdbcType=VARCHAR}, 
+      #{cnDepartureTime,jdbcType=VARCHAR}, #{cnChangePositionTime,jdbcType=VARCHAR}, 
+      #{cnPltPostId,jdbcType=VARCHAR}, #{cnBukrs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.esp.vo.user.MhUser" >
+    insert into mh_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cnUserId != null" >
+        CN_USER_ID,
+      </if>
+      <if test="cnHqId != null" >
+        CN_HQ_ID,
+      </if>
+      <if test="crSapId != null" >
+        CR_SAP_ID,
+      </if>
+      <if test="cnLoginName != null" >
+        CN_LOGIN_NAME,
+      </if>
+      <if test="cnPassword != null" >
+        CN_PASSWORD,
+      </if>
+      <if test="cnNo != null" >
+        CN_NO,
+      </if>
+      <if test="cnName != null" >
+        CN_NAME,
+      </if>
+      <if test="cnEnglishName != null" >
+        CN_ENGLISH_NAME,
+      </if>
+      <if test="cnIdCard != null" >
+        CN_ID_CARD,
+      </if>
+      <if test="cnIdAddress != null" >
+        CN_ID_ADDRESS,
+      </if>
+      <if test="cnPhone != null" >
+        CN_PHONE,
+      </if>
+      <if test="cnEmail != null" >
+        CN_EMAIL,
+      </if>
+      <if test="crCompanyId != null" >
+        CR_COMPANY_ID,
+      </if>
+      <if test="crPostId != null" >
+        CR_POST_ID,
+      </if>
+      <if test="crStatusId != null" >
+        CR_STATUS_ID,
+      </if>
+      <if test="cnCreateDate != null" >
+        CN_CREATE_DATE,
+      </if>
+      <if test="crLeaderId != null" >
+        CR_LEADER_ID,
+      </if>
+      <if test="cnStatus != null" >
+        CN_STATUS,
+      </if>
+      <if test="cnUpdateDate != null" >
+        CN_UPDATE_DATE,
+      </if>
+      <if test="cnApprovePostId != null" >
+        CN_APPROVE_POST_ID,
+      </if>
+      <if test="crDepId != null" >
+        CR_DEP_ID,
+      </if>
+      <if test="crAreaId != null" >
+        CR_AREA_ID,
+      </if>
+      <if test="cnLineManagerId != null" >
+        CN_LINE_MANAGER_ID,
+      </if>
+      <if test="cnOneAboveManagerId != null" >
+        CN_ONE_ABOVE_MANAGER_ID,
+      </if>
+      <if test="cnLineManagerName != null" >
+        CN_LINE_MANAGER_NAME,
+      </if>
+      <if test="cnOneAboveManagerName != null" >
+        CN_ONE_ABOVE_MANAGER_NAME,
+      </if>
+      <if test="cnEntryTime != null" >
+        CN_ENTRY_TIME,
+      </if>
+      <if test="cnPostLevel != null" >
+        CN_POST_LEVEL,
+      </if>
+      <if test="cnRoleEmployee != null" >
+        CN_ROLE_EMPLOYEE,
+      </if>
+      <if test="cnRoleLineManager != null" >
+        CN_ROLE_LINE_MANAGER,
+      </if>
+      <if test="cnRoleOneAboveManager != null" >
+        CN_ROLE_ONE_ABOVE_MANAGER,
+      </if>
+      <if test="cnDepartureTime != null" >
+        CN_DEPARTURE_TIME,
+      </if>
+      <if test="cnChangePositionTime != null" >
+        CN_CHANGE_POSITION_TIME,
+      </if>
+      <if test="cnPltPostId != null" >
+        CN_PLT_POST_ID,
+      </if>
+      <if test="cnBukrs != null" >
+        CN_BUKRS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cnUserId != null" >
+        #{cnUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnHqId != null" >
+        #{cnHqId,jdbcType=VARCHAR},
+      </if>
+      <if test="crSapId != null" >
+        #{crSapId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnLoginName != null" >
+        #{cnLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnPassword != null" >
+        #{cnPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cnNo != null" >
+        #{cnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cnName != null" >
+        #{cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnEnglishName != null" >
+        #{cnEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnIdCard != null" >
+        #{cnIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="cnIdAddress != null" >
+        #{cnIdAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cnPhone != null" >
+        #{cnPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cnEmail != null" >
+        #{cnEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="crCompanyId != null" >
+        #{crCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="crPostId != null" >
+        #{crPostId,jdbcType=VARCHAR},
+      </if>
+      <if test="crStatusId != null" >
+        #{crStatusId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnCreateDate != null" >
+        #{cnCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crLeaderId != null" >
+        #{crLeaderId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnStatus != null" >
+        #{cnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="cnUpdateDate != null" >
+        #{cnUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cnApprovePostId != null" >
+        #{cnApprovePostId,jdbcType=VARCHAR},
+      </if>
+      <if test="crDepId != null" >
+        #{crDepId,jdbcType=VARCHAR},
+      </if>
+      <if test="crAreaId != null" >
+        #{crAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnLineManagerId != null" >
+        #{cnLineManagerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnOneAboveManagerId != null" >
+        #{cnOneAboveManagerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnLineManagerName != null" >
+        #{cnLineManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnOneAboveManagerName != null" >
+        #{cnOneAboveManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnEntryTime != null" >
+        #{cnEntryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cnPostLevel != null" >
+        #{cnPostLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cnRoleEmployee != null" >
+        #{cnRoleEmployee,jdbcType=VARCHAR},
+      </if>
+      <if test="cnRoleLineManager != null" >
+        #{cnRoleLineManager,jdbcType=VARCHAR},
+      </if>
+      <if test="cnRoleOneAboveManager != null" >
+        #{cnRoleOneAboveManager,jdbcType=VARCHAR},
+      </if>
+      <if test="cnDepartureTime != null" >
+        #{cnDepartureTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cnChangePositionTime != null" >
+        #{cnChangePositionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cnPltPostId != null" >
+        #{cnPltPostId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnBukrs != null" >
+        #{cnBukrs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.esp.vo.user.MhUser" >
+    update mh_user
+    <set >
+      <if test="cnHqId != null" >
+        CN_HQ_ID = #{cnHqId,jdbcType=VARCHAR},
+      </if>
+      <if test="crSapId != null" >
+        CR_SAP_ID = #{crSapId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnLoginName != null" >
+        CN_LOGIN_NAME = #{cnLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnPassword != null" >
+        CN_PASSWORD = #{cnPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cnNo != null" >
+        CN_NO = #{cnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cnName != null" >
+        CN_NAME = #{cnName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnEnglishName != null" >
+        CN_ENGLISH_NAME = #{cnEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnIdCard != null" >
+        CN_ID_CARD = #{cnIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="cnIdAddress != null" >
+        CN_ID_ADDRESS = #{cnIdAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cnPhone != null" >
+        CN_PHONE = #{cnPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cnEmail != null" >
+        CN_EMAIL = #{cnEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="crCompanyId != null" >
+        CR_COMPANY_ID = #{crCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="crPostId != null" >
+        CR_POST_ID = #{crPostId,jdbcType=VARCHAR},
+      </if>
+      <if test="crStatusId != null" >
+        CR_STATUS_ID = #{crStatusId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnCreateDate != null" >
+        CN_CREATE_DATE = #{cnCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crLeaderId != null" >
+        CR_LEADER_ID = #{crLeaderId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnStatus != null" >
+        CN_STATUS = #{cnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="cnUpdateDate != null" >
+        CN_UPDATE_DATE = #{cnUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cnApprovePostId != null" >
+        CN_APPROVE_POST_ID = #{cnApprovePostId,jdbcType=VARCHAR},
+      </if>
+      <if test="crDepId != null" >
+        CR_DEP_ID = #{crDepId,jdbcType=VARCHAR},
+      </if>
+      <if test="crAreaId != null" >
+        CR_AREA_ID = #{crAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnLineManagerId != null" >
+        CN_LINE_MANAGER_ID = #{cnLineManagerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnOneAboveManagerId != null" >
+        CN_ONE_ABOVE_MANAGER_ID = #{cnOneAboveManagerId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnLineManagerName != null" >
+        CN_LINE_MANAGER_NAME = #{cnLineManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnOneAboveManagerName != null" >
+        CN_ONE_ABOVE_MANAGER_NAME = #{cnOneAboveManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="cnEntryTime != null" >
+        CN_ENTRY_TIME = #{cnEntryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cnPostLevel != null" >
+        CN_POST_LEVEL = #{cnPostLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cnRoleEmployee != null" >
+        CN_ROLE_EMPLOYEE = #{cnRoleEmployee,jdbcType=VARCHAR},
+      </if>
+      <if test="cnRoleLineManager != null" >
+        CN_ROLE_LINE_MANAGER = #{cnRoleLineManager,jdbcType=VARCHAR},
+      </if>
+      <if test="cnRoleOneAboveManager != null" >
+        CN_ROLE_ONE_ABOVE_MANAGER = #{cnRoleOneAboveManager,jdbcType=VARCHAR},
+      </if>
+      <if test="cnDepartureTime != null" >
+        CN_DEPARTURE_TIME = #{cnDepartureTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cnChangePositionTime != null" >
+        CN_CHANGE_POSITION_TIME = #{cnChangePositionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cnPltPostId != null" >
+        CN_PLT_POST_ID = #{cnPltPostId,jdbcType=VARCHAR},
+      </if>
+      <if test="cnBukrs != null" >
+        CN_BUKRS = #{cnBukrs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CN_USER_ID = #{cnUserId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.esp.vo.user.MhUser" >
+    update mh_user
+    set CN_HQ_ID = #{cnHqId,jdbcType=VARCHAR},
+      CR_SAP_ID = #{crSapId,jdbcType=VARCHAR},
+      CN_LOGIN_NAME = #{cnLoginName,jdbcType=VARCHAR},
+      CN_PASSWORD = #{cnPassword,jdbcType=VARCHAR},
+      CN_NO = #{cnNo,jdbcType=VARCHAR},
+      CN_NAME = #{cnName,jdbcType=VARCHAR},
+      CN_ENGLISH_NAME = #{cnEnglishName,jdbcType=VARCHAR},
+      CN_ID_CARD = #{cnIdCard,jdbcType=VARCHAR},
+      CN_ID_ADDRESS = #{cnIdAddress,jdbcType=VARCHAR},
+      CN_PHONE = #{cnPhone,jdbcType=VARCHAR},
+      CN_EMAIL = #{cnEmail,jdbcType=VARCHAR},
+      CR_COMPANY_ID = #{crCompanyId,jdbcType=VARCHAR},
+      CR_POST_ID = #{crPostId,jdbcType=VARCHAR},
+      CR_STATUS_ID = #{crStatusId,jdbcType=VARCHAR},
+      CN_CREATE_DATE = #{cnCreateDate,jdbcType=TIMESTAMP},
+      CR_LEADER_ID = #{crLeaderId,jdbcType=VARCHAR},
+      CN_STATUS = #{cnStatus,jdbcType=INTEGER},
+      CN_UPDATE_DATE = #{cnUpdateDate,jdbcType=TIMESTAMP},
+      CN_APPROVE_POST_ID = #{cnApprovePostId,jdbcType=VARCHAR},
+      CR_DEP_ID = #{crDepId,jdbcType=VARCHAR},
+      CR_AREA_ID = #{crAreaId,jdbcType=VARCHAR},
+      CN_LINE_MANAGER_ID = #{cnLineManagerId,jdbcType=VARCHAR},
+      CN_ONE_ABOVE_MANAGER_ID = #{cnOneAboveManagerId,jdbcType=VARCHAR},
+      CN_LINE_MANAGER_NAME = #{cnLineManagerName,jdbcType=VARCHAR},
+      CN_ONE_ABOVE_MANAGER_NAME = #{cnOneAboveManagerName,jdbcType=VARCHAR},
+      CN_ENTRY_TIME = #{cnEntryTime,jdbcType=VARCHAR},
+      CN_POST_LEVEL = #{cnPostLevel,jdbcType=VARCHAR},
+      CN_ROLE_EMPLOYEE = #{cnRoleEmployee,jdbcType=VARCHAR},
+      CN_ROLE_LINE_MANAGER = #{cnRoleLineManager,jdbcType=VARCHAR},
+      CN_ROLE_ONE_ABOVE_MANAGER = #{cnRoleOneAboveManager,jdbcType=VARCHAR},
+      CN_DEPARTURE_TIME = #{cnDepartureTime,jdbcType=VARCHAR},
+      CN_CHANGE_POSITION_TIME = #{cnChangePositionTime,jdbcType=VARCHAR},
+      CN_PLT_POST_ID = #{cnPltPostId,jdbcType=VARCHAR},
+      CN_BUKRS = #{cnBukrs,jdbcType=VARCHAR}
+    where CN_USER_ID = #{cnUserId,jdbcType=VARCHAR}
+  </update>
+</mapper>

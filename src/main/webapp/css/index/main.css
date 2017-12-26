@@ -1,0 +1,207 @@
+/*
+	Background Stretcher jQuery Plugin 
+	锟� 2009 ajaxBlender.com
+*/
+HTML, BODY {
+	margin:0px;
+	padding:0px;
+}
+BODY {
+    font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+    color: #666666;
+    font-size: 12px;
+    background: #000;
+	height:100%;
+	text-align: center;
+}
+A { color: #0A8ECC; }
+A:HOVER {
+	text-decoration: none;
+	color: #d1aa7d;
+}	
+H1, H2 {
+	color: #CCC;
+	margin: 0;
+	padding: 0 0 5px 0;
+	font-size: 16px;
+	padding-bottom: 3px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #ccc;
+}
+H1 {
+	padding-bottom: 3px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #ccc;
+}
+H2 { font-size: 14px;}
+.bgstretcher-page { text-align: center;}
+
+.bgstretcher-page-div {
+    margin-right: 20px;
+}
+.bgstretcher-page-line {
+    position: fixed;
+    top: 30%;
+    right: 43px;
+    width: 1px;
+    height: 178px;
+    background: #FFF;
+    margin-top: 13px;
+    z-index: -3;
+}
+Input {
+	BACKGROUND-COLOR: #252724;
+	COLOR: #ffffff;
+	HEIGHT: 35px;
+	border: none;
+	font-size: 16pt;
+	width: 380px;;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.bgstretcher-login-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 60px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: transparent; 
+    border: 1px solid #FFF;
+    border-radius: 30px;
+}
+.bgstretcher-login {
+    position: fixed;
+    top: 20%;
+    right: 60px;
+    width: 400px;
+    height: 450px;
+}
+.bgstretcher-login-title {
+	COLOR: #FFF;
+	font-size: 30px;
+}
+.bgstretcher-login-label {
+	COLOR: #FFF;
+	font-size: 14px;
+	text-align: left;
+}
+.bgstretcher-login-x {
+	COLOR: red;
+	font-size: 12px;
+}
+.bgstretcher-login-error {
+	COLOR: #FFF;
+	font-size: 12px;
+}
+.bgstretcher-header {
+	position: fixed;
+	width: 100%;
+	height: 153px;
+	top: 0px;
+	left: 0px;
+}
+.bgstretcher-footer {
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	vertical-align: bottom;
+	margin-bottom: -5px;
+}
+#page {
+	margin: 0 auto;
+	width: 800px;
+	text-align: left;
+}
+.page-top, .page-bottom,
+.page-content {
+	float: left;
+	width: 100%;
+}
+.page-top, .page-bottom { height: 30px;}
+.page-top { 
+	margin-top: 30px;
+	background: url("images/index/bg/page-top.png") no-repeat left top; 
+	_background: none;
+	_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./images/index/bg/page-top.png', sizingMethod='image');
+}
+.page-bottom { 
+	background: url("images/index/bg/page-bottom.png") no-repeat left top; 
+	_background: none;
+	_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./images/index/bg/page-bottom.png', sizingMethod='image');
+}
+.page-content {
+	font-size: 12px;
+	color: #ccc;
+	background: url("images/index/bg/page-bg.png") repeat-y left top; 
+	_background: none;
+	_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./images/index/bg/page-bg.png', sizingMethod='scale');
+}
+.page-wrapper { 
+	float: left;
+	width: 740px;
+	display: inline;
+	margin-left: 30px;
+}
+.column {
+	float: left;
+	width: 320px;
+	margin-right: 40px;
+}
+.column  .row {
+	float: left;
+	width: 100%;
+	padding-bottom: 13px;
+}
+.column.small { width: 90px; }
+.column.small .row { padding-bottom: 5px;}
+.column SELECT { width: 180px;}
+.column LABEL {cursor: pointer;}
+.column  .row SPAN.pager { float: left; margin-right: 15px;}
+.column  .row A { position: relative; }
+P.larger-size { font-size: 16px; }
+#page STRONG { color: #FFFFFF; }
+#nav UL {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#nav UL LI {
+	margin-right: 8px;
+}
+#nav UL LI.showPage A IMG {
+    background-image: url('../../images/index/selected.png');
+    width: 31px;
+    height: 31px;
+}
+#nav UL LI A IMG {
+    background-image: url('../../images/index/no_selected.png');
+    width: 31px;
+    height: 31px;
+}
+.bgstretcher-login-id {
+	width: 48%;
+	text-align: left;
+	display: -moz-inline-box;
+	display: inline-block;
+}
+.bgstretcher-login-id-new {
+	width: 50%;
+	text-align: right;
+	display: -moz-inline-box;
+	display: inline-block;
+}
+.bgstretcher-login-id-new-a {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.bgstretcher-login-id-new-a.hover {
+	color: #CBA67C;
+	text-decoration: none;
+}
+

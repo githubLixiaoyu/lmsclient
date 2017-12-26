@@ -1,0 +1,499 @@
+a {
+		color: #002893;
+	}
+.page {
+	background: #ffffff;
+	scrollbar-face-color: #b5daff;
+	scrollbar-highlight-color: #ffffff;
+	scrollbar-shadow-color: #000000;
+	scrollbar-arrow-color: #0000ff;
+	scrollbar-base-color: #6699ff;
+	scrollbar-dark-shadow-color: #6699ff;
+	;
+	font-size: 12px;
+	margin: 0px 0px 0px 2px;
+	}
+.logopart {
+		width: 160px;
+		background: #8CB6DC;
+		padding: 5px;
+		height: 80px;
+		font-family: "MS UI Gothic", "System", "Terminal", "Courier", "MS Serif";
+	}
+.logotbl {
+		width: 151px;
+		padding: 0px;
+		height: 100%;
+	}
+.logopartupper {
+		background-color: #0000FF;
+		padding: 5px;
+		white-space: nowrap;
+; font-weight: bold; font-size: 36px; font-family: "Times New Roman", "Times", "serif"
+	}
+.logo {
+		background-color: #ffffff;
+		font-size: 12px;
+		color: #FFFFFF;
+		font-style: normal;
+		font-variant: normal;
+		text-align: right;
+; font-weight: bold
+	}
+.logoupper {
+		background-color: #4C628F;
+		font-size: 12px;
+		color: #FFFFFF;
+		font-style: normal;
+		font-variant: normal;
+		text-align: right;
+; font-weight: bold
+	}
+.logolower {
+		background-color: #5C7099;
+		font-size: 12px;
+		
+		font-family: "Times New Roman", "Times", "serif";
+		color: #FFFFFF;
+		; padding-left: 5px
+	}
+.logolower2 {
+		background-color: #5C7099;
+		font-size: 18px;
+		font-weight: bold; 
+		font-family: "Times New Roman", "Times", "serif";
+		color: #FFFFFF;
+		; padding-left: 5px
+	}
+.logopartlower {
+		background-color: #000000;
+		text-indent: 5pt;
+		padding-right: 5px;
+		padding-top: 2px;
+		padding-bottom: 2px;
+		white-space: nowrap;
+	}
+.headerpart {
+		border: 5px solid #8CB6DC;
+		background: #8CB6DC;
+		width: 100%;
+	}
+.headerinfo {
+		color: #333333;
+		background-color: #FFFFFF;
+		width: 100%;
+		height: 100%;
+	}
+.boldout {
+		font-size: 12px;
+		font-weight: bold;
+; background-color: #F7F7F7
+	}
+.actionber {
+		background: #8CB6DC;
+		text-align: right;
+		
+		border-top-width: 2px;
+		border-right-width: 2px;
+		border-bottom-width: 2px;
+		border-left-width: 2px;
+		border-top-style: solid;
+	}
+.btnact80 {
+		color: #ffffff;
+		font-weight: normal;
+		background: #5C7099;
+		font-size: 12px;
+		width: 80px;
+		border: 1px solid #000000;
+	}
+.grplabel {
+		font-size: 12px;
+		color: #000000;
+		background: #8CB6DC;
+		text-indent: 3pt;
+		
+; font-weight: bold
+	}
+.btntop {
+		color: #FFFFFF;
+		font-weight: bold;
+		background: #8484ee;
+		font-size: 12px;
+		width: 100%;
+		border: 1px solid #000000;
+	}
+.btndisable {
+		color: #FFFFFF;
+		font-weight: bold;
+		background: #72718E;
+		font-size: 12px;
+		width: 100%;
+		border: 1px solid #000000;
+	}
+.btnmenu {
+		color: #ffffff;
+		font-weight: bold;
+		background: #5A70C2;
+		font-size: 12px;
+		border: 1px solid #000000;
+	}
+.btngo {
+		color: #ffffff;
+		font-weight: bold;
+		background: #645ac2;
+		font-size: 12px;
+		width: 40px;
+		border: 1px solid #000000;
+	}
+.btnsearch {
+		font-size: 8px;
+		background-color: #A6ABD7;
+		border: 1px solid #000000;
+		text-align: center;
+		height: 16px;
+	}
+.out {
+		font-size: 12px;
+; background-color: #FFFFFF}
+.outnum {
+		font-size: 12px;
+		text-align: right;
+	}
+
+.headerlabel {
+		color: #000000;
+		background: #8CB6DC;
+		font-size: 12px;
+		font-weight: bold;
+		
+}
+.grouplabel {
+		color: #ffffff;
+		background: #8CB6DC;
+		font-size: 12px;
+		font-weight: bold;
+		
+}
+.grouplabel2 {
+		color: #ffffff;
+		background: #8CB6DC;
+		font-size: 12px;
+		font-weight: bold;
+}
+			
+.tblheader {
+		color: #000000;
+		background: #b0c4de;
+		font-size: 12px;
+		white-space: nowrap;
+		text-align: left;
+	}
+.tblchildheader {
+		color: #000000;
+		background: #99ccff;
+		font-size: 12px;
+		white-space: nowrap;
+		text-align: left;
+	}
+.tbllayer {
+		position: static;
+		overflow: auto;
+		background-color: #ffffff;
+		z-index: 1;
+		text-align: left;
+	}
+.tbllinelayer {
+		position: static;
+		overflow: auto;
+		background-color: #ffffff;
+		z-index: 1;
+		text-align: left;
+	}
+.tblboxlayer {
+	background-color: #ffffff;
+	z-index: 1;
+	border: thin solid #bdc4de;
+
+	}
+.trReadOnly {
+		background: #CCCCCC;
+		font-size: 12px;
+	}
+	
+.line1 {
+		background: #D3E4F5;
+		font-size: 12px;
+	}
+.line2 {
+		background: #F4FFFE;
+		font-size: 12px;
+	}
+.linechild1 {
+		background: #ffffcc;
+		font-size: 12px;
+	}
+.linechild2 {
+		background: #ccffcc;
+		font-size: 12px;
+	}
+.lineGray {
+		background: #C6C6C6;
+		font-size: 12px;
+	}
+.in {
+		font-size: 12px;
+	}
+.costin {
+		font-size: 12px;
+		color: #FF00FF;
+		text-align: right;
+	}
+.costout {
+	font-size: 12px;
+	color: #36425A;
+	text-align: right;
+	
+	}
+.errin {
+		font-size: 12px;
+		background: #FF0000;
+	}
+.innum {
+		font-size: 12px;
+		text-align: right;
+	}
+.errinnum {
+		font-size: 12px;
+		text-align: right;
+		background: #FF0000;
+	}
+.inarea {
+		font-size: 12px;
+	}
+.errinarea {
+		font-size: 12px;
+		background: #FF0000;
+	}
+.errmsg {
+		font-size: 12px;
+		font-weight: bold;
+		color: #ff0000;
+	}
+.pageslt {
+		font-size: 10px;
+		width: 42px;
+	}
+.logoupper2 {
+		background-color: #FFFFFF;
+		font-size: 14px;
+		color: #FFFFFF;
+		font-style: normal;
+		font-variant: normal;
+		vertical-align: top;
+; font-weight: bold
+; padding-left: 5px
+	}
+.errfullslt {
+		font-size: 10px;
+		width: 100%;
+		background: #FF0000;
+	}
+
+.requirelabel { font-size: 12px; color: #000000; background: #FFFF00; text-indent: 3pt; white-space: nowrap; border-top: 1px solid; border-right: none; border-bottom: 1px solid; border-left: 1px solid; vertical-align: middle; }
+.fatalmsg { font-size: 14px; font-weight: bold; color: #FF1493; }
+.warnmsg { font-size: 14px; font-weight: bold; color: #FF9900; }
+.infomsg { font-size: 14px; font-weight: bold; color: #0000FF; }
+.tabbak {
+		color: #004080;
+		background-color: #82B5E3;
+		width: 100%;
+		height: auto;
+; font-size: 12px; font-weight: bold
+; font-style: normal; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px
+	}
+.tabbakselected {
+		color: #FFFF00;
+		background-color: #004080;
+		width: 100%;
+		height: auto;
+; font-size: 12px; font-weight: bold
+; font-style: normal; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px
+	}
+
+A.masthead-mainlink:link {
+	COLOR: #293d6b; WHITE-SPACE: nowrap; font-size: 12px; background-color: #82B5E3
+}
+.label {
+; font-size: 12px
+	}
+.display {
+		background: #C6DAEE;
+		font-size: 12px;
+	}
+.cntSingle {
+	BORDER-RIGHT: #1b7389 1px solid; BORDER-TOP: #1b7389 1px solid; MARGIN: 0px 5px 10px 9px; BORDER-LEFT: #1b7389 1px solid; BORDER-BOTTOM: #1b7389 1px solid
+}
+
+.modifyattention {
+	font-size: 12px;
+	;
+	background-color: #f7f7f7;
+	color: #0000FF;
+	font-weight: bold;
+	background-position: right;
+		
+	}
+.btnact100 {
+
+		color: #ffffff;
+		font-weight: normal;
+		background: #5C7099;
+		font-size: 12px;
+		width: 100px;
+		border: 1px solid #000000;
+}
+.outnumwarn {
+	font-size: 12px;
+	text-align: right;
+	color: #FF0000;
+}
+.grouplabel_black {
+		color: #000000;
+		background: #8CB6DC;
+		font-size: 12px;
+
+		
+}.grplabel2 {
+
+		color: #36425A;
+		background: #FFFFFF;
+		font-size: 12px;
+		font-weight: bold;
+}
+.btnmainmenu {
+	color: #FFFFFF;
+	font-weight: bold;
+	background: #8484ee;
+	font-size: 14px;
+	font-family: "SimSun";
+	width: 100%;
+	border: 1px solid #000000;
+}
+.mainmenulabel {
+	font-size: 20px;
+	color: #000000;
+	font-weight: bold;
+	background: #D1E2F1;
+	text-indent: 3pt;
+	white-space: nowrap;
+	border-top: 1px solid;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	vertical-align: middle;
+	font-family: "SimSun";
+	height: 28px;
+}
+.deflabel {
+	font-size: 12px;
+	color: #000000;
+	background: #D1E2F1;
+	text-indent: 3pt;
+	white-space: nowrap;
+	border-top: 1px solid;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	vertical-align: middle;
+	font-family: "SimSun";
+	font-weight: normal;
+	height: 16px;
+}
+.deflabelInfo {
+	font-size: 12px;
+	color: #000000;
+	background: #FFFFD7;
+	text-indent: 3pt;
+	white-space: nowrap;
+	border-top: 1px solid;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	vertical-align: middle;
+	font-family: "SimSun";
+	font-weight: normal;
+	height: 16px;
+}
+.inputlabel {
+	font-size: 12px;
+	color: #0000FF;
+	background: #D1E2F1;
+	text-indent: 3pt;
+	white-space: nowrap;
+	border-top: 1px solid;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	vertical-align: middle;
+	font-family: "SimSun";
+	font-weight: normal;
+	height: 16px;
+}
+.grouplabel {
+	color: #ffffff;
+	background: #8CB6DC;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: "SimSun";
+	height: 16px;
+	text-align: center;
+}
+.barlabel {
+	color: #ffffff;
+	background: #8CB6DC;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: "SimSun";
+	height: 20px;
+}
+.barlabelInfo {
+	color: Black;
+	background: #FFF9C3;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: "SimSun";
+	height: 20px;
+}
+.btn2 {		
+		color: #FF0000;	
+		font-weight: normal;
+		background: #FFFFFF;
+		font-size: 12px;
+		width: 100px;
+		border: 1px solid #000000;
+	}	
+.btn3 {		
+		color: #0000FF;
+		font-weight: normal;
+		background: #FFFFFF;
+		font-size: 12px;
+		width: 100px;
+		border: 1px solid #000000;
+	}	
+.mainItem {
+		color: #000000;
+		background: #FFFFBB;
+		font-size: 12px;
+		white-space: nowrap;
+		text-align: left;
+	}
+.btnact20 {
+		color: #ffffff;
+		font-weight: normal;
+		background: #5C7099;
+		font-size: 12px;
+		width: 20px;
+		border: 1px solid #000000;
+		height: 16px;
+    }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newexam.TNewexamImageMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="EXAMID" property="examid" jdbcType="VARCHAR" />
+    <result column="IMGPATH" property="imgpath" jdbcType="VARCHAR" />
+    <result column="IMGTYPE" property="imgtype" jdbcType="VARCHAR" />
+    <result column="IMGNAME" property="imgname" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, EXAMID, IMGPATH, IMGTYPE, IMGNAME, TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_newexam_image
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_newexam_image
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newexam.TNewexamImage" >
+    insert into t_newexam_image (ID, EXAMID, IMGPATH, 
+      IMGTYPE, IMGNAME, TYPE
+      )
+    values (#{id,jdbcType=VARCHAR}, #{examid,jdbcType=VARCHAR}, #{imgpath,jdbcType=VARCHAR}, 
+      #{imgtype,jdbcType=VARCHAR}, #{imgname,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newexam.TNewexamImage" >
+    insert into t_newexam_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="examid != null" >
+        EXAMID,
+      </if>
+      <if test="imgpath != null" >
+        IMGPATH,
+      </if>
+      <if test="imgtype != null" >
+        IMGTYPE,
+      </if>
+      <if test="imgname != null" >
+        IMGNAME,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="examid != null" >
+        #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtype != null" >
+        #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="imgname != null" >
+        #{imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newexam.TNewexamImage" >
+    update t_newexam_image
+    <set >
+      <if test="examid != null" >
+        EXAMID = #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgpath != null" >
+        IMGPATH = #{imgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtype != null" >
+        IMGTYPE = #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="imgname != null" >
+        IMGNAME = #{imgname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newexam.TNewexamImage" >
+    update t_newexam_image
+    set EXAMID = #{examid,jdbcType=VARCHAR},
+      IMGPATH = #{imgpath,jdbcType=VARCHAR},
+      IMGTYPE = #{imgtype,jdbcType=VARCHAR},
+      IMGNAME = #{imgname,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectNewExamInfoList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newexam.TNewexamImage" >
+    SELECT
+	<include refid="Base_Column_List" />
+	FROM
+		t_newexam_image t
+     where 1=1
+	<if test="examid != null and examid != ''" >
+		and EXAMID = #{examid,jdbcType=BIGINT}
+	</if>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteByExamid" parameterType="com.zxtech.ui.vo.newexam.TNewexamImage" >
+	  delete from t_newexam_image
+	    where EXAMID = #{examid,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 删除 -->
+  <delete id="deleteNewexamImage" parameterType="java.util.List" >
+	  delete from t_newexam_image
+	    where EXAMID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+</mapper>

@@ -1,0 +1,33 @@
+.custom_form_control{
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+
+.table.table-vcenter > thead > tr > th,
+.table.table-vcenter > thead > tr > td,
+.table.table-vcenter > tbody > tr > th,
+.table.table-vcenter > tbody > tr > td{
+	vertical-align: middle;
+	padding: 2px;
+}
+
+.table .title{
+	background-color: #f0f6fa;
+	padding-left: 15px !important;
+}
+
+.table.table-vcenter1 > thead > tr > th,
+.table.table-vcenter1 > thead > tr > td,
+.table.table-vcenter1 > tbody > tr > th,
+.table.table-vcenter1 > tbody > tr > td{
+	vertical-align: middle;
+	padding: 6px;
+}
+
+#por{
+	display: none;
+}
+
+.requiredKey{
+	color: blue;
+}

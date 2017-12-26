@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newtestpaper.TNewTestpaperInfoMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+    <result column="PAPERNAME" property="papername" jdbcType="VARCHAR" />
+    <result column="CATEGORYID" property="categoryid" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="SMALLINT" />
+    <result column="PURPOSE" property="purpose" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="AUDITOR" property="auditor" jdbcType="VARCHAR" />
+    <result column="AUDITTIME" property="audittime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="DIFFICULT" property="difficult" jdbcType="VARCHAR" />
+    <result column="IFCOMPLETED" property="ifcompleted" jdbcType="VARCHAR" />
+    <result column="PAPERTYPE" property="papertype" jdbcType="VARCHAR" />
+    <result column="PAPERMODE" property="papermode" jdbcType="VARCHAR" />
+    <result column="ACTIVETIMESTATUS" property="activetimestatus" jdbcType="VARCHAR" />
+    <result column="ACTIVETIME" property="activetime" jdbcType="TIMESTAMP" />
+    <result column="FORPAPER" property="forpaper" jdbcType="VARCHAR" />
+    <result column="AUDITREMARK" property="auditremark" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CATEGORYTEXT" property="categorytext" jdbcType="VARCHAR" />
+    <result column="DIFFICULTTEXT" property="difficulttext" jdbcType="VARCHAR" />
+    <result column="difficultyName" property="difficultyName" jdbcType="VARCHAR" />
+    <result column="createUserName" property="createUserName" jdbcType="VARCHAR" />
+    <result column="TOTALQUESTIONS" property="totalQuestions" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PAPERID, PAPERNAME, CATEGORYID, SCORE, PURPOSE, CREATER, CREATETIME, AUDITOR, AUDITTIME, 
+    STATUS, DIFFICULT, IFCOMPLETED, PAPERTYPE, PAPERMODE, ACTIVETIMESTATUS, ACTIVETIME,
+    FORPAPER, AUDITREMARK, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_new_testpaper_info
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+  </select>
+  <select id="getNewtestpaperInfo" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newtestpaper.TNewTestpaperInfo" >
+	    select case when t1.PAPERNAME is null then '' else t1.PAPERNAME end as PAPERNAME,
+	           case when t1.CATEGORYID is null then '' else t1.CATEGORYID end as CATEGORYID,
+	           case when t1.DIFFICULT is null then '' else t1.DIFFICULT end as DIFFICULT,
+	           case when t1.FORPAPER is null then '' else t1.FORPAPER end as FORPAPER,
+	           case when t1.REMARK is null then '' else t1.REMARK end as REMARK,
+	           t2.POINTSNAME as CATEGORYTEXT,
+	           t3.difficulty_name as DIFFICULTTEXT
+	      from t_new_testpaper_info t1
+	 left join t_newtestpaper_category t2
+	        on t1.CATEGORYID = t2.POINTSID
+	 left join t_question_difficulty t3
+	        on t1.DIFFICULT = t3.difficulty_id
+	     where t1.PAPERID = #{paperid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_new_testpaper_info
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newtestpaper.TNewTestpaperInfo" >
+    insert into t_new_testpaper_info (PAPERID, PAPERNAME, CATEGORYID, 
+      SCORE, PURPOSE, CREATER, 
+      CREATETIME, AUDITOR, AUDITTIME, 
+      STATUS, DIFFICULT, IFCOMPLETED, 
+      PAPERTYPE, PAPERMODE, ACTIVETIMESTATUS, 
+      ACTIVETIME, FORPAPER, AUDITREMARK, 
+      REMARK)
+    values (#{paperid,jdbcType=VARCHAR}, #{papername,jdbcType=VARCHAR}, #{categoryid,jdbcType=VARCHAR}, 
+      #{score,jdbcType=SMALLINT}, #{purpose,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{auditor,jdbcType=VARCHAR}, #{audittime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{difficult,jdbcType=VARCHAR}, #{ifcompleted,jdbcType=VARCHAR}, 
+      #{papertype,jdbcType=VARCHAR}, #{papermode,jdbcType=VARCHAR}, #{activetimestatus,jdbcType=VARCHAR}, 
+      #{activetime,jdbcType=TIMESTAMP}, #{forpaper,jdbcType=LONGVARCHAR}, #{auditremark,jdbcType=LONGVARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newtestpaper.TNewTestpaperInfo" >
+    insert into t_new_testpaper_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paperid != null" >
+        PAPERID,
+      </if>
+      <if test="papername != null" >
+        PAPERNAME,
+      </if>
+      <if test="categoryid != null" >
+        CATEGORYID,
+      </if>
+      <if test="score != null" >
+        SCORE,
+      </if>
+      <if test="purpose != null" >
+        PURPOSE,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="auditor != null" >
+        AUDITOR,
+      </if>
+      <if test="audittime != null" >
+        AUDITTIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="difficult != null" >
+        DIFFICULT,
+      </if>
+      <if test="ifcompleted != null" >
+        IFCOMPLETED,
+      </if>
+      <if test="papertype != null" >
+        PAPERTYPE,
+      </if>
+      <if test="papermode != null" >
+        PAPERMODE,
+      </if>
+      <if test="activetimestatus != null" >
+        ACTIVETIMESTATUS,
+      </if>
+      <if test="activetime != null" >
+        ACTIVETIME,
+      </if>
+      <if test="forpaper != null" >
+        FORPAPER,
+      </if>
+      <if test="auditremark != null" >
+        AUDITREMARK,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paperid != null" >
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="papername != null" >
+        #{papername,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=SMALLINT},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="audittime != null" >
+        #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="difficult != null" >
+        #{difficult,jdbcType=VARCHAR},
+      </if>
+      <if test="ifcompleted != null" >
+        #{ifcompleted,jdbcType=VARCHAR},
+      </if>
+      <if test="papertype != null" >
+        #{papertype,jdbcType=VARCHAR},
+      </if>
+      <if test="papermode != null" >
+        #{papermode,jdbcType=VARCHAR},
+      </if>
+      <if test="activetimestatus != null" >
+        #{activetimestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="activetime != null" >
+        #{activetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forpaper != null" >
+        #{forpaper,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditremark != null" >
+        #{auditremark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newtestpaper.TNewTestpaperInfo" >
+    update t_new_testpaper_info
+    <set >
+      <if test="papername != null" >
+        PAPERNAME = #{papername,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        CATEGORYID = #{categoryid,jdbcType=VARCHAR},
+      </if>
+<!--       <if test="score != null" > -->
+        SCORE = (select sum(t.TITLESCORE) from t_randompaper_questiontype t where t.PAPERID =#{paperid,jdbcType=VARCHAR}),
+<!--       </if> -->
+      <if test="purpose != null" >
+        PURPOSE = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        AUDITOR = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="audittime != null" >
+        AUDITTIME = #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="difficult != null" >
+        DIFFICULT = #{difficult,jdbcType=VARCHAR},
+      </if>
+      <if test="ifcompleted != null" >
+        IFCOMPLETED = #{ifcompleted,jdbcType=VARCHAR},
+      </if>
+      <if test="papertype != null" >
+        PAPERTYPE = #{papertype,jdbcType=VARCHAR},
+      </if>
+      <if test="papermode != null" >
+        PAPERMODE = #{papermode,jdbcType=VARCHAR},
+      </if>
+      <if test="activetimestatus != null" >
+        ACTIVETIMESTATUS = #{activetimestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="activetime != null" >
+        ACTIVETIME = #{activetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forpaper != null" >
+        FORPAPER = #{forpaper,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditremark != null" >
+        AUDITREMARK = #{auditremark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newtestpaper.TNewTestpaperInfo" >
+    update t_new_testpaper_info
+    set PAPERNAME = #{papername,jdbcType=VARCHAR},
+      CATEGORYID = #{categoryid,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=SMALLINT},
+      PURPOSE = #{purpose,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      AUDITOR = #{auditor,jdbcType=VARCHAR},
+      AUDITTIME = #{audittime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=VARCHAR},
+      DIFFICULT = #{difficult,jdbcType=VARCHAR},
+      IFCOMPLETED = #{ifcompleted,jdbcType=VARCHAR},
+      PAPERTYPE = #{papertype,jdbcType=VARCHAR},
+      PAPERMODE = #{papermode,jdbcType=VARCHAR},
+      ACTIVETIMESTATUS = #{activetimestatus,jdbcType=VARCHAR},
+      ACTIVETIME = #{activetime,jdbcType=TIMESTAMP},
+      FORPAPER = #{forpaper,jdbcType=LONGVARCHAR},
+      AUDITREMARK = #{auditremark,jdbcType=LONGVARCHAR},
+      REMARK = #{remark,jdbcType=LONGVARCHAR}
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectNewTestpaperInfoList" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.newtestpaper.TNewTestpaperInfo" >
+    select * from (SELECT
+    	t.PAPERID, t.PAPERNAME, t.CATEGORYID, t.SCORE, t.PURPOSE, t.CREATER, 
+    	date_format(t.CREATETIME, "%Y-%m-%d %H:%i:%s") CREATETIME, 
+    	t.AUDITOR, t.AUDITTIME, t.STATUS, t.DIFFICULT, 
+    	t.IFCOMPLETED, t.PAPERTYPE, t.PAPERMODE, t.ACTIVETIMESTATUS, t.ACTIVETIME, t.FORPAPER, t.AUDITREMARK, t.REMARK,
+		(select sum(t1.TOTLEQUESTIONS) from t_randompaper_questiontype t1 where t1.PAPERID = t.PAPERID) TOTALQUESTIONS,
+    	(SELECT b.NICKNAME FROM t_permissions_studentinfo b WHERE b.STUDENTID = t.CREATER ) createUserName,
+	(select a.difficulty_name from t_question_difficulty a where a.difficulty_id=t.DIFFICULT) difficultyName,
+	(select c.POINTSNAME from t_newtestpaper_category c where c.pointsid = t.CATEGORYID) cagetoryname
+	FROM
+		t_new_testpaper_info t
+		LEFT JOIN t_permissions_studentinfo tps 
+		on t.CREATER = tps.STUDENTID 
+		LEFT JOIN t_permissions_student_depart tpsd 
+		on tps.DEPARTID = tpsd.DEPARTID
+     where 1=1
+     and tpsd.DEPARTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  or tpsd.PARENTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  ) res where 1=1
+	<if test="status != null and status != ''" >
+		and res.STATUS = #{status,jdbcType=VARCHAR}
+	</if>
+	<if test="difficult != null and difficult != ''" >
+		and res.DIFFICULT = #{difficult,jdbcType=VARCHAR}
+	</if>
+	<if test="categoryid != null and categoryid != ''" >
+		and res.CATEGORYID = #{categoryid,jdbcType=VARCHAR}
+	</if>
+	<if test="papertype != null and papertype != ''" >
+		and res.PAPERTYPE = #{papertype,jdbcType=VARCHAR}
+	</if>
+	<if test="status != null and status != ''" >
+		and res.STATUS = #{status,jdbcType=VARCHAR}
+	</if>
+	<if test="papername != null and papername != ''" >
+		and upper(res.PAPERNAME) LIKE upper(CONCAT('%', #{papername,jdbcType=VARCHAR}, '%'))
+	</if>
+	ORDER BY res.CREATETIME DESC
+  </select>
+  
+  <!-- 发布 -->
+  <update id="sendNewTestpaperInfo" parameterType="java.util.List">
+	update t_new_testpaper_info set STATUS = '2'
+       where PAPERID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+</mapper>

@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.question.TQuestionsinfoMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="QUESTIONSID" property="questionsid" jdbcType="VARCHAR" />
+    <result column="TYPEID" property="typeid" jdbcType="VARCHAR" />
+    <result column="DIFFICULTY" property="difficulty" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="INTEGER" />
+    <result column="STAFFID" property="staffid" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="AUDITID" property="auditid" jdbcType="VARCHAR" />
+    <result column="AUDITTIME" property="audittime" jdbcType="TIMESTAMP" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+    <result column="POINTSID" property="pointsid" jdbcType="VARCHAR" />
+    <result column="FLOWSTATUS" property="flowstatus" jdbcType="VARCHAR" />
+    <result column="OPTIONSTATUS" property="optionstatus" jdbcType="VARCHAR" />
+    <result column="ATTACHSTATUS" property="attachstatus" jdbcType="VARCHAR" />
+    <result column="POINTNAME" property="pointname" jdbcType="VARCHAR" />
+    <result column="difficulty_name" property="difficultyName" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="VARCHAR" />
+    <result column="knowledgepoint" property="knowledgepoint" jdbcType="VARCHAR" />
+    <result column="createUserName" property="createUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+    <result column="AUDITCONTENT" property="auditcontent" jdbcType="LONGVARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="LONGVARCHAR" />
+    <result column="ANSWER" property="answer" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    QUESTIONSID, TYPEID, DIFFICULTY, STATUS, SCORE, STAFFID, CREATETIME, AUDITID, AUDITTIME, 
+    STANDBY1, STANDBY2, STANDBY3, POINTSID, FLOWSTATUS, OPTIONSTATUS, ATTACHSTATUS
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT, AUDITCONTENT, REMARKS, ANSWER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />,
+	(SELECT b.pointid FROM t_question_knowledgepoint b WHERE b.questionid = t.QUESTIONSID ) knowledgepoint
+    from t_questionsinfo t
+    where QUESTIONSID = #{questionsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_questionsinfo
+    where QUESTIONSID = #{questionsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.question.TQuestionsinfoWithBLOBs" >
+    insert into t_questionsinfo (QUESTIONSID, TYPEID, DIFFICULTY, 
+      STATUS, SCORE, STAFFID, 
+      CREATETIME, AUDITID, AUDITTIME, 
+      STANDBY1, STANDBY2, STANDBY3, 
+      POINTSID, FLOWSTATUS, OPTIONSTATUS, 
+      ATTACHSTATUS, CONTENT, AUDITCONTENT, 
+      REMARKS, ANSWER)
+    values (#{questionsid,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{difficulty,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{staffid,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{auditid,jdbcType=VARCHAR}, #{audittime,jdbcType=TIMESTAMP}, 
+      #{standby1,jdbcType=VARCHAR}, #{standby2,jdbcType=VARCHAR}, #{standby3,jdbcType=VARCHAR}, 
+      #{pointsid,jdbcType=VARCHAR}, #{flowstatus,jdbcType=VARCHAR}, #{optionstatus,jdbcType=VARCHAR}, 
+      #{attachstatus,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{auditcontent,jdbcType=LONGVARCHAR}, 
+      #{remarks,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.question.TQuestionsinfoWithBLOBs" >
+    insert into t_questionsinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionsid != null" >
+        QUESTIONSID,
+      </if>
+      <if test="typeid != null" >
+        TYPEID,
+      </if>
+      <if test="difficulty != null" >
+        DIFFICULTY,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="score != null" >
+        SCORE,
+      </if>
+      <if test="staffid != null" >
+        STAFFID,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="auditid != null" >
+        AUDITID,
+      </if>
+      <if test="audittime != null" >
+        AUDITTIME,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+      <if test="pointsid != null" >
+        POINTSID,
+      </if>
+      <if test="flowstatus != null" >
+        FLOWSTATUS,
+      </if>
+      <if test="optionstatus != null" >
+        OPTIONSTATUS,
+      </if>
+      <if test="attachstatus != null" >
+        ATTACHSTATUS,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="auditcontent != null" >
+        AUDITCONTENT,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="answer != null" >
+        ANSWER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionsid != null" >
+        #{questionsid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="staffid != null" >
+        #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditid != null" >
+        #{auditid,jdbcType=VARCHAR},
+      </if>
+      <if test="audittime != null" >
+        #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="pointsid != null" >
+        #{pointsid,jdbcType=VARCHAR},
+      </if>
+      <if test="flowstatus != null" >
+        #{flowstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="optionstatus != null" >
+        #{optionstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="attachstatus != null" >
+        #{attachstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditcontent != null" >
+        #{auditcontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.question.TQuestionsinfoWithBLOBs" >
+    update t_questionsinfo
+    <set >
+      <if test="typeid != null" >
+        TYPEID = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        DIFFICULTY = #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        SCORE = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="staffid != null" >
+        STAFFID = #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditid != null" >
+        AUDITID = #{auditid,jdbcType=VARCHAR},
+      </if>
+      <if test="audittime != null" >
+        AUDITTIME = #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="pointsid != null" >
+        POINTSID = #{pointsid,jdbcType=VARCHAR},
+      </if>
+      <if test="flowstatus != null" >
+        FLOWSTATUS = #{flowstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="optionstatus != null" >
+        OPTIONSTATUS = #{optionstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="attachstatus != null" >
+        ATTACHSTATUS = #{attachstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditcontent != null" >
+        AUDITCONTENT = #{auditcontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        ANSWER = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where QUESTIONSID = #{questionsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.question.TQuestionsinfoWithBLOBs" >
+    update t_questionsinfo
+    set TYPEID = #{typeid,jdbcType=VARCHAR},
+      DIFFICULTY = #{difficulty,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=INTEGER},
+      STAFFID = #{staffid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      AUDITID = #{auditid,jdbcType=VARCHAR},
+      AUDITTIME = #{audittime,jdbcType=TIMESTAMP},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      POINTSID = #{pointsid,jdbcType=VARCHAR},
+      FLOWSTATUS = #{flowstatus,jdbcType=VARCHAR},
+      OPTIONSTATUS = #{optionstatus,jdbcType=VARCHAR},
+      ATTACHSTATUS = #{attachstatus,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=LONGVARCHAR},
+      AUDITCONTENT = #{auditcontent,jdbcType=LONGVARCHAR},
+      REMARKS = #{remarks,jdbcType=LONGVARCHAR},
+      ANSWER = #{answer,jdbcType=LONGVARCHAR}
+    where QUESTIONSID = #{questionsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.question.TQuestionsinfo" >
+    update t_questionsinfo
+    set TYPEID = #{typeid,jdbcType=VARCHAR},
+      DIFFICULTY = #{difficulty,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=INTEGER},
+      STAFFID = #{staffid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      AUDITID = #{auditid,jdbcType=VARCHAR},
+      AUDITTIME = #{audittime,jdbcType=TIMESTAMP},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      POINTSID = #{pointsid,jdbcType=VARCHAR},
+      FLOWSTATUS = #{flowstatus,jdbcType=VARCHAR},
+      OPTIONSTATUS = #{optionstatus,jdbcType=VARCHAR},
+      ATTACHSTATUS = #{attachstatus,jdbcType=VARCHAR}
+    where QUESTIONSID = #{questionsid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectQuestionsinfoList" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.question.TQuestionsinfo" >
+    select * from (SELECT
+		t.QUESTIONSID,
+		t.TYPEID,
+	(select b.`NAME` from t_questionstype b where b.TYPEID = t.TYPEID) typename,
+		t.DIFFICULTY,
+	(select a.difficulty_name from t_question_difficulty a where a.difficulty_id=t.DIFFICULTY) difficultyName,
+		t.STATUS,
+		t.SCORE,
+		t.STAFFID,
+		(SELECT b.NICKNAME FROM t_permissions_studentinfo b WHERE b.STUDENTID = t.STAFFID ) createUserName,
+		date_format(t.CREATETIME, "%Y-%m-%d %H:%i:%s") createtime,
+		t.AUDITID,
+		t.AUDITTIME,
+		t.STANDBY1,
+		t.STANDBY2,
+		t.STANDBY3,
+		t.POINTSID,
+	(select c.CATEGORYNAME from t_question_category c where c.CATEGORYID = t.POINTSID) categoryname,
+		t.FLOWSTATUS,
+		t.OPTIONSTATUS,
+		t.ATTACHSTATUS,
+		t.CONTENT,
+		t.AUDITCONTENT,
+		t.REMARKS,
+		t.ANSWER,
+		(select group_concat(a.POINTNAME)  
+			from t_knowledgepoint a 
+			where a.POINT in(select b.pointid from t_question_knowledgepoint b where b.questionid = t.QUESTIONSID)) POINTNAME,
+		(SELECT b.pointid FROM t_question_knowledgepoint b WHERE b.questionid = t.QUESTIONSID ) knowledgepoint
+	FROM
+		t_questionsinfo t
+		LEFT JOIN t_permissions_studentinfo tps 
+		on t.STAFFID = tps.STUDENTID 
+		LEFT JOIN t_permissions_student_depart tpsd 
+		on tps.DEPARTID = tpsd.DEPARTID
+     where 1=1
+     and tpsd.DEPARTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  or tpsd.PARENTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+	  ) res where 1=1
+	<if test="typeid != null and typeid != ''" >
+		and res.TYPEID = #{typeid,jdbcType=VARCHAR}
+	</if>
+	<if test="pointsid != null and pointsid != ''" >
+		and res.POINTSID = #{pointsid,jdbcType=VARCHAR}
+	</if>
+	<if test="difficulty != null and difficulty != ''" >
+		and res.DIFFICULTY = #{difficulty,jdbcType=VARCHAR}
+	</if>
+	<if test="flowstatus != null and flowstatus != ''" >
+		and res.FLOWSTATUS = #{flowstatus,jdbcType=VARCHAR}
+	</if>
+	<if test="content != null and content != ''" >
+		and upper(res.CONTENT) LIKE upper(CONCAT('%', #{content,jdbcType=VARCHAR}, '%'))
+	</if>
+	<if test="paperid != null and paperid != ''" >
+		AND res.questionsid NOT IN (SELECT questionid FROM t_newtestpaper_question WHERE typeid = #{typeid,jdbcType=VARCHAR} AND paperid = #{paperid,jdbcType=VARCHAR})
+	</if>
+	ORDER BY res.CREATETIME DESC
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteQuestionsinfo" parameterType="java.util.List" >
+	  delete from t_questionsinfo
+	    where QUESTIONSID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+<!--   <update id="deleteQuestionsinfo" parameterType="java.util.List"> -->
+<!-- 	update t_questionsinfo set STANDBY1 = '1' -->
+<!--        where QUESTIONSID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach> -->
+<!--   </update> -->
+  
+  <!-- 发布 -->
+  <update id="sendQuestionsinfo" parameterType="java.util.List">
+	update t_questionsinfo set FLOWSTATUS = '2'
+       where QUESTIONSID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </update>
+  
+  <select id="selectQuestionNumByType" resultMap="BaseResultMap" parameterType="com.zxtech.ui.vo.question.TQuestionsinfo" >
+  	select COUNT(0) count,
+			res.DIFFICULTY,
+			res.difficulty_name from (
+				select * from (
+					SELECT t.*,a.difficulty_name FROM t_questionsinfo t 
+					LEFT JOIN t_question_difficulty a ON t.DIFFICULTY = a.difficulty_id
+					LEFT JOIN t_permissions_studentinfo tps on t.STAFFID = tps.STUDENTID 
+					LEFT JOIN t_permissions_student_depart tpsd on tps.DEPARTID = tpsd.DEPARTID
+	     			where 1=1
+				     and tpsd.DEPARTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+					  or tpsd.PARENTID = (select tps.DEPARTID from t_permissions_studentinfo tps where tps.STUDENTID = #{loginUserId,jdbcType=VARCHAR})
+				) r1 where r1.QUESTIONSID not in(select tnq.QUESTIONID from t_newtestpaper_question tnq where tnq.PAPERID=#{paperid,jdbcType=VARCHAR} 
+				 and tnq.TYPEID=#{typeid,jdbcType=VARCHAR}
+				 )
+				<if test="difficultydetailid != null and difficultydetailid != ''" >
+					OR r1.QUESTIONSID IN (
+						SELECT tnq.QUESTIONID FROM t_newtestpaper_question tnq
+							WHERE tnq.DIFFICULTYDETAILID in (SELECT trd.ID FROM t_randompaper_difficulty trd WHERE trd.DIFFICULTYID = #{difficultydetailid,jdbcType=VARCHAR})
+					)
+				</if>
+	  )res
+	WHERE res.FLOWSTATUS = 2
+	<if test="typeid != null and typeid != ''" >
+		and res.TYPEID = #{typeid,jdbcType=VARCHAR}
+	</if>
+	<if test="pointsid != null and pointsid != ''" >
+		and res.POINTSID = #{pointsid,jdbcType=VARCHAR}
+	</if>
+	<if test="knowlegdePointsid != null and knowlegdePointsid != ''" >
+		AND res.QUESTIONSID IN (
+		SELECT
+			questionid
+		FROM
+			t_question_knowledgepoint k
+		WHERE
+			pointid = #{knowlegdePointsid,jdbcType=VARCHAR}
+	)
+	</if>
+	GROUP BY res.DIFFICULTY
+  </select>
+</mapper>

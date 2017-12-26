@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.newexam.TNewexamDetailsMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="EXAMID" property="examid" jdbcType="VARCHAR" />
+    <id column="PAPERID" property="paperid" jdbcType="VARCHAR" />
+    <id column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="STARTTIME" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="ENDTIME" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="REMAININGTIME" property="remainingtime" jdbcType="VARCHAR" />
+    <result column="REVIEWSTATUS" property="reviewstatus" jdbcType="VARCHAR" />
+    <result column="CONTINUETIME" property="continuetime" jdbcType="DOUBLE" />
+    <result column="IFAPPEND" property="ifappend" jdbcType="VARCHAR" />
+    <result column="APPENDTIME" property="appendtime" jdbcType="DOUBLE" />
+    <result column="IFAPPLAY" property="ifapplay" jdbcType="VARCHAR" />
+    <result column="APPLAYMSG" property="applaymsg" jdbcType="VARCHAR" />
+    <result column="ANSWER" property="answer" jdbcType="VARCHAR" />
+    <result column="USERANSWER" property="useranswer" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="PAPERREMARK" property="paperremark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EXAMID, PAPERID, USERID, STATUS, STARTTIME, ENDTIME, REMAININGTIME, REVIEWSTATUS, 
+    CONTINUETIME, IFAPPEND, APPENDTIME, IFAPPLAY, APPLAYMSG
+  </sql>
+  <sql id="Blob_Column_List" >
+    PAPERREMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewexamDetailsKey" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_newexam_details
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectExamScoreByFilter" resultMap="ResultMapWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewexamDetailsKey" >
+         select t1.SCORE,
+                t2.ANSWER,
+                t3.ANSWER AS USERANSWER
+           from t_newtestpaper_question t1
+      left join t_questionsinfo t2
+             on t2.FLOWSTATUS = '2'
+            and t1.QUESTIONID = t2.QUESTIONSID
+      left join t_newexam_procedure t3
+             on t1.PAPERID = t3.PAPERID
+            and t1.QUESTIONID = t3.QUESTIONID
+          where t1.PAPERID = #{paperid,jdbcType=VARCHAR}
+            and t3.EXAMID = #{examid,jdbcType=VARCHAR}
+            and t3.USERID = #{userid,jdbcType=VARCHAR}
+            and t3.ANSWER is not null
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.zxtech.ui.vo.newexam.TNewexamDetailsKey" >
+    delete from t_newexam_details
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.newexam.TNewexamDetails" >
+    insert into t_newexam_details (EXAMID, PAPERID, USERID, 
+      STATUS, STARTTIME, ENDTIME, 
+      REMAININGTIME, REVIEWSTATUS, CONTINUETIME, 
+      IFAPPEND, APPENDTIME, IFAPPLAY, 
+      APPLAYMSG, PAPERREMARK)
+    values (#{examid,jdbcType=VARCHAR}, #{paperid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{remainingtime,jdbcType=VARCHAR}, #{reviewstatus,jdbcType=VARCHAR}, #{continuetime,jdbcType=DOUBLE}, 
+      #{ifappend,jdbcType=VARCHAR}, #{appendtime,jdbcType=DOUBLE}, #{ifapplay,jdbcType=VARCHAR}, 
+      #{applaymsg,jdbcType=VARCHAR}, #{paperremark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.newexam.TNewexamDetails" >
+    insert into t_newexam_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examid != null" >
+        EXAMID,
+      </if>
+      <if test="paperid != null" >
+        PAPERID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="starttime != null" >
+        STARTTIME,
+      </if>
+      <if test="endtime != null" >
+        ENDTIME,
+      </if>
+      <if test="remainingtime != null" >
+        REMAININGTIME,
+      </if>
+      <if test="reviewstatus != null" >
+        REVIEWSTATUS,
+      </if>
+      <if test="continuetime != null" >
+        CONTINUETIME,
+      </if>
+      <if test="ifappend != null" >
+        IFAPPEND,
+      </if>
+      <if test="appendtime != null" >
+        APPENDTIME,
+      </if>
+      <if test="ifapplay != null" >
+        IFAPPLAY,
+      </if>
+      <if test="applaymsg != null" >
+        APPLAYMSG,
+      </if>
+      <if test="paperremark != null" >
+        PAPERREMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examid != null" >
+        #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null" >
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remainingtime != null" >
+        #{remainingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewstatus != null" >
+        #{reviewstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="continuetime != null" >
+        #{continuetime,jdbcType=DOUBLE},
+      </if>
+      <if test="ifappend != null" >
+        #{ifappend,jdbcType=VARCHAR},
+      </if>
+      <if test="appendtime != null" >
+        #{appendtime,jdbcType=DOUBLE},
+      </if>
+      <if test="ifapplay != null" >
+        #{ifapplay,jdbcType=VARCHAR},
+      </if>
+      <if test="applaymsg != null" >
+        #{applaymsg,jdbcType=VARCHAR},
+      </if>
+      <if test="paperremark != null" >
+        #{paperremark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.newexam.TNewexamDetails" >
+    update t_newexam_details
+    <set >
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remainingtime != null" >
+        REMAININGTIME = #{remainingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewstatus != null" >
+        REVIEWSTATUS = #{reviewstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="continuetime != null" >
+        CONTINUETIME = #{continuetime,jdbcType=DOUBLE},
+      </if>
+      <if test="ifappend != null" >
+        IFAPPEND = #{ifappend,jdbcType=VARCHAR},
+      </if>
+      <if test="appendtime != null" >
+        APPENDTIME = #{appendtime,jdbcType=DOUBLE},
+      </if>
+      <if test="ifapplay != null" >
+        IFAPPLAY = #{ifapplay,jdbcType=VARCHAR},
+      </if>
+      <if test="applaymsg != null" >
+        APPLAYMSG = #{applaymsg,jdbcType=VARCHAR},
+      </if>
+      <if test="paperremark != null" >
+        PAPERREMARK = #{paperremark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.newexam.TNewexamDetails" >
+    update t_newexam_details
+    set STATUS = #{status,jdbcType=VARCHAR},
+      STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      REMAININGTIME = #{remainingtime,jdbcType=VARCHAR},
+      REVIEWSTATUS = #{reviewstatus,jdbcType=VARCHAR},
+      CONTINUETIME = #{continuetime,jdbcType=DOUBLE},
+      IFAPPEND = #{ifappend,jdbcType=VARCHAR},
+      APPENDTIME = #{appendtime,jdbcType=DOUBLE},
+      IFAPPLAY = #{ifapplay,jdbcType=VARCHAR},
+      APPLAYMSG = #{applaymsg,jdbcType=VARCHAR},
+      PAPERREMARK = #{paperremark,jdbcType=LONGVARCHAR}
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.newexam.TNewexamDetails" >
+    update t_newexam_details
+    set STATUS = #{status,jdbcType=VARCHAR},
+      STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      REMAININGTIME = #{remainingtime,jdbcType=VARCHAR},
+      REVIEWSTATUS = #{reviewstatus,jdbcType=VARCHAR},
+      CONTINUETIME = #{continuetime,jdbcType=DOUBLE},
+      IFAPPEND = #{ifappend,jdbcType=VARCHAR},
+      APPENDTIME = #{appendtime,jdbcType=DOUBLE},
+      IFAPPLAY = #{ifapplay,jdbcType=VARCHAR},
+      APPLAYMSG = #{applaymsg,jdbcType=VARCHAR}
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

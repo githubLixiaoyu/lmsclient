@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.esp.dao.vrnewtestpaper.TestTemplateMapper">
+	<resultMap id="BaseResultMap" type="java.util.Map">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="version" property="version" jdbcType="BIGINT" />
+		<result column="orgnization_id" property="orgnizationId"
+			jdbcType="BIGINT" />
+		<result column="test_name" property="testName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, version, orgnization_id, test_name
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from test_template
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		test_template
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplate">
+		insert into test_template (id,
+		version, orgnization_id,
+		test_name)
+		values (#{id,jdbcType=BIGINT},
+		#{version,jdbcType=BIGINT},
+		#{orgnizationId,jdbcType=BIGINT},
+		#{testName,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplate">
+		insert into test_template
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="orgnizationId != null">
+				orgnization_id,
+			</if>
+			<if test="testName != null">
+				test_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=BIGINT},
+			</if>
+			<if test="orgnizationId != null">
+				#{orgnizationId,jdbcType=BIGINT},
+			</if>
+			<if test="testName != null">
+				#{testName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplate">
+		update test_template
+		<set>
+			<if test="version != null">
+				version = #{version,jdbcType=BIGINT},
+			</if>
+			<if test="orgnizationId != null">
+				orgnization_id = #{orgnizationId,jdbcType=BIGINT},
+			</if>
+			<if test="testName != null">
+				test_name = #{testName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplate">
+		update
+		test_template
+		set version = #{version,jdbcType=BIGINT},
+		orgnization_id =
+		#{orgnizationId,jdbcType=BIGINT},
+		test_name =
+		#{testName,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectVRTestTemplateList" resultMap="BaseResultMap" parameterType="com.zxtech.esp.vo.vrnewtestpaper.TestTemplate">
+		select
+		<include refid="Base_Column_List" />
+		from test_template
+	</select>
+</mapper>

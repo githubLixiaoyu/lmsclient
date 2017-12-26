@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.user.UserMapper">
+	<resultMap id="BaseResultMap" type="java.util.Map">
+		<id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="LOCK_FLG" property="lockFlg" jdbcType="VARCHAR" />
+		<result column="SET_DATE" property="setDate" jdbcType="TIMESTAMP" />
+		<result column="DEL_FLG" property="delFlg" jdbcType="VARCHAR" />
+		<result column="LAST_UPDATE_BY" property="lastUpdateBy"
+			jdbcType="VARCHAR" />
+		<result column="LAST_UPDATE_DATE" property="lastUpdateDate"
+			jdbcType="TIMESTAMP" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<result column="CREATION_DATE" property="creationDate"
+			jdbcType="TIMESTAMP" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<result column="ORGANIZATION_ID" property="organizationId"
+			jdbcType="VARCHAR" />
+		<result column="ORG" property="org" jdbcType="VARCHAR" />
+		<result column="DIVISION_VALUE" property="divisionValue"
+			jdbcType="VARCHAR" />
+		<result column="DIVISION_ID" property="divisionId" jdbcType="VARCHAR" />
+		<result column="UPPER_ORGANIZATION_ID" property="upperOrganizationId" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 修改用户密码 -->
+	<update id="updateByPassword" parameterType="com.zxtech.ui.vo.user.UserVo">
+		update
+		NS3_USER_COMMON_MST
+		set PASSWORD = #{password,jdbcType=VARCHAR}
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</update>
+	<!-- 查询用户全部列表 -->
+	<select id="selectByAll" resultMap="BaseResultMap">
+		SELECT * FROM T_USER_RESOURCE
+	</select>
+	<!-- 根据用户ID查详情 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT T.USER_ID,
+        U.USER_NAME,
+        U.PASSWORD,
+        to_char(WM_CONCAT(distinct ROL.ROLE_ID)) ROLE_ID,
+        to_char(WM_CONCAT(distinct ROL.ROLE_NAME)) ROLE_NAME,
+        CM.DIVISION_ID,
+        CM.DIVISION_VALUE,
+        T.ORGANIZATION_ID,
+        T.Upper_Organization_Id,
+        CASE
+          WHEN T.ORGANIZATION_CLASSIFY = '01' THEN
+           (SELECT CUSTOMER_NAME
+              FROM NS_CUSTOMER_VENDOR_MST A
+             WHERE A.CUSTOMER_ID = T.ORGANIZATION_ID)
+          WHEN T.ORGANIZATION_CLASSIFY = '02' THEN
+           (SELECT SUB_COMPANY_NAME
+              FROM NS3_REGION_MST B
+             WHERE B.REGION_ID = T.UPPER_ORGANIZATION_ID
+             AND B.SUB_COMPANY_ID = T.ORGANIZATION_ID)
+          WHEN T.ORGANIZATION_CLASSIFY = '03' THEN
+           (SELECT REGION_NAME
+              FROM NS3_REGION_MST C
+             WHERE C.REGION_ID = T.ORGANIZATION_ID
+             GROUP BY REGION_NAME)
+          ELSE
+           'TCE总部'
+        END ORG
+   FROM NS3_USER_INFO_QUOTE_MST T,
+        NS3_USER_COMMON_MST     U,
+        NS3_ROLE_USER_MST       RO,
+        NS3_ROLE_QUOTE_MST      ROL,
+        NS3_COMMON_MST          CM
+  WHERE U.USER_ID = RO.USER_ID
+    AND RO.ROLE_ID = ROL.ROLE_ID
+    AND T.USER_ID = U.USER_ID
+    AND T.ORGANIZATION_CLASSIFY = CM.DIVISION_ID
+    AND CM.COMMON_ID = 'A0011'
+    AND U.DEL_FLG = '0'
+    AND U.USER_ID = #{userId,jdbcType=VARCHAR}
+  GROUP BY T.USER_ID,
+           U.USER_NAME,
+           U.PASSWORD,
+           CM.DIVISION_ID,
+           CM.DIVISION_VALUE,
+           T.ORGANIZATION_ID,
+           T.ORGANIZATION_CLASSIFY,
+           T.UPPER_ORGANIZATION_ID,
+           T.Upper_Organization_Id
+		ORDER BY U.USER_ID
+	</select>
+	<!-- 查询、搜索 -->
+	<select id="selectByKey" parameterType="com.zxtech.ui.vo.user.UserVo"
+		resultMap="BaseResultMap">
+		SELECT U.USER_ID,
+        U.USER_NAME,
+        U.PASSWORD,
+        to_char(WM_CONCAT(distinct ROL.ROLE_ID)) ROLE_ID,
+        to_char(WM_CONCAT(distinct ROL.ROLE_NAME)) ROLE_NAME,
+        CM.DIVISION_ID,
+        CM.DIVISION_VALUE,
+        T.ORGANIZATION_ID,
+        T.Upper_Organization_Id,
+        CASE
+          WHEN T.ORGANIZATION_CLASSIFY = '01' THEN
+           (SELECT CUSTOMER_NAME
+              FROM NS_CUSTOMER_VENDOR_MST A
+             WHERE A.CUSTOMER_ID = T.ORGANIZATION_ID)
+          WHEN T.ORGANIZATION_CLASSIFY = '02' THEN
+           (SELECT SUB_COMPANY_NAME
+              FROM NS3_REGION_MST B
+             WHERE B.REGION_ID = T.UPPER_ORGANIZATION_ID
+             AND B.SUB_COMPANY_ID = T.ORGANIZATION_ID)
+          WHEN T.ORGANIZATION_CLASSIFY = '03' THEN
+           (SELECT REGION_NAME
+              FROM NS3_REGION_MST C
+             WHERE C.REGION_ID = T.ORGANIZATION_ID
+             GROUP BY REGION_NAME)
+          WHEN T.ORGANIZATION_CLASSIFY = '04' THEN
+          	'TCE总部'
+          ELSE
+           NULL
+        END ORG
+   FROM NS3_USER_COMMON_MST     U,
+   		NS3_USER_INFO_QUOTE_MST T,
+        NS3_ROLE_USER_MST       RO,
+        NS3_ROLE_QUOTE_MST      ROL,
+        NS3_COMMON_MST          CM
+  WHERE U.USER_ID = RO.USER_ID(+)
+    AND RO.ROLE_ID = ROL.ROLE_ID(+)
+    AND U.USER_ID = T.USER_ID(+)
+    AND T.ORGANIZATION_CLASSIFY = CM.DIVISION_ID(+)
+    AND CM.COMMON_ID(+) = 'A0011'
+    AND U.DEL_FLG = '0'
+    AND T.DEL_FLG(+) = '0'
+    <if test ="orgNameId != null and  orgNameId != ''">
+    	and T.ORGANIZATION_CLASSIFY(+) = #{orgNameId}
+    	<if test="orgNameId == '02'"> 
+	    	<if test ="cheOregId != null and cheOregId != ''">
+		    	<!-- 分公司 -->
+				and T.ORGANIZATION_ID(+) = #{cheOregId}
+	    	</if>
+	    	<if test =" upperOrganizationId != null and upperOrganizationId != ''">
+	    		and T.UPPER_ORGANIZATION_ID(+) = #{upperOrganizationId}
+	    	</if>
+	    </if>
+	    <if test="orgNameId != '02'">
+	    	<if test ="cheOregId != null and cheOregId != ''">
+				and T.ORGANIZATION_ID(+) = #{cheOregId}
+	    	</if>
+		</if>
+    </if>
+    <if test="userId != null and userId != ''" >
+	AND u.USER_ID like  '%' || #{userId,jdbcType=VARCHAR} || '%'
+	</if>
+	<if test="userName != null and userName != ''" >
+	AND u.USER_NAME like '%' || #{userName,jdbcType=VARCHAR} || '%'
+	</if>
+	<if test="searchRoleName != null and searchRoleName !=''" >
+		AND ROL.ROLE_id(+) in(#{searchRoleName,jdbcType=VARCHAR})
+	</if>
+  GROUP BY U.USER_ID,
+           U.USER_NAME,
+           U.PASSWORD,
+           CM.DIVISION_ID,
+           CM.DIVISION_VALUE,
+           T.ORGANIZATION_ID,
+           T.ORGANIZATION_CLASSIFY,
+           T.UPPER_ORGANIZATION_ID,
+           T.Upper_Organization_Id
+  ORDER BY U.USER_ID
+		
+	</select>
+	<!-- 保存 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.user.UserVo">
+		update NS3_USER_COMMON_MST
+		<set>
+			<if test="userName != null and  userName != ''">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null and password != ''">
+				PASSWORD = #{password,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</update>
+	<!-- 删除 -->
+	<update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.user.UserVo">
+		update
+		NS3_USER_INFO_QUOTE_MST
+		set DEL_FLG = '1'
+		where USER_ID =
+		#{userId,jdbcType=VARCHAR}
+	</update>
+	<sql id="Base_Column_List">
+		USER_ID, PASSWORD, USER_NAME, LOCK_FLG, SET_DATE, DEL_FLG,
+		LAST_UPDATE_BY,
+		LAST_UPDATE_DATE,
+		CREATED_BY, CREATION_DATE
+	</sql>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		NS3_USER_COMMON_MST
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.zxtech.ui.vo.user.UserVo">
+		insert into
+		NS3_USER_COMMON_MST (USER_ID, PASSWORD, USER_NAME,
+		LOCK_FLG, SET_DATE,
+		DEL_FLG,
+		LAST_UPDATE_BY, LAST_UPDATE_DATE, CREATED_BY,
+		CREATION_DATE)
+		values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},
+		#{lockFlg,jdbcType=VARCHAR},
+		#{setDate,jdbcType=TIMESTAMP}, #{delFlg,jdbcType=VARCHAR},
+		#{lastUpdateBy,jdbcType=VARCHAR},
+		#{lastUpdateDate,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR},
+		#{creationDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zxtech.ui.vo.user.UserVo">
+		insert into NS3_USER_COMMON_MST
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="password != null">
+				PASSWORD,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="lockFlg != null">
+				LOCK_FLG,
+			</if>
+			<if test="setDate != null">
+				SET_DATE,
+			</if>
+			<if test="delFlg != null">
+				DEL_FLG,
+			</if>
+			<if test="lastUpdateBy != null">
+				LAST_UPDATE_BY,
+			</if>
+			<if test="lastUpdateDate != null">
+				LAST_UPDATE_DATE,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="creationDate != null">
+				CREATION_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="lockFlg != null">
+				#{lockFlg,jdbcType=VARCHAR},
+			</if>
+			<if test="setDate != null">
+				#{setDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delFlg != null">
+				#{delFlg,jdbcType=VARCHAR},
+			</if>
+			<if test="lastUpdateBy != null">
+				#{lastUpdateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="lastUpdateDate != null">
+				#{lastUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="creationDate != null">
+				#{creationDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="selectAllUser" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT NUCM.USER_ID,NUCM.USER_NAME FROM NS3_USER_COMMON_MST NUCM 
+		WHERE NUCM.USER_ID IN 
+		(SELECT USER_ID FROM NS3_USER_INFO_QUOTE_MST WHERE ORGANIZATION_ID=#{0} AND UPPER_ORGANIZATION_ID=#{1})
+		ORDER BY
+		NUCM.USER_ID
+	</select> 
+</mapper>

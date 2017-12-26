@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.esp.dao.vrnewexam.TestInstanceRequestUsersMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="test_instance_request_id" property="testInstanceRequestId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_test_state_type_id" property="userTestStateTypeId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, version, test_instance_request_id, user_id, user_test_state_type_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from test_instance_request_users
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from test_instance_request_users
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequestUsers" >
+    insert into test_instance_request_users (id, version, test_instance_request_id, 
+      user_id, user_test_state_type_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{version,jdbcType=BIGINT}, #{testInstanceRequestId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=VARCHAR}, #{userTestStateTypeId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequestUsers" >
+    insert into test_instance_request_users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="testInstanceRequestId != null" >
+        test_instance_request_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userTestStateTypeId != null" >
+        user_test_state_type_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="testInstanceRequestId != null" >
+        #{testInstanceRequestId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userTestStateTypeId != null" >
+        #{userTestStateTypeId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequestUsers" >
+    update test_instance_request_users
+    <set >
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="testInstanceRequestId != null" >
+        test_instance_request_id = #{testInstanceRequestId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userTestStateTypeId != null" >
+        user_test_state_type_id = #{userTestStateTypeId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequestUsers" >
+    update test_instance_request_users
+    set version = #{version,jdbcType=BIGINT},
+      test_instance_request_id = #{testInstanceRequestId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=VARCHAR},
+      user_test_state_type_id = #{userTestStateTypeId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectTestInstanceRequestUsersList" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequestUsers" resultMap="BaseResultMap">
+  	SELECT
+		<include refid="Base_Column_List" />
+	FROM
+		test_instance_request_users t
+	WHERE
+		1=1
+	<if test="testInstanceRequestId != null and testInstanceRequestId != ''">
+		and t.test_instance_request_id = #{testInstanceRequestId,jdbcType=BIGINT}
+	</if>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteTestInstanceRequestUsers" parameterType="com.zxtech.esp.vo.vrnewexam.TestInstanceRequestUsers" >
+	  delete from test_instance_request_users
+	    where user_id = #{userId,jdbcType=VARCHAR}
+	    and test_instance_request_id = #{testInstanceRequestId,jdbcType=BIGINT}
+  </delete>
+</mapper>

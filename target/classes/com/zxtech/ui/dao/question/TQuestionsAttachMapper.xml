@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxtech.ui.dao.question.TQuestionsAttachMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+    <id column="ATTACHID" property="attachid" jdbcType="VARCHAR" />
+    <result column="QUESTIONSID" property="questionsid" jdbcType="VARCHAR" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="ATTACHTIME" property="attachtime" jdbcType="TIMESTAMP" />
+    <result column="STANDBY1" property="standby1" jdbcType="VARCHAR" />
+    <result column="STANDBY2" property="standby2" jdbcType="VARCHAR" />
+    <result column="STANDBY3" property="standby3" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="java.util.Map" extends="BaseResultMap" >
+    <result column="NAME" property="name" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ATTACHID, QUESTIONSID, PATH, TYPE, ATTACHTIME, STANDBY1, STANDBY2, STANDBY3
+  </sql>
+  <sql id="Blob_Column_List" >
+    NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_questions_attach
+    where ATTACHID = #{attachid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_questions_attach
+    where ATTACHID = #{attachid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxtech.ui.vo.question.TQuestionsAttach" >
+    insert into t_questions_attach (ATTACHID, QUESTIONSID, PATH, 
+      TYPE, ATTACHTIME, STANDBY1, 
+      STANDBY2, STANDBY3, NAME
+      )
+    values (#{attachid,jdbcType=VARCHAR}, #{questionsid,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{attachtime,jdbcType=TIMESTAMP}, #{standby1,jdbcType=VARCHAR}, 
+      #{standby2,jdbcType=VARCHAR}, #{standby3,jdbcType=VARCHAR}, #{name,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxtech.ui.vo.question.TQuestionsAttach" >
+    insert into t_questions_attach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attachid != null" >
+        ATTACHID,
+      </if>
+      <if test="questionsid != null" >
+        QUESTIONSID,
+      </if>
+      <if test="path != null" >
+        PATH,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="attachtime != null" >
+        ATTACHTIME,
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1,
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2,
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attachid != null" >
+        #{attachid,jdbcType=VARCHAR},
+      </if>
+      <if test="questionsid != null" >
+        #{questionsid,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="attachtime != null" >
+        #{attachtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxtech.ui.vo.question.TQuestionsAttach" >
+    update t_questions_attach
+    <set >
+      <if test="questionsid != null" >
+        QUESTIONSID = #{questionsid,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="attachtime != null" >
+        ATTACHTIME = #{attachtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standby1 != null" >
+        STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+      <if test="standby3 != null" >
+        STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ATTACHID = #{attachid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxtech.ui.vo.question.TQuestionsAttach" >
+    update t_questions_attach
+    set QUESTIONSID = #{questionsid,jdbcType=VARCHAR},
+      PATH = #{path,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      ATTACHTIME = #{attachtime,jdbcType=TIMESTAMP},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=LONGVARCHAR}
+    where ATTACHID = #{attachid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxtech.ui.vo.question.TQuestionsAttach" >
+    update t_questions_attach
+    set QUESTIONSID = #{questionsid,jdbcType=VARCHAR},
+      PATH = #{path,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      ATTACHTIME = #{attachtime,jdbcType=TIMESTAMP},
+      STANDBY1 = #{standby1,jdbcType=VARCHAR},
+      STANDBY2 = #{standby2,jdbcType=VARCHAR},
+      STANDBY3 = #{standby3,jdbcType=VARCHAR}
+    where ATTACHID = #{attachid,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 删除 -->
+  <delete id="deleteQuestionsAttach" parameterType="java.util.List" >
+	  delete from t_questions_attach
+	    where QUESTIONSID in<foreach collection="list" open="(" separator="," close=")" item="id">#{id,jdbcType=VARCHAR}</foreach>
+  </delete>
+</mapper>
